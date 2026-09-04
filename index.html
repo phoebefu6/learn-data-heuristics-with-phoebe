@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- social:start -->
+<meta name="description" content="Nine sessions turning 32 published principle sets into one small review instrument for data and insights products - then running it over a real product with twenty real defects. Free, by Phoebe Fu.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Learn with Phoebe">
+<meta property="og:title" content="Learn Data Product Heuristics with Phoebe">
+<meta property="og:description" content="A usability lens finds 5 of 20 defects in a data product. Here is the instrument that finds all twenty.">
+<meta property="og:url" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/">
+<meta property="og:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Learn Data Product Heuristics with Phoebe">
+<meta name="twitter:description" content="A usability lens finds 5 of 20 defects in a data product. Here is the instrument that finds all twenty.">
+<meta name="twitter:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<!-- social:end -->
+<title>Learn Data Product Heuristics with Phoebe</title>
+<link rel="stylesheet" href="assets/style.css?v=1">
+<style>
+
+  .stats-row { display: flex; gap: 2.4rem; margin-top: 1.5rem; flex-wrap: wrap; }
+  .stat b { display: block; font-size: 2.1rem; font-weight: 800; line-height: 1.05; font-variant-numeric: tabular-nums; }
+  .stat span { font-size: .72rem; opacity: .85; text-transform: uppercase; letter-spacing: .09em; font-weight: 600; }
+
+  .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+  .course-card {
+    border: 1px solid var(--hairline);
+    border-top: 4px solid var(--diff, var(--indigo));
+    border-radius: var(--radius);
+    padding: 1.2rem 1.3rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    text-decoration: none;
+    color: var(--ink);
+    background: #fff;
+    transition: box-shadow .15s ease, border-color .15s ease, transform .15s ease;
+    position: relative;
+  }
+  .course-card:hover { border-color: var(--indigo-soft); border-top-color: var(--diff, var(--indigo)); box-shadow: 0 8px 28px rgba(14,116,144,.16); transform: translateY(-3px); }
+  .course-card .cicon { font-size: 1.7rem; line-height: 1; }
+  .course-card .cnum { font-size: .72rem; font-weight: 700; color: var(--indigo); text-transform: uppercase; letter-spacing: .1em; }
+  .course-card h3 { font-size: 1.05rem; font-weight: 800; line-height: 1.3; }
+  .course-card p { font-size: .85rem; color: var(--muted); flex: 1; }
+  .course-card .meta { display: flex; gap: .4rem; flex-wrap: wrap; }
+
+  .diff-legend { display: flex; gap: 1rem; margin-top: 1.6rem; font-size: .74rem; color: var(--muted); font-weight: 600; flex-wrap: wrap; }
+  .diff-legend i { display: inline-block; width: .85rem; height: .35rem; border-radius: 999px; margin-right: .35rem; vertical-align: middle; }
+
+  .paths { margin-top: 2.6rem; }
+  .paths h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .3rem; }
+  .paths .plede { color: var(--muted); font-size: .92rem; margin-bottom: .8rem; }
+  .path { display: flex; gap: .55rem; align-items: center; padding: .75rem 0; border-bottom: .5px solid var(--hairline); flex-wrap: wrap; }
+  .path:last-child { border-bottom: none; }
+  .path b { min-width: 15.5rem; font-size: .9rem; }
+  .path .pstep { background: var(--indigo-50); color: var(--indigo); border-radius: 999px; padding: .16rem .68rem; font-weight: 700; font-size: .8rem; text-decoration: none; transition: all .12s ease; }
+  .path .pstep:hover { background: var(--indigo); color: #fff; }
+  .path .parr { color: var(--faint); font-weight: 700; }
+
+  .mm-section { margin-top: 1.6rem; }
+  .mm-section h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: .2rem; }
+  .mm-section .mm-lede { color: var(--muted); font-size: .92rem; margin-bottom: .4rem; }
+  .mm-wrap { border: 1px solid var(--hairline); border-radius: var(--radius); background: linear-gradient(180deg,#fff,#ECFEFF); padding: .6rem; overflow-x: auto; }
+  .mm-svg { width: 100%; height: auto; display: block; max-width: 60rem; margin: 0 auto; min-width: 34rem; }
+  .mm-link { cursor: pointer; text-decoration: none; }
+  .mm-node rect { transition: opacity .15s ease, filter .15s ease; }
+  .mm-node text { pointer-events: none; }
+  .mm-link:hover .mm-node rect { filter: brightness(1.06); }
+  .mm-edge { transition: opacity .15s ease; }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn with Phoebe · System &amp; Product Design</div>
+    <h1>Learn <span class="accent">Data Product Heuristics</span> with Phoebe</h1>
+    <p class="sub">There are at least 32 published principle sets that bear on a data product - usability heuristics, dashboard pitfalls, data-mesh principles, FAIR, DataOps, the golden signals, Microsoft's human-AI guidelines - holding roughly 215 individual principles between them. Nobody reviews anything against 215 principles. This course does what Nielsen did in 1994: keeps the few that carry the weight and throws the rest away. Nine sessions assemble one small review instrument, layer by layer, and run it over Tideline, a subscription-analytics product carrying twenty real defects. A well-trained usability reviewer finds five of them.</p>
+    <div class="stats-row">
+      <div class="stat"><b data-count="9">9</b><span>sessions</span></div>
+      <div class="stat"><b data-count="32">32</b><span>principle sets, mapped by source tier</span></div>
+      <div class="stat"><b data-count="215">215</b><span>principles, before the discard</span></div>
+      <div class="stat"><b data-count="20">20</b><span>real defects, detected not scripted</span></div>
+      <div class="stat"><b data-count="45">45</b><span>min per session</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="section">
+    <div class="paths" style="margin-top:0">
+      <h2>The nine sessions 🔍 <span style="font-size:.85rem;font-weight:600;color:var(--muted)">· one review instrument, assembled across all of them</span></h2>
+      <p class="plede">Each session adds one layer's lens and measures what that lens contributed on its own. Two of the nine add nothing at all, which is the most useful finding in the course.</p>
+    </div>
+
+    <div class="course-grid">
+      <a class="course-card" href="courses/01-the-canon.html" style="--diff:#34D399">
+        <span class="cicon">🧭</span>
+        <span class="cnum">Session 1 · start here</span>
+        <h3>The canon and the instrument</h3>
+        <p>Where heuristics come from: 249 observed problems reduced to 10, severity on three factors, and the measured moment a usability lens finds 5 of Tideline's 20 defects.</p>
+        <span class="meta"><span class="pill amber">▶ Start here</span></span>
+      </a>
+      <a class="course-card" href="courses/02-the-decision-it-serves.html" style="--diff:#FBBF24">
+        <span class="cicon">🎯</span>
+        <span class="cnum">Session 2 · foundations</span>
+        <h3>The decision it serves</h3>
+        <p>GQM as a derivation and HEART with its Goals-Signals-Metrics step - plus the four frameworks everyone cites that never published a principle list at all.</p>
+        <span class="meta"><span class="pill">the named decision</span></span>
+      </a>
+      <a class="course-card" href="courses/03-the-contract.html" style="--diff:#FBBF24">
+        <span class="cicon">📜</span>
+        <span class="cnum">Session 3 · hands-on</span>
+        <h3>Data as a product, and its contract</h3>
+        <p>FAIR's four principles and all fifteen sub-points, Dehghani's eight characteristics, DAMA's six dimensions - run against a contract that really validates as you type.</p>
+        <span class="meta"><span class="pill amber">🧪 live validator</span></span>
+      </a>
+      <a class="course-card" href="courses/04-the-platform.html" style="--diff:#FB923C">
+        <span class="cicon">🏗️</span>
+        <span class="cnum">Session 4 · systems</span>
+        <h3>The platform underneath</h3>
+        <p>Six Well-Architected pillars, the analytics lens, twelve factors applied to a pipeline, and the PACELC question that governs analytics far more than CAP does.</p>
+        <span class="meta"><span class="pill">the tradeoff record</span></span>
+      </a>
+      <a class="course-card" href="courses/05-operating-the-promise.html" style="--diff:#FB923C">
+        <span class="cicon">⏱️</span>
+        <span class="cnum">Session 5 · systems</span>
+        <h3>Operating the promise</h3>
+        <p>All eighteen DataOps principles, the four golden signals translated to a pipeline, and a freshness SLO with an error budget - so lateness becomes a fact, not an argument.</p>
+        <span class="meta"><span class="pill">the two new findings</span></span>
+      </a>
+      <a class="course-card" href="courses/06-truth-on-the-surface.html" style="--diff:#FB923C">
+        <span class="cicon">📐</span>
+        <span class="cnum">Session 6 · hands-on</span>
+        <h3>Truth on the surface</h3>
+        <p>Graphical integrity with the lie factor computed live at 6.5 to 1, Few's thirteen pitfalls in full, and the standard that adds nothing once two others are on.</p>
+        <span class="meta"><span class="pill">6 of the 20 defects</span></span>
+      </a>
+      <a class="course-card" href="courses/07-the-interaction.html" style="--diff:#FB923C">
+        <span class="cicon">🎛️</span>
+        <span class="cnum">Session 7 · hands-on</span>
+        <h3>The interaction</h3>
+        <p>Five interaction sets worked hard against filters, long queries and error states - including the nineteen principles almost nobody applies to analytics.</p>
+        <span class="meta"><span class="pill">the long query</span></span>
+      </a>
+      <a class="course-card" href="courses/08-when-it-is-intelligent.html" style="--diff:#F87171">
+        <span class="cicon">🤖</span>
+        <span class="cnum">Session 8 · advanced</span>
+        <h3>When the product is intelligent</h3>
+        <p>Microsoft's eighteen human-AI guidelines across their four phases, PAIR's six chapters, and Apple's four dichotomies as the triage that says which guidelines are urgent.</p>
+        <span class="meta"><span class="pill">rebuild the AI panel</span></span>
+      </a>
+      <a class="course-card" href="courses/09-the-review.html" style="--diff:#F87171">
+        <span class="cicon">🔎</span>
+        <span class="cnum">Session 9 · capstone</span>
+        <h3>The review</h3>
+        <p>The finished instrument over the whole product: twenty of twenty, severity-ordered, then the exhaustive pass that keeps the catches and destroys the precision.</p>
+        <span class="meta"><span class="pill amber">🔒 the report ships</span></span>
+      </a>
+    </div>
+
+    <div class="diff-legend">
+      <span><i style="background:#34D399"></i>start here</span>
+      <span><i style="background:#FBBF24"></i>foundations</span>
+      <span><i style="background:#FB923C"></i>hands-on</span>
+      <span><i style="background:#F87171"></i>advanced and capstone</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="paths">
+      <h2>Choose your path 🗺️</h2>
+      <p class="plede">Three doors into the same instrument. Everyone starts at session 1, because the method is what makes the rest defensible.</p>
+      <div class="path"><b>💼 I sign off on data products</b>
+        <a class="pstep" href="courses/01-the-canon.html">1</a>
+        <span class="parr">→</span>
+        <a class="pstep" href="courses/02-the-decision-it-serves.html">2</a>
+        <span class="parr">→</span>
+        <a class="pstep" href="courses/09-the-review.html">9</a>
+        <span style="font-size:.82rem;color:var(--muted)">the method, the decision, the report you will receive</span>
+      </div>
+      <div class="path"><b>🏗️ I build the platform underneath</b>
+        <a class="pstep" href="courses/01-the-canon.html">1</a>
+        <span class="parr">→</span>
+        <a class="pstep" href="courses/03-the-contract.html">3</a>
+        <span class="parr">→</span>
+        <a class="pstep" href="courses/04-the-platform.html">4</a>
+        <span class="parr">→</span>
+        <a class="pstep" href="courses/05-operating-the-promise.html">5</a>
+        <span style="font-size:.82rem;color:var(--muted)">contract, platform, operating promise - the six defects no interface lens sees</span>
+      </div>
+      <div class="path"><b>🎯 The whole instrument</b>
+        <a class="pstep" href="courses/01-the-canon.html">1</a>
+        <span class="parr">→</span>
+        <a class="pstep" href="courses/02-the-decision-it-serves.html">2</a>
+        <span class="parr">→</span>
+        <a class="pstep" href="courses/03-the-contract.html">3</a>
+        <span class="parr">→</span>
+        <a class="pstep" href="courses/04-the-platform.html">4</a>
+        <span class="parr">→</span>
+        <a class="pstep" href="courses/05-operating-the-promise.html">5</a>
+        <span class="parr">→</span>
+        <a class="pstep" href="courses/06-truth-on-the-surface.html">6</a>
+        <span class="parr">→</span>
+        <a class="pstep" href="courses/07-the-interaction.html">7</a>
+        <span class="parr">→</span>
+        <a class="pstep" href="courses/08-when-it-is-intelligent.html">8</a>
+        <span class="parr">→</span>
+        <a class="pstep" href="courses/09-the-review.html">9</a>
+        <span style="font-size:.82rem;color:var(--muted)">from a usability checklist that finds a quarter of it, to a one-page report that gets two fixes funded</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="paths" style="margin-top:0">
+      <h2>What is real here 🧾</h2>
+      <p class="plede">A course about reviewing other people's claims has to be precise about its own.</p>
+    </div>
+    <table class="clean">
+      <tr><th>Claim</th><th>Status</th></tr>
+      <tr><td>The twenty defects in Tideline</td><td>Real properties of a screen rendered into the page. Every check queries that DOM - there is no answer key. The truncated axis lie factor of 6.5 to 1 is computed from the drawn bar heights, the 13 distinct fills from resolved computed colours, the 64px below the fold from real overflow</td></tr>
+      <tr><td>The lens ladder: 5, 10, 11, 11, 14, 14, 17, 19, 20</td><td>Measured in a browser, one lens at a time, counting only findings no earlier lens produced. IBCS and PAIR genuinely add zero on this product</td></tr>
+      <tr><td>The exhaustive-pass cost</td><td>Twelve additional findings, each one a true statement about the screen and none of them a defect. Precision 100 to 63 percent is arithmetic on those counts</td></tr>
+      <tr><td>The review-time figures, 66 and 144 minutes</td><td>Modelled, not measured - a flat per-lens and per-finding cost estimate. Labelled as a model on the widget itself</td></tr>
+      <tr><td>The contract validator</td><td>Really parses what you type against 22 checks drawn from FAIR, DAMA and the data-product attributes. The sample scores 7 of 22, and five added lines take it to 14</td></tr>
+      <tr><td>Norman, Tufte, Gestalt, Kimball and Inmon</td><td>Taught by concept and consequence, never as numbered lists - none of those authors published one, which is why every secondary source gives a different count</td></tr>
+      <tr><td>Dehghani's 8, DAMA's 6, ISO 9241-110's 7, the AWS analytics lens</td><td>Real sets whose primary source is paywalled or members-only, so the wording travels through close secondary sources. Flagged as such on the page that teaches each</td></tr>
+      <tr><td>The lakehouse, decision intelligence, North Star, the AI hierarchy of needs</td><td>Widely cited as numbered principle sets. Their primary sources enumerate no such list, so this course gives no counts for them and says why</td></tr>
+    </table>
+  </section>
+
+  <section class="section mm-section">
+    <h2>The knowledge map 🧠</h2>
+    <p class="mm-lede">The whole course at a glance - hover a session to spotlight its concepts, click any node to jump in.</p>
+    <div class="mm-wrap"><div id="mindmap"></div></div>
+  </section>
+
+  <footer class="pagefoot">
+    <span>learn-data-heuristics-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span>Pairs with <a href="https://phoebefu6.github.io/learn-system-design-with-phoebe/">System Design ↗</a> and <a href="https://phoebefu6.github.io/learn-dataviz-with-phoebe/">Data Visualization ↗</a> · source map: <span class="mono">materials/official-course-map.md</span></span>
+  </footer>
+
+</main>
+
+<script>
+window.MINDMAP_DATA = {
+  "title": "Data Product\nHeuristics",
+  "centerColor": "#164E63",
+  "sessions": [
+    {
+      "label": "The canon and\nthe instrument",
+      "href": "courses/01-the-canon.html",
+      "color": "#34D399",
+      "concepts": [
+        {
+          "label": "249 reduced to 10",
+          "href": "courses/01-the-canon.html"
+        },
+        {
+          "label": "32 sets, 7 families",
+          "href": "courses/01-the-canon.html"
+        },
+        {
+          "label": "Severity, 3 factors",
+          "href": "courses/01-the-canon.html"
+        }
+      ]
+    },
+    {
+      "label": "The decision\nit serves",
+      "href": "courses/02-the-decision-it-serves.html",
+      "color": "#FBBF24",
+      "concepts": [
+        {
+          "label": "GQM derivation",
+          "href": "courses/02-the-decision-it-serves.html"
+        },
+        {
+          "label": "HEART and signals",
+          "href": "courses/02-the-decision-it-serves.html"
+        },
+        {
+          "label": "The unused dashboard",
+          "href": "courses/02-the-decision-it-serves.html"
+        }
+      ]
+    },
+    {
+      "label": "Data as a product,\nand its contract",
+      "href": "courses/03-the-contract.html",
+      "color": "#FBBF24",
+      "concepts": [
+        {
+          "label": "FAIR's 15 sub-points",
+          "href": "courses/03-the-contract.html"
+        },
+        {
+          "label": "Dehghani's 8",
+          "href": "courses/03-the-contract.html"
+        },
+        {
+          "label": "7 of 22, then 14",
+          "href": "courses/03-the-contract.html"
+        }
+      ]
+    },
+    {
+      "label": "The platform\nunderneath",
+      "href": "courses/04-the-platform.html",
+      "color": "#FB923C",
+      "concepts": [
+        {
+          "label": "Six pillars",
+          "href": "courses/04-the-platform.html"
+        },
+        {
+          "label": "PACELC, not just CAP",
+          "href": "courses/04-the-platform.html"
+        },
+        {
+          "label": "12-Factor pipelines",
+          "href": "courses/04-the-platform.html"
+        }
+      ]
+    },
+    {
+      "label": "Operating\nthe promise",
+      "href": "courses/05-operating-the-promise.html",
+      "color": "#FB923C",
+      "concepts": [
+        {
+          "label": "DataOps 18",
+          "href": "courses/05-operating-the-promise.html"
+        },
+        {
+          "label": "Golden signals",
+          "href": "courses/05-operating-the-promise.html"
+        },
+        {
+          "label": "Freshness SLO",
+          "href": "courses/05-operating-the-promise.html"
+        }
+      ]
+    },
+    {
+      "label": "Truth on\nthe surface",
+      "href": "courses/06-truth-on-the-surface.html",
+      "color": "#FB923C",
+      "concepts": [
+        {
+          "label": "Lie factor 6.5 to 1",
+          "href": "courses/06-truth-on-the-surface.html"
+        },
+        {
+          "label": "Few's 13 pitfalls",
+          "href": "courses/06-truth-on-the-surface.html"
+        },
+        {
+          "label": "Preattentive rank",
+          "href": "courses/06-truth-on-the-surface.html"
+        }
+      ]
+    },
+    {
+      "label": "The\ninteraction",
+      "href": "courses/07-the-interaction.html",
+      "color": "#FB923C",
+      "concepts": [
+        {
+          "label": "Shneiderman's 8",
+          "href": "courses/07-the-interaction.html"
+        },
+        {
+          "label": "Tognazzini's 19",
+          "href": "courses/07-the-interaction.html"
+        },
+        {
+          "label": "Colour alone fails",
+          "href": "courses/07-the-interaction.html"
+        }
+      ]
+    },
+    {
+      "label": "When it is\nintelligent",
+      "href": "courses/08-when-it-is-intelligent.html",
+      "color": "#F87171",
+      "concepts": [
+        {
+          "label": "Microsoft's 18",
+          "href": "courses/08-when-it-is-intelligent.html"
+        },
+        {
+          "label": "PAIR's 6 chapters",
+          "href": "courses/08-when-it-is-intelligent.html"
+        },
+        {
+          "label": "Apple's 4 axes",
+          "href": "courses/08-when-it-is-intelligent.html"
+        }
+      ]
+    },
+    {
+      "label": "The\nreview",
+      "href": "courses/09-the-review.html",
+      "color": "#F87171",
+      "concepts": [
+        {
+          "label": "20 of 20 caught",
+          "href": "courses/09-the-review.html"
+        },
+        {
+          "label": "Severity order",
+          "href": "courses/09-the-review.html"
+        },
+        {
+          "label": "The 63 percent trap",
+          "href": "courses/09-the-review.html"
+        }
+      ]
+    }
+  ]
+};
+</script>
+<script src="assets/mindmap.js?v=1"></script>
+<script src="assets/app.js?v=1"></script>
+</body>
+</html>

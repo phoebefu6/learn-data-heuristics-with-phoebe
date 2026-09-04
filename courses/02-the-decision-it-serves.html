@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- social:start -->
+<meta name="description" content="Session 2 of 9. GQM and HEART, worked live on Tideline's real decision, plus the honest limits of the North Star framework, decision intelligence and the AI hierarchy of needs.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Learn with Phoebe">
+<meta property="og:title" content="The decision it serves - learn data heuristics with phoebe">
+<meta property="og:description" content="Session 2 of 9. The first of the six defects no interface principle can see: no decision named for the screen.">
+<meta property="og:url" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/courses/02-the-decision-it-serves.html">
+<meta property="og:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The decision it serves - learn data heuristics with phoebe">
+<meta name="twitter:description" content="Session 2 of 9. GQM and HEART, worked live on Tideline's real decision.">
+<meta name="twitter:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<!-- social:end -->
+<title>Session 2 · The decision it serves - learn data heuristics with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-data-heuristics-with-phoebe</a> / Session 2 of 9</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Data Heuristics with Phoebe · Session 2 of 9</div>
+    <h1>The decision it <span class="accent">serves</span></h1>
+    <p class="sub">Session 1 measured that six of Tideline's twenty defects are invisible to every interface principle in the canon. Tonight is the first of them: nobody can say what decision the screen exists to support. You will learn the one method built specifically to derive metrics from a decision rather than picking them off a menu - Goal Question Metric - and the one that turns five vague category names into a real selection process - HEART. Then you write Tideline's actual decision statement and add it to the review instrument.</p>
+    <div class="chip-row">
+      <span class="chip level">🔴 Advanced</span>
+      <span class="chip audience">Data and analytics leads</span>
+      <span class="chip audience">Anyone who commissions a dashboard</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:5">3-23 · The decision, named</span>
+      <span class="a3" style="flex:4">23-40 · Build-along: Tideline's decision statement</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Where we are</h2>
+    </div>
+    <p class="lede">Session 1's bench turned on nine lenses one at a time and watched the catch count climb from 5 to 20 out of twenty planted defects. Three of the nine lenses carried six defects that no interface-trained set could see at all, because they are not properties of the interface. This session takes the first of those six: <strong>D18, no decision named for the screen</strong>, which turns out to drag a second one with it, <strong>D9, every panel carrying identical visual weight</strong>. Sessions 3 through 5 take the other four.</p>
+
+    <div class="legend">
+      <span class="pill">Live = presented in the 45 minutes</span>
+      <span class="pill">Self-study = the full depth, after class</span>
+      <span class="pill">🔍 Every diagram zooms</span>
+    </div>
+
+    <div class="callout win">
+      <p><strong>★ What you walk out with tonight.</strong> A real decision statement for Tideline, naming the choice and who makes it. A GQM derivation tree you built, not copied. One HEART category with an actual signal behind its metric. And the exact attribute the review instrument checks for a named decision, added to your own screen.</p>
+    </div>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Why a dashboard is not a product until something decides on it<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A screen that nobody can name a decision for is not wrong, it is untestable. There is no way to ask whether it works, because working would mean helping someone choose, and nobody has said what the choice is. That is a different failure from a bad chart. A bad chart still serves a decision badly. A screen with no named decision cannot be evaluated at all - it can only be liked or ignored.</p>
+        <p>This is also why D18 is not primarily a design defect. It sits upstream of design. Fixing the chart types on a screen that serves no named decision is polishing a door with no room behind it.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>Tideline's retention dashboard is reviewed in a Monday standup that has run for two years. Ask the room what decision the screen changes and you get three different answers, none of them written down anywhere, and none of them matching what actually happens after the meeting.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The vocabulary for today<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <ul>
+          <li><strong>Decision statement</strong> - the choice being made, who makes it, and how often. Three parts, all three required.</li>
+          <li><strong>Goal</strong> - in GQM, the outcome the decision-maker is actually trying to reach, stated once, in words a non-analyst would recognise.</li>
+          <li><strong>Question</strong> - something that must be answered to know whether the goal is being met. A goal usually opens two or three of these.</li>
+          <li><strong>Metric</strong> - the number that answers one specific question. In GQM a metric with no question above it does not belong on the screen.</li>
+          <li><strong>Signal</strong> - in HEART, the observable behaviour or self-report that stands in for a category before it becomes a metric. The step everyone skips.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 1 ============ -->
+  <section class="section" id="part-1">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers D18 and D9</span>
+      <h2>The named decision, and the dashboard nobody opens</h2>
+      <span class="tag concept">6 min live</span>
+    </div>
+    <p class="lede">A decision statement names three things: the choice on the table, the person or team who actually makes that choice, and how often the choice recurs. Drop any one of the three and the screen drifts back toward decoration. Miss the decision-maker and everyone assumes someone else is using it. Miss the cadence and nobody knows if last week's number is even still relevant.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A causal chain: no decision named leads to every panel carrying equal weight, then no entry point for the eye, then the decision being made off screen, ending in a dashboard nobody opens">
+        <style>
+          .s2cT { font: 700 12px Inter, sans-serif; }
+          .s2cD { font: 400 11px Inter, sans-serif; }
+          .s2cW { font: 400 11px Inter, sans-serif; fill: #DDF4FA; }
+          .s2cWT { font: 800 12px Inter, sans-serif; fill: #fff; }
+          .s2cN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+        <defs>
+          <marker id="s2cAr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#C6D5DA"/></marker>
+        </defs>
+
+        <rect x="20" y="40" width="150" height="110" rx="12" fill="#164E63"/>
+        <text class="s2cWT" x="95" y="66" text-anchor="middle">D18</text>
+        <text class="s2cW" x="95" y="90" text-anchor="middle">No decision</text>
+        <text class="s2cW" x="95" y="108" text-anchor="middle">named for the</text>
+        <text class="s2cW" x="95" y="126" text-anchor="middle">screen</text>
+
+        <line x1="170" y1="95" x2="196" y2="95" stroke="#C6D5DA" stroke-width="2" marker-end="url(#s2cAr)"/>
+
+        <rect x="200" y="40" width="150" height="110" rx="12" fill="#0891B2"/>
+        <text class="s2cWT" x="275" y="66" text-anchor="middle">D9</text>
+        <text class="s2cW" x="275" y="90" text-anchor="middle">Every panel</text>
+        <text class="s2cW" x="275" y="108" text-anchor="middle">carries equal</text>
+        <text class="s2cW" x="275" y="126" text-anchor="middle">visual weight</text>
+
+        <line x1="350" y1="95" x2="376" y2="95" stroke="#C6D5DA" stroke-width="2" marker-end="url(#s2cAr)"/>
+
+        <rect x="380" y="40" width="150" height="110" rx="12" fill="#A5F3FC"/>
+        <text class="s2cT" x="455" y="76" text-anchor="middle" fill="#0F1E24">No entry point</text>
+        <text class="s2cD" x="455" y="98" text-anchor="middle" fill="#566A72">for the eye to</text>
+        <text class="s2cD" x="455" y="116" text-anchor="middle" fill="#566A72">start reading</text>
+
+        <line x1="530" y1="95" x2="556" y2="95" stroke="#C6D5DA" stroke-width="2" marker-end="url(#s2cAr)"/>
+
+        <rect x="560" y="40" width="150" height="110" rx="12" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s2cT" x="635" y="76" text-anchor="middle" fill="#0F1E24">Decision made</text>
+        <text class="s2cD" x="635" y="98" text-anchor="middle" fill="#566A72">off screen -</text>
+        <text class="s2cD" x="635" y="116" text-anchor="middle" fill="#566A72">gut feel, memory</text>
+
+        <line x1="710" y1="95" x2="736" y2="95" stroke="#C6D5DA" stroke-width="2" marker-end="url(#s2cAr)"/>
+
+        <rect x="740" y="30" width="130" height="130" rx="12" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s2cT" x="805" y="82" text-anchor="middle" fill="#991B1B">Dashboard</text>
+        <text class="s2cT" x="805" y="102" text-anchor="middle" fill="#991B1B">nobody</text>
+        <text class="s2cT" x="805" y="122" text-anchor="middle" fill="#991B1B">opens</text>
+
+        <rect x="20" y="188" width="14" height="14" fill="#E11D48"/>
+        <text class="s2cN" x="44" y="200">The dashboard is not badly designed. It was never told what it was for.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - D18 and D9 are one causal chain, not two unrelated findings</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The three parts of a decision statement<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Tideline's real decision, the one this session's build-along writes out in full: <strong>which at-risk enterprise accounts get a human intervention this week, and who makes that call.</strong> Read it against the three parts:</p>
+        <ul>
+          <li><strong>The choice</strong> - which accounts get a human intervention. Not "how is retention doing", which is a topic, not a choice.</li>
+          <li><strong>The decision-maker</strong> - the customer-success team lead who triages the week's list, not "the team" in general.</li>
+          <li><strong>The cadence</strong> - weekly, on the Monday triage. A decision with no stated cadence cannot be judged late or on time.</li>
+        </ul>
+        <p>Once the choice is named, D9 has an answer too: the panel that shows which accounts crossed the risk threshold this week is the one that should look different from the other twelve. Right now nothing does, because nothing was ever told it mattered more.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Topics are not decisions<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The commonest failure mode is a screen built around a topic - "churn", "engagement", "growth" - rather than a choice. A topic dashboard can grow forever, because every metric that is vaguely about the topic has a plausible claim to a panel. A decision dashboard has a natural ceiling: once every question the decision-maker needs answered has a metric, adding another panel makes the screen slower to read without making the decision any easier to make.</p>
+        <p>The test is blunt and worth using out loud in a review: point at any panel and ask "which part of the decision does this change." A panel nobody can answer for is a candidate for deletion, regardless of how interesting the chart is.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2 ============ -->
+  <section class="section" id="part-2">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers GQM</span>
+      <h2>Goal, question, metric: derive the numbers, don't pick them</h2>
+      <span class="tag concept">7 min live</span>
+    </div>
+    <p class="lede">Goal Question Metric comes from software measurement, not dashboards: Basili, Caldiera and Rombach set it out in the Encyclopedia of Software Engineering in 1994. The method is a strict order of operations. State the goal first, in the decision-maker's own words. Derive the questions that must be answered to know whether the goal is being met. Only then attach a metric to each question. A metric proposed before its question exists has nothing to justify its place on the screen.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A GQM derivation tree: one goal about which at-risk accounts get a human call this week, fanning to three questions, each fanning to one metric that answers it">
+        <style>
+          .s2aH { font: 800 12px Inter, sans-serif; fill: #fff; }
+          .s2aW { font: 400 11px Inter, sans-serif; fill: #DDF4FA; }
+          .s2aQ { font: 800 12px Inter, sans-serif; fill: #fff; }
+          .s2aQD { font: 400 11px Inter, sans-serif; fill: #DDF4FA; }
+          .s2aM { font: 700 11px Inter, sans-serif; fill: #0F1E24; }
+          .s2aN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+        <defs>
+          <marker id="s2aAr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#C6D5DA"/></marker>
+        </defs>
+
+        <rect x="290" y="20" width="300" height="80" rx="12" fill="#164E63"/>
+        <text class="s2aH" x="440" y="44" text-anchor="middle">Goal</text>
+        <text class="s2aW" x="440" y="64" text-anchor="middle">Which at-risk enterprise accounts get</text>
+        <text class="s2aW" x="440" y="82" text-anchor="middle">a human call this week, decided by whom</text>
+
+        <line x1="365" y1="100" x2="130" y2="128" stroke="#C6D5DA" stroke-width="1.5" marker-end="url(#s2aAr)"/>
+        <line x1="440" y1="100" x2="440" y2="128" stroke="#C6D5DA" stroke-width="1.5" marker-end="url(#s2aAr)"/>
+        <line x1="515" y1="100" x2="750" y2="128" stroke="#C6D5DA" stroke-width="1.5" marker-end="url(#s2aAr)"/>
+
+        <rect x="20" y="130" width="270" height="90" rx="12" fill="#0891B2"/>
+        <text class="s2aQ" x="155" y="154" text-anchor="middle">Q1</text>
+        <text class="s2aQD" x="155" y="174" text-anchor="middle">Which accounts are trending</text>
+        <text class="s2aQD" x="155" y="192" text-anchor="middle">toward churn this week?</text>
+
+        <rect x="305" y="130" width="270" height="90" rx="12" fill="#0891B2"/>
+        <text class="s2aQ" x="440" y="154" text-anchor="middle">Q2</text>
+        <text class="s2aQD" x="440" y="174" text-anchor="middle">Which of those are worth</text>
+        <text class="s2aQD" x="440" y="192" text-anchor="middle">an intervention?</text>
+
+        <rect x="590" y="130" width="270" height="90" rx="12" fill="#0891B2"/>
+        <text class="s2aQ" x="725" y="154" text-anchor="middle">Q3</text>
+        <text class="s2aQD" x="725" y="174" text-anchor="middle">Who has the authority and</text>
+        <text class="s2aQD" x="725" y="192" text-anchor="middle">time to act this week?</text>
+
+        <line x1="155" y1="220" x2="155" y2="248" stroke="#C6D5DA" stroke-width="1.5" marker-end="url(#s2aAr)"/>
+        <line x1="440" y1="220" x2="440" y2="248" stroke="#C6D5DA" stroke-width="1.5" marker-end="url(#s2aAr)"/>
+        <line x1="725" y1="220" x2="725" y2="248" stroke="#C6D5DA" stroke-width="1.5" marker-end="url(#s2aAr)"/>
+
+        <rect x="20" y="250" width="270" height="70" rx="12" fill="#A5F3FC"/>
+        <text class="s2aM" x="155" y="278" text-anchor="middle">Risk-score delta,</text>
+        <text class="s2aM" x="155" y="296" text-anchor="middle">week over week</text>
+
+        <rect x="305" y="250" width="270" height="70" rx="12" fill="#A5F3FC"/>
+        <text class="s2aM" x="440" y="278" text-anchor="middle">ARR at risk vs</text>
+        <text class="s2aM" x="440" y="296" text-anchor="middle">renewal date</text>
+
+        <rect x="590" y="250" width="270" height="70" rx="12" fill="#A5F3FC"/>
+        <text class="s2aM" x="725" y="278" text-anchor="middle">CSM caseload and</text>
+        <text class="s2aM" x="725" y="296" text-anchor="middle">owner assigned</text>
+
+        <rect x="20" y="350" width="14" height="14" fill="#E11D48"/>
+        <text class="s2aN" x="44" y="362">Read it bottom to top: each metric answers one question, one goal ties all three.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the tree derived live from Tideline's own decision</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Working it on Tideline's decision<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The goal in the figure above is not an abstraction, it is the exact decision statement from Part 1, restated so it can be questioned. Three questions fall out of it almost mechanically once the goal is stated that precisely: which accounts are drifting, which of the drifting accounts are worth the CSM's time, and who actually has the bandwidth to act this week. Each question gets exactly one metric, and each metric has a reason to exist that a reader can trace all the way back to the goal.</p>
+        <p>Notice what is missing on purpose: a metric like "total signups this month" never appears, because no question above needs it. GQM's discipline is negative as much as positive - it tells you what to leave off the screen at least as often as what to add.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why GQM resists dashboard sprawl<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Most dashboard growth happens metric-first: someone has a number they can compute, so a panel gets added for it, and a question gets invented afterward to justify it if anyone asks. GQM inverts the order and makes that inversion visible, because a metric with no upstream question is easy to spot on the tree - it is a box with nothing pointing to it.</p>
+        <p>This is also the cleanest way to retire a panel without a fight. Instead of arguing that a chart is ugly or unused, trace it up the tree. If it does not answer a live question, and the question does not serve the stated goal, the case makes itself.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3 ============ -->
+  <section class="section" id="part-3">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers HEART</span>
+      <h2>HEART's real contribution is the selection step, not the five names</h2>
+      <span class="tag concept">7 min live</span>
+    </div>
+    <p class="lede">Rodden, Hutchinson and Fu introduced HEART at CHI 2010: Happiness, Engagement, Adoption, Retention, Task Success. Everyone remembers the five names. Almost nobody repeats the process the paper actually argues for, which is Goals-Signals-Metrics: for each category, name the goal first, then the observable signal that would tell you the goal is met, and only then the metric that operationalises the signal. Skip the middle step and HEART degrades into five more headings on a dashboard.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A grid crossing HEART's five categories with Goal, Signal and Metric rows, showing that the Retention column has no identified signal and therefore produces no usable metric">
+        <style>
+          .s2bH { font: 700 11px Inter, sans-serif; fill: #fff; }
+          .s2bL { font: 700 11px Inter, sans-serif; fill: #566A72; }
+          .s2bT { font: 400 10px Inter, sans-serif; fill: #0F1E24; }
+          .s2bF { font: 700 10px Inter, sans-serif; fill: #991B1B; }
+          .s2bN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+
+        <rect x="20" y="20" width="60" height="36" fill="none"/>
+        <rect x="88" y="20" width="150" height="36" rx="8" fill="#164E63"/>
+        <text class="s2bH" x="163" y="42" text-anchor="middle">Happiness</text>
+        <rect x="246" y="20" width="150" height="36" rx="8" fill="#164E63"/>
+        <text class="s2bH" x="321" y="42" text-anchor="middle">Engagement</text>
+        <rect x="404" y="20" width="150" height="36" rx="8" fill="#164E63"/>
+        <text class="s2bH" x="479" y="42" text-anchor="middle">Adoption</text>
+        <rect x="562" y="20" width="150" height="36" rx="8" fill="#164E63"/>
+        <text class="s2bH" x="637" y="42" text-anchor="middle">Retention</text>
+        <rect x="720" y="20" width="150" height="36" rx="8" fill="#164E63"/>
+        <text class="s2bH" x="795" y="42" text-anchor="middle">Task success</text>
+
+        <text class="s2bL" x="20" y="97">Goal</text>
+        <rect x="88" y="64" width="150" height="58" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s2bT" x="163" y="88" text-anchor="middle">Feel confident</text>
+        <text class="s2bT" x="163" y="104" text-anchor="middle">deciding?</text>
+        <rect x="246" y="64" width="150" height="58" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s2bT" x="321" y="88" text-anchor="middle">Return to the</text>
+        <text class="s2bT" x="321" y="104" text-anchor="middle">tool daily?</text>
+        <rect x="404" y="64" width="150" height="58" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s2bT" x="479" y="88" text-anchor="middle">New CSMs start</text>
+        <text class="s2bT" x="479" y="104" text-anchor="middle">using it?</text>
+        <rect x="562" y="64" width="150" height="58" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s2bT" x="637" y="88" text-anchor="middle">Keep using it</text>
+        <text class="s2bT" x="637" y="104" text-anchor="middle">past week one?</text>
+        <rect x="720" y="64" width="150" height="58" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s2bT" x="795" y="88" text-anchor="middle">Decide who to</text>
+        <text class="s2bT" x="795" y="104" text-anchor="middle">call, fast?</text>
+
+        <text class="s2bL" x="20" y="163">Signal</text>
+        <rect x="88" y="130" width="150" height="58" rx="8" fill="#A5F3FC"/>
+        <text class="s2bT" x="163" y="154" text-anchor="middle">Self-rated</text>
+        <text class="s2bT" x="163" y="170" text-anchor="middle">confidence</text>
+        <rect x="246" y="130" width="150" height="58" rx="8" fill="#A5F3FC"/>
+        <text class="s2bT" x="321" y="154" text-anchor="middle">Session</text>
+        <text class="s2bT" x="321" y="170" text-anchor="middle">frequency</text>
+        <rect x="404" y="130" width="150" height="58" rx="8" fill="#A5F3FC"/>
+        <text class="s2bT" x="479" y="154" text-anchor="middle">First decision</text>
+        <text class="s2bT" x="479" y="170" text-anchor="middle">logged</text>
+        <rect x="562" y="130" width="150" height="58" rx="8" fill="#FFF1F2" stroke="#E11D48" stroke-width="1.5"/>
+        <text class="s2bF" x="637" y="154" text-anchor="middle">No signal</text>
+        <text class="s2bF" x="637" y="170" text-anchor="middle">chosen</text>
+        <rect x="720" y="130" width="150" height="58" rx="8" fill="#A5F3FC"/>
+        <text class="s2bT" x="795" y="154" text-anchor="middle">Time to decide,</text>
+        <text class="s2bT" x="795" y="170" text-anchor="middle">rework rate</text>
+
+        <text class="s2bL" x="20" y="235">Metric</text>
+        <rect x="88" y="196" width="150" height="64" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s2bT" x="163" y="222" text-anchor="middle">Weekly survey</text>
+        <text class="s2bT" x="163" y="238" text-anchor="middle">score</text>
+        <rect x="246" y="196" width="150" height="64" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s2bT" x="321" y="222" text-anchor="middle">Logins per CSM</text>
+        <text class="s2bT" x="321" y="238" text-anchor="middle">per week</text>
+        <rect x="404" y="196" width="150" height="64" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s2bT" x="479" y="222" text-anchor="middle">Days to first</text>
+        <text class="s2bT" x="479" y="238" text-anchor="middle">logged use</text>
+        <rect x="562" y="196" width="150" height="64" rx="8" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s2bF" x="637" y="222" text-anchor="middle">No usable</text>
+        <text class="s2bF" x="637" y="238" text-anchor="middle">metric</text>
+        <rect x="720" y="196" width="150" height="64" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s2bT" x="795" y="222" text-anchor="middle">Median minutes</text>
+        <text class="s2bT" x="795" y="238" text-anchor="middle">to decision</text>
+
+        <rect x="20" y="288" width="14" height="14" fill="#E11D48"/>
+        <text class="s2bN" x="44" y="300">Skip the signal and the category still gets a box on the dashboard - just not a usable one.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - a category with no signal produces no usable metric, not a placeholder one</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Applying HEART to the decision screen itself<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>HEART is usually applied to a product's end users. It applies just as well to the decision-support screen a team builds for itself, and that is the angle the build-along uses. For a screen meant to help a CSM lead decide who gets called this week, <strong>Task Success</strong> is the category that matters most: can the decision actually get made, and made quickly.</p>
+        <p>The goal: a CSM lead can decide who to call without extra digging. The signal: how long it takes from opening the screen to logging a decision, and how often that decision gets reopened afterward. The metric: median minutes from open to logged decision, tracked weekly. Notice the signal came before the metric, not after.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Three frameworks that get cited as numbered lists, and are not<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Three ideas sit right next to GQM and HEART in most people's mental map of decision-and-metric frameworks, and all three get flattened into "the N principles of X" in casual use. None of the three actually ships one.</p>
+        <table class="clean">
+          <thead><tr><th>Commonly cited as</th><th>What the source actually contains</th></tr></thead>
+          <tbody>
+            <tr><td>The North Star framework's principles</td><td>Amplitude's framework, with the metric concept credited to Sean Ellis: one north-star metric plus a small set of input metrics. A metric-selection method, not a principle set.</td></tr>
+            <tr><td>Decision intelligence's numbered rules</td><td>Cassie Kozyrkov defines decision intelligence as an interdisciplinary field spanning statistics, economics and behavioural science, and separates decisions worth automating from decisions that stay human. There is no numbered framework to quote.</td></tr>
+            <tr><td>The AI hierarchy of needs, with N layers</td><td>Monica Rogati's June 2017 Hacker Noon argument holds: build the data infrastructure before reaching for AI. Published renderings of her pyramid disagree on whether it has four layers or six.</td></tr>
+          </tbody>
+        </table>
+        <div class="callout warn">
+          <p>Never quote a layer count for Rogati's pyramid, and never present the North Star framework or decision intelligence as a numbered set of principles. All three are real, useful, and worth citing by name and argument - just not by a count nobody published.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO ============ -->
+  <section class="section" id="demo-2">
+    <div class="section-kicker">
+      <span class="klabel">Build-along</span>
+      <h2>Write Tideline's decision statement</h2>
+      <span class="tag demo">★ 17 min · everyone builds</span>
+    </div>
+    <p class="lede">Work through these in order. Each step produces one artifact you carry into session 9's finished instrument.</p>
+
+    <div class="steps">
+      <div class="step"><p>Write the decision statement in full: <strong>which at-risk enterprise accounts get a human intervention this week, and who makes that call.</strong> Name all three parts out loud - the choice, the decision-maker, the cadence - before writing anything else down.</p></div>
+      <div class="step"><p>Derive two questions from that goal using GQM. Use the tree above if you need a start: something must identify which accounts are drifting, and something must identify who has the capacity to act this week.</p></div>
+      <div class="step"><p>Attach one metric to each question. Check both against the goal directly: if you removed this metric, would the decision-maker be less able to make the call? If the honest answer is no, the metric does not belong yet.</p></div>
+      <div class="step"><p>Pick one HEART category for the decision screen itself, not for Tideline's end customers. Name its signal before its metric. Task Success is the strongest fit here, but defend your own choice if you land somewhere else.</p></div>
+      <div class="step"><p>Add the <strong>data-decision</strong> row to your review instrument. The bench that runs in session 9 checks for exactly this: a <span class="mono">data-decision</span> attribute on the screen's container, carrying the decision statement as its value. No attribute, no named decision, D18 fires.</p></div>
+      <div class="step"><p>Read the statement back as if you were the CSM lead seeing the screen cold. If it takes more than one sentence to say what you are supposed to decide from it, the statement is still a topic wearing a decision's clothes.</p></div>
+    </div>
+
+    <div class="callout tip">
+      <p>Naming the decision does not fix D9 by itself - the panel that answers the goal's first question still needs to look different from the other twelve, and that is a session 6 fix. What naming the decision does is give you a defensible reason to make that panel bigger, which is more than "it felt important" ever bought you in a design review.</p>
+    </div>
+  </section>
+
+  <!-- ============ EXERCISE ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Before session 3</h2>
+      <span class="tag exercise">20 min</span>
+    </div>
+    <ul>
+      <li>Take the dashboard your team looks at most often and write its decision statement: the choice, the decision-maker, the cadence. If you cannot fill in all three from memory, that is the finding.</li>
+      <li>Derive two GQM questions from that goal and one metric per question. For each existing panel on the real dashboard, trace it up toward a question. Flag any panel you cannot trace.</li>
+      <li>Pick one HEART category for that same screen, and write its goal and signal before you write a metric. If you cannot name a signal, leave the metric blank rather than inventing one.</li>
+      <li>Bring the decision statement to session 3. It becomes the <span class="mono">decision:</span> line the data contract has to reference.</li>
+    </ul>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions</h2>
+    </div>
+
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">What three things does a decision statement need to name?</p>
+      <button class="qopt" type="button">A · The KPI, the dashboard owner, and the refresh cadence</button>
+      <button class="qopt" type="button">B · The choice being made, who makes it, and how often it recurs</button>
+      <button class="qopt" type="button">C · The chart type, the colour palette, and the legend</button>
+      <p class="qwhy">All three parts are required. Drop the decision-maker and everyone assumes someone else is using the screen; drop the cadence and nobody can say whether a number is stale.</p>
+    </div>
+
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">In Goal Question Metric, what has to come first?</p>
+      <button class="qopt" type="button">A · The goal, stated in the decision-maker's own words, decomposed into questions that are then answered by metrics</button>
+      <button class="qopt" type="button">B · The metrics the team already knows how to compute, grouped into questions afterward</button>
+      <button class="qopt" type="button">C · The dashboard's existing panels, relabelled as goals</button>
+      <p class="qwhy">GQM's discipline is the order of operations. A metric proposed before its question exists has nothing above it to justify its place on the screen.</p>
+    </div>
+
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">According to the 2010 paper that introduced it, what is HEART's actual contribution?</p>
+      <button class="qopt" type="button">A · The five category names: Happiness, Engagement, Adoption, Retention, Task Success</button>
+      <button class="qopt" type="button">B · A single north-star metric that stands in for all five categories at once</button>
+      <button class="qopt" type="button">C · The Goals-Signals-Metrics process used to pick a real signal for a category before naming its metric</button>
+      <p class="qwhy">The five names are what everyone remembers, but the paper's working method is Goals-Signals-Metrics. Skip the signal step and a category still gets a box on the dashboard - it just does not produce a usable metric, as the Retention column in the figure shows.</p>
+    </div>
+
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Sources covered</span>
+      <h2>What this session teaches, and where it came from</h2>
+    </div>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Basili, Caldiera, Rombach, Goal Question Metric Paradigm, Encyclopedia of Software Engineering vol. 1, Wiley 1994, pp. 528-532</span><span class="note">Primary verified. The derivation order taught in full and worked on Tideline's own decision</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Rodden, Hutchinson, Fu, Goals-Signals-Metrics: A Practical Approach to Measuring UX, CHI 2010</span><span class="note">Primary verified. The five categories and the selection process, applied to the decision screen itself</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">North Star Framework, Amplitude, metric concept credited to Sean Ellis</span><span class="note">Real and useful, but no numbered principle set exists - taught as a metric-selection method only</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Cassie Kozyrkov, decision intelligence</span><span class="note">An interdisciplinary field with an automatable-vs-human split, never a numbered framework</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Monica Rogati, AI Hierarchy of Needs, Hacker Noon, June 2017</span><span class="note">The argument holds; the layer count is disputed across renderings, so none is given</span></div>
+    </div>
+    <p class="mono" style="margin-top:14px">Full source map with every URL and every honesty caveat: <span class="mono">materials/official-course-map.md</span> in this repo.</p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 2 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Decision statement</b><span>Choice, plus decision-maker, plus cadence. All three, or it is still a topic.</span></div>
+      <div class="cheat-item"><b>GQM order</b><span>Goal, then questions, then metrics. A metric with no question above it does not belong.</span></div>
+      <div class="cheat-item"><b>HEART's real move</b><span>Goals-Signals-Metrics selects one signal per category before naming a metric - not the five names alone.</span></div>
+      <div class="cheat-item"><b>No signal, no metric</b><span>A HEART category with no chosen signal still gets a box on the dashboard. It just is not usable.</span></div>
+      <div class="cheat-item"><b>Three real ideas, no counts</b><span>North Star, decision intelligence, and Rogati's hierarchy are genuine - never cite a principle count or a layer count for any of them.</span></div>
+      <div class="cheat-item"><b>D18 and D9</b><span>Name the decision with a data-decision attribute, or D18 fires - and D9 usually fires right behind it.</span></div>
+    </div>
+  </section>
+
+  <div class="callout next">
+    <span class="nx-pill">Next session</span>
+    <p>A named decision still needs data it can trust, and right now Tideline's numbers carry no unit, no owner, and no lineage - while customer email addresses sit in the clear on the same screen. Session 3 puts a real contract validator in your hands and scores Tideline's actual contract live: 7 of 22 checks met, before you fix a single line.</p>
+  </div>
+
+  <footer class="pagefoot">
+    <span>Session 2 of 9 · learn-data-heuristics-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="01-the-canon.html">← Prev: The canon and the instrument</a> &nbsp;·&nbsp; <a href="03-the-contract.html">Next: The contract →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

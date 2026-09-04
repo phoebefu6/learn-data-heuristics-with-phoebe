@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- social:start -->
+<meta name="description" content="Session 8 of 9. Microsoft's 18 Guidelines for Human-AI Interaction, Apple's four dichotomies as triage, and why the Google PAIR overlap is honest arithmetic - plus the four things a claim must carry, rebuilt live on Tideline's one-sentence AI panel.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Learn with Phoebe">
+<meta property="og:title" content="When the product is intelligent - learn data heuristics with phoebe">
+<meta property="og:description" content="Session 8 of 9. Microsoft's 18 guidelines take the catch count from 11 to 14 on Tideline's AI panel - three new findings, one shared with a usability heuristic already on the books.">
+<meta property="og:url" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/courses/08-when-it-is-intelligent.html">
+<meta property="og:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="When the product is intelligent - learn data heuristics with phoebe">
+<meta name="twitter:description" content="Session 8 of 9. Rebuilding Tideline's AI panel so it finally says what it can do, how well, why, and how to correct it.">
+<meta name="twitter:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<!-- social:end -->
+<title>Session 8 · When the product is intelligent - learn data heuristics with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-data-heuristics-with-phoebe</a> / Session 8 of 9</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Data Heuristics with Phoebe · Session 8 of 9</div>
+    <h1>When the product is <span class="accent">intelligent</span></h1>
+    <p class="sub">Tideline's AI panel says one thing: "Enterprise churn is being driven by seat under-use." Nothing else. Not what the model can do, not how well it does it, not why it said this, not how to correct it. Those four gaps are D11 through D14, and Microsoft's 18 Guidelines for Human-AI Interaction is the set built to catch exactly this shape of failure. Tonight we teach the 18, learn Apple's four-dichotomy triage for deciding which of them matter most on a given feature, look honestly at what Google PAIR does and does not add on top, and rebuild the panel live.</p>
+    <div class="chip-row">
+      <span class="chip level">🔴 Advanced</span>
+      <span class="chip audience">Data and analytics leads</span>
+      <span class="chip audience">Anyone shipping a model into a product</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:5">3-24 · The human-AI guidelines</span>
+      <span class="a3" style="flex:4">24-40 · Build-along: rebuild Tideline's AI panel</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ PART 0 ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Where we are</h2>
+    </div>
+    <p class="lede">Seven layers of the review instrument are built. Session 2 named the decision a screen exists to support. Session 3 gave the data a contract, an owner and lineage. Sessions 4 and 5 checked the platform and the operating promise underneath it. Sessions 6 and 7 covered the surface a reader actually looks at. Every one of those lenses can inspect Tideline's charts, numbers and panels. None of them can inspect a claim a model makes about the data, because none of them were written for a system that talks back. That is the layer tonight adds, and it is the last content layer before session 9 assembles everything into one instrument.</p>
+
+    <div class="callout win">
+      <p><strong>★ What you walk out with tonight.</strong> Microsoft's 18 Guidelines for Human-AI Interaction, grouped by the four phases of an interaction, and which four of them a bare AI panel almost always fails first. Apple's four dichotomies as a triage step that tells you which of the 18 to fight for. And an honest look at what Google PAIR adds on top of Microsoft here, which is not more catches.</p>
+    </div>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Tideline's AI panel, in full<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Open Tideline's overview screen and there is a small panel titled "AI insight". It renders one sentence: "Enterprise churn is being driven by seat under-use." There is no second sentence. No badge, no footnote, no button. That is the entire feature, and it carries four distinct defects at once:</p>
+        <ul>
+          <li><strong>D11</strong> - it never says what the panel can do. Is it forecasting, explaining, or ranking causes? A reader cannot tell the difference between a lucky guess and a modelled result.</li>
+          <li><strong>D12</strong> - it never says how well it does it. No accuracy figure, no sample size, no time window the claim was measured over.</li>
+          <li><strong>D13</strong> - no explanation of why it said this particular thing about this particular account or period.</li>
+          <li><strong>D14</strong> - no way to correct or dismiss the claim if a reader knows it is wrong.</li>
+        </ul>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>A customer-success lead read that sentence in a renewal call and told the account it was "an AI finding", as if that settled the matter. The account's actual churn driver, confirmed two weeks later, was a failed SSO migration. Nothing on the panel would have told her to doubt the sentence, because nothing on the panel says how often it is right.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why this layer is last, not first<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The human-AI guidelines look, at first glance, like they belong next to session 6 and 7's interaction and surface lenses - they are also about what a reader sees on screen. The reason they get their own session is that a claim is a different kind of object than a chart. A truncated axis misleads about a number that already exists. An unqualified AI sentence misleads about a number the system is asserting on its own authority, with no ground truth the reader can check by eye. That difference is why a dedicated set of guidelines exists for it at all, and why session 9's instrument treats these four checks as their own row rather than folding them into the interaction lens.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 1 ============ -->
+  <section class="section" id="part-1">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers Microsoft's 18 Guidelines for Human-AI Interaction</span>
+      <h2>Eighteen guidelines, four phases of one interaction</h2>
+      <span class="tag concept">7 min live</span>
+    </div>
+    <p class="lede">Microsoft's set is the centrepiece of tonight because of how it was built, not just what it says. Amershi, Weld, Vorvoreanu, Fourney, Nushi, Collisson, Suh, Iqbal, Bennett, Inkpen, Teevan, Kikin-Gil and Horvitz distilled it from more than 150 individual design recommendations scattered across industry and research, then validated the surviving 18 with 49 practitioners reviewing 20 popular AI products. It won an Honorable Mention at CHI 2019. That provenance, a large pool reduced and then tested against real products, is exactly the discipline session 1 taught for Nielsen's ten, and it is why this set outranks a vendor blog post promising "12 tips for trustworthy AI".</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The 18 human-AI guidelines arranged across the four phases of an interaction: initially, during interaction, when wrong, and over time, with Tideline's four violations highlighted">
+        <style>
+          .s8aHW { font: 800 13px Inter, sans-serif; fill: #fff; }
+          .s8aHR { font: 800 13px Inter, sans-serif; fill: #991B1B; }
+          .s8aB { font: 400 12px Inter, sans-serif; fill: #0F1E24; }
+          .s8aV { font: 700 12px Inter, sans-serif; fill: #991B1B; }
+          .s8aN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+        <defs>
+          <marker id="s8Ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#C6D5DA"/></marker>
+        </defs>
+
+        <rect x="30" y="50" width="180" height="30" rx="8" fill="#0891B2"/>
+        <text class="s8aHW" x="120" y="70" text-anchor="middle">INITIALLY</text>
+        <line x1="210" y1="65" x2="228" y2="65" stroke="#C6D5DA" stroke-width="2" marker-end="url(#s8Ar)"/>
+
+        <rect x="230" y="50" width="180" height="30" rx="8" fill="#0E7490"/>
+        <text class="s8aHW" x="320" y="70" text-anchor="middle">DURING INTERACTION</text>
+        <line x1="410" y1="65" x2="428" y2="65" stroke="#C6D5DA" stroke-width="2" marker-end="url(#s8Ar)"/>
+
+        <rect x="430" y="50" width="200" height="30" rx="8" fill="#FFF1F2" stroke="#E11D48" stroke-width="1.5"/>
+        <text class="s8aHR" x="530" y="70" text-anchor="middle">WHEN WRONG</text>
+        <line x1="630" y1="65" x2="648" y2="65" stroke="#C6D5DA" stroke-width="2" marker-end="url(#s8Ar)"/>
+
+        <rect x="650" y="50" width="200" height="30" rx="8" fill="#164E63"/>
+        <text class="s8aHW" x="750" y="70" text-anchor="middle">OVER TIME</text>
+
+        <rect x="35" y="92" width="170" height="18" rx="4" fill="#FFF1F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s8aV" x="42" y="105">G1 What it can do</text>
+        <rect x="35" y="116" width="170" height="18" rx="4" fill="#FFF1F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s8aV" x="42" y="129">G2 How well it does</text>
+
+        <text class="s8aB" x="240" y="105">G3 Times by context</text>
+        <text class="s8aB" x="240" y="129">G4 Relevant context</text>
+        <text class="s8aB" x="240" y="153">G5 Social norms</text>
+        <text class="s8aB" x="240" y="177">G6 Mitigates bias</text>
+
+        <text class="s8aB" x="440" y="105">G7 Easy invocation</text>
+        <text class="s8aB" x="440" y="129">G8 Easy dismissal</text>
+        <rect x="435" y="140" width="190" height="18" rx="4" fill="#FFF1F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s8aV" x="442" y="153">G9 Easy correction</text>
+        <text class="s8aB" x="440" y="177">G10 Scope if unsure</text>
+        <rect x="435" y="188" width="190" height="18" rx="4" fill="#FFF1F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s8aV" x="442" y="201">G11 Explains why</text>
+
+        <text class="s8aB" x="660" y="105">G12 Recent history</text>
+        <text class="s8aB" x="660" y="129">G13 Learns from use</text>
+        <text class="s8aB" x="660" y="153">G14 Adapts slowly</text>
+        <text class="s8aB" x="660" y="177">G15 Rich feedback</text>
+        <text class="s8aB" x="660" y="201">G16 Action outcomes</text>
+        <text class="s8aB" x="660" y="225">G17 Global controls</text>
+        <text class="s8aB" x="660" y="249">G18 Notifies changes</text>
+
+        <rect x="30" y="286" width="14" height="14" fill="#E11D48"/>
+        <text class="s8aN" x="54" y="298">Tideline fails both INITIALLY guidelines and two of the five WHEN WRONG guidelines.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the rose boxes are Tideline's four violations, D11, D12, D13 and D14</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>All 18, and what each asks of a product<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <table class="clean">
+          <thead><tr><th>#</th><th>Guideline</th><th>What it asks</th><th>On Tideline's panel</th></tr></thead>
+          <tbody>
+            <tr><td colspan="4"><strong>Initially</strong></td></tr>
+            <tr><td>G1</td><td>Make clear what the system can do</td><td>Can a reader tell what kind of claim this is before trusting it?</td><td class="status">Violated - D11</td></tr>
+            <tr><td>G2</td><td>Make clear how well the system can do what it can do</td><td>Is there an accuracy figure attached to the capability?</td><td class="status">Violated - D12</td></tr>
+            <tr><td colspan="4"><strong>During interaction</strong></td></tr>
+            <tr><td>G3</td><td>Time services based on context</td><td>Does the panel wait for a sensible moment to surface a claim?</td><td>-</td></tr>
+            <tr><td>G4</td><td>Show contextually relevant information</td><td>Is the claim scoped to the account or segment being viewed?</td><td>-</td></tr>
+            <tr><td>G5</td><td>Match relevant social norms</td><td>Does the tone fit a business claim, not a chatbot aside?</td><td>-</td></tr>
+            <tr><td>G6</td><td>Mitigate social biases</td><td>Could the claim disproportionately blame one group of accounts?</td><td>-</td></tr>
+            <tr><td colspan="4"><strong>When wrong</strong></td></tr>
+            <tr><td>G7</td><td>Support efficient invocation</td><td>Can a reader ask for the claim on demand rather than wait for it?</td><td>-</td></tr>
+            <tr><td>G8</td><td>Support efficient dismissal</td><td>Can a reader make the claim go away without leaving the page?</td><td>-</td></tr>
+            <tr><td>G9</td><td>Support efficient correction</td><td>Can a reader tell the system this claim was wrong?</td><td class="status">Violated - D14</td></tr>
+            <tr><td>G10</td><td>Scope services when in doubt</td><td>Does confidence drop the claim to a softer hedge, or stay silent?</td><td>-</td></tr>
+            <tr><td>G11</td><td>Make clear why the system did what it did</td><td>Is there a because-clause tied to this specific claim?</td><td class="status">Violated - D13</td></tr>
+            <tr><td colspan="4"><strong>Over time</strong></td></tr>
+            <tr><td>G12</td><td>Remember recent interactions</td><td>Does a dismissed claim stay dismissed on the next visit?</td><td>-</td></tr>
+            <tr><td>G13</td><td>Learn from user behavior</td><td>Do corrections change what the panel says next month?</td><td>-</td></tr>
+            <tr><td>G14</td><td>Update and adapt cautiously</td><td>Does the model change its claims gradually, not overnight?</td><td>-</td></tr>
+            <tr><td>G15</td><td>Encourage granular feedback</td><td>Can a reader say which part of the claim was wrong, not just "no"?</td><td>-</td></tr>
+            <tr><td>G16</td><td>Convey the consequences of user actions</td><td>Does dismissing a claim say what happens to it next?</td><td>-</td></tr>
+            <tr><td>G17</td><td>Provide global controls</td><td>Can a reader turn the AI panel off across the whole product?</td><td>-</td></tr>
+            <tr><td>G18</td><td>Notify users about changes</td><td>Does the panel say when its underlying model changed?</td><td>-</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <div class="callout warn">
+      <p><strong>The honest arithmetic.</strong> Session 1 measured that switching on Microsoft's 18 lens takes Tideline's catch count from 11 to 14, a gain of three. There are four defects owned by this session, D11 through D14, so it looks like the lens should add four. It does not, because D14, no way to correct or dismiss the claim, is also a violation of NN/g's third heuristic, user control and freedom, which the usability lens already caught back in session 1. Microsoft's 18 genuinely finds D11, D12 and D13 for the first time. It shares D14 with a set switched on earlier. That is not a weaker result, it is what an honest instrument looks like: overlap gets named, not hidden.</p>
+    </div>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why 49 practitioners across 20 products matters<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Plenty of "principles for trustworthy AI" documents exist that are one person's opinion formatted as a numbered list. Microsoft's process was closer to Nielsen's: gather a large pool of candidate recommendations, more than 150 of them pulled from research papers, internal design reviews and public guidelines, then reduce to the set that a panel of practitioners could actually apply, and check that the reduction still held up against real shipped products rather than hypothetical ones. Twenty products is a small number of validations by industry standards, but it is twenty more than most competing lists ever ran, and the paper says exactly which twenty.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2 ============ -->
+  <section class="section" id="part-2">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers what a claim must carry</span>
+      <h2>Four things a claim must carry, or it is not a claim</h2>
+      <span class="tag concept">7 min live</span>
+    </div>
+    <p class="lede">Four of Microsoft's 18 map directly onto Tideline's four defects, and together they define the minimum a system is allowed to assert before a reader should act on it: what it can do, how well it does that specific thing, why it said this particular sentence, and how to push back if it is wrong.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The four, mapped onto D11 through D14<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <table class="clean">
+          <thead><tr><th>Guideline</th><th>The question it answers</th><th>Missing on Tideline as</th></tr></thead>
+          <tbody>
+            <tr><td>G1 - capability</td><td>What kind of thing is this: a forecast, an explanation, a ranking?</td><td>D11</td></tr>
+            <tr><td>G2 - accuracy</td><td>How often is this right, measured against what, over what period?</td><td>D12</td></tr>
+            <tr><td>G11 - reason</td><td>Why this account, why this period, why this specific driver?</td><td>D13</td></tr>
+            <tr><td>G9 - correction</td><td>How does a reader who knows better tell the system so?</td><td>D14</td></tr>
+          </tbody>
+        </table>
+        <p>Notice the order. Capability and accuracy come before the claim is even trusted. The reason comes with the claim itself. Correction comes after, when the claim turns out to be wrong. A panel that only ever adds one of the four, usually the reason, still leaves a reader unable to judge whether to believe it in the first place.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why "how well" needs a measurement basis, not a percentage<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A bare "94% accurate" is nearly as unhelpful as no number at all, because it does not say accurate at what, against what ground truth, or over what window. G2 is satisfied by a sentence like "right about the top driver in 71 of the last 100 flagged accounts, checked against confirmed cancellation reasons over the last two quarters", because that sentence tells a reader exactly how much weight the claim can bear and exactly what would make it stale. The same discipline applies to G11's because-clause: "seat count fell more than 30 percent in 60 days while login weeks stayed flat" is a reason a reader can check against the account. "Our model flagged this" is not a reason, it is a restatement of the claim.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3 ============ -->
+  <section class="section" id="part-3">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers Apple's triage and the PAIR overlap</span>
+      <h2>A triage step, and a guidebook that adds nothing new here</h2>
+      <span class="tag concept">7 min live</span>
+    </div>
+    <p class="lede">Apple's Human Interface Guidelines for machine learning is not a numbered list of principles, and treating it as one would misstate the source. It is a classification framework: four dichotomies you place any ML feature on before you design it. The value is triage, not coverage. Sorting a feature onto these four axes tells you which of Microsoft's 18 guidelines to fight hardest for, because a small complementary feature nobody notices does not need the same rigour as a feature steering a renewal call.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Apple's four dichotomies drawn as four axes, with Tideline's churn panel placed toward critical, proactive and visible, and a background anomaly flag placed toward the opposite ends">
+        <style>
+          .s8cAx { font: 700 12px Inter, sans-serif; fill: #0F1E24; }
+          .s8cL { font: 400 12px Inter, sans-serif; fill: #566A72; }
+          .s8cA { font: 800 11px Inter, sans-serif; fill: #fff; }
+          .s8cH { font: 700 13px Inter, sans-serif; fill: #164E63; }
+          .s8cB { font: 400 12px Inter, sans-serif; fill: #0F1E24; }
+          .s8cN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+
+        <text class="s8cAx" x="170" y="46" text-anchor="end">Complementary</text>
+        <line x1="180" y1="60" x2="700" y2="60" stroke="#C6D5DA" stroke-width="2"/>
+        <text class="s8cAx" x="710" y="46">Critical</text>
+        <circle cx="330" cy="60" r="9" fill="#566A72"/>
+        <text class="s8cA" x="330" y="64" text-anchor="middle">B</text>
+        <circle cx="600" cy="60" r="9" fill="#0E7490"/>
+        <text class="s8cA" x="600" y="64" text-anchor="middle">A</text>
+
+        <text class="s8cAx" x="170" y="116" text-anchor="end">Private</text>
+        <line x1="180" y1="130" x2="700" y2="130" stroke="#C6D5DA" stroke-width="2"/>
+        <text class="s8cAx" x="710" y="116">Public</text>
+        <circle cx="300" cy="130" r="9" fill="#566A72"/>
+        <text class="s8cA" x="300" y="134" text-anchor="middle">B</text>
+        <circle cx="580" cy="130" r="9" fill="#0E7490"/>
+        <text class="s8cA" x="580" y="134" text-anchor="middle">A</text>
+
+        <text class="s8cAx" x="170" y="186" text-anchor="end">Reactive</text>
+        <line x1="180" y1="200" x2="700" y2="200" stroke="#C6D5DA" stroke-width="2"/>
+        <text class="s8cAx" x="710" y="186">Proactive</text>
+        <circle cx="280" cy="200" r="9" fill="#566A72"/>
+        <text class="s8cA" x="280" y="204" text-anchor="middle">B</text>
+        <circle cx="620" cy="200" r="9" fill="#0E7490"/>
+        <text class="s8cA" x="620" y="204" text-anchor="middle">A</text>
+
+        <text class="s8cAx" x="170" y="256" text-anchor="end">Invisible</text>
+        <line x1="180" y1="270" x2="700" y2="270" stroke="#C6D5DA" stroke-width="2"/>
+        <text class="s8cAx" x="710" y="256">Visible</text>
+        <circle cx="260" cy="270" r="9" fill="#566A72"/>
+        <text class="s8cA" x="260" y="274" text-anchor="middle">B</text>
+        <circle cx="640" cy="270" r="9" fill="#0E7490"/>
+        <text class="s8cA" x="640" y="274" text-anchor="middle">A</text>
+
+        <rect x="30" y="330" width="380" height="52" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s8cH" x="46" y="350">A - Tideline's churn panel</text>
+        <text class="s8cB" x="46" y="368">Critical, proactive, visible - G2 and</text>
+        <text class="s8cB" x="46" y="382" style="font-size:11px">G11 are non-negotiable here.</text>
+
+        <rect x="470" y="330" width="380" height="52" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s8cH" x="486" y="350">B - background anomaly flag</text>
+        <text class="s8cB" x="486" y="368">Complementary, reactive, invisible -</text>
+        <text class="s8cB" x="486" y="382" style="font-size:11px">G14, adapt cautiously, is enough.</text>
+
+        <rect x="30" y="404" width="14" height="14" fill="#E11D48"/>
+        <text class="s8cN" x="54" y="416">The axes decide which of Microsoft's 18 guidelines a feature must satisfy first.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the four dichotomies are a triage step, not a fifth numbered list</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Reading the four axes on a real feature<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Tideline's churn panel lands toward critical, proactive and visible: it is shown without being asked for, it can change what a renewal conversation looks like, and it sits in the middle of the main screen. That placement is what makes G2 and G11 non-negotiable rather than nice to have, because a wrong, unexplained claim on a critical proactive feature costs more than the same claim tucked into a settings page. A quieter feature, a background job that silently flags anomalous usage spikes for the data team, lands toward complementary, reactive and invisible. It only has to satisfy G14, adapt cautiously, because almost nobody sees it act.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>A team once spent a design sprint adding a full explanation panel, a confidence score and a feedback form to an invisible background deduplication job nobody had ever complained about, while the customer-facing churn panel next door still had none of the three. The dichotomies exist so that effort like that goes where the placement actually demands it.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>What Google PAIR adds, and what it does not<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Google PAIR's People + AI Guidebook is six chapters: user needs and defining success, data collection and evaluation, mental models, explainability and trust, feedback and control, errors and graceful failure. It is a real, primary-verified, well-regarded guide. Measured on Tideline, it adds precisely nothing on top of Microsoft's 18: the catch count stays at 14. Everything PAIR's chapters can flag here, mostly explainability and feedback concerns, was already flagged by Microsoft's guidelines.</p>
+        <p>That is not PAIR being weak, any more than IBCS was weak in session 1. Two well-built sets aimed at the same layer will overlap, and PAIR's real contribution is upstream of any single guideline: its "user needs and defining success" and "mental models" chapters are about deciding what to build before you get to guideline-level detail like G1 through G18. On a product that already has an AI feature shipped, that upstream work has already happened, which is exactly why the overlap shows up as zero new catches rather than PAIR being irrelevant.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ BUILD-ALONG ============ -->
+  <section class="section" id="demo-8">
+    <div class="section-kicker">
+      <span class="klabel">Build-along</span>
+      <h2>Rebuild Tideline's AI panel</h2>
+      <span class="tag demo">★ 16 min · everyone builds</span>
+    </div>
+    <p class="lede">One sentence becomes four honest statements. Work through the steps in order, writing each one down before you look at the next, then place the finished feature on Apple's four axes.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tideline's AI panel as shipped, a single unexplained sentence, next to the rebuilt version with four labelled additions: capability, accuracy, reason and correction control">
+        <style>
+          .s8bHR { font: 800 13px Inter, sans-serif; fill: #991B1B; }
+          .s8bHW { font: 800 13px Inter, sans-serif; fill: #fff; }
+          .s8bB { font: 400 12px Inter, sans-serif; fill: #0F1E24; }
+          .s8bK { font: 700 12px Inter, sans-serif; fill: #0F1E24; }
+          .s8bBig { font: 700 15px Inter, sans-serif; fill: #991B1B; }
+          .s8bN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+
+        <rect x="30" y="30" width="380" height="30" rx="8" fill="#FFF1F2" stroke="#E11D48" stroke-width="1.5"/>
+        <text class="s8bHR" x="220" y="50" text-anchor="middle">As shipped today</text>
+
+        <rect x="30" y="74" width="380" height="60" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s8bB" x="46" y="98">"Enterprise churn is being driven by</text>
+        <text class="s8bB" x="46" y="118">seat under-use."</text>
+
+        <text class="s8bK" x="30" y="164">✕ No capability statement (D11)</text>
+        <text class="s8bK" x="30" y="190">✕ No accuracy statement (D12)</text>
+        <text class="s8bK" x="30" y="216">✕ No explanation of why (D13)</text>
+        <text class="s8bK" x="30" y="242">✕ No correction control (D14)</text>
+
+        <rect x="30" y="270" width="380" height="130" rx="10" fill="#FFF1F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s8bBig" x="220" y="322" text-anchor="middle">One sentence. Nothing else.</text>
+        <text class="s8bB" x="220" y="348" text-anchor="middle">No capability, accuracy, reason, or</text>
+        <text class="s8bB" x="220" y="366" text-anchor="middle">control statement appears anywhere.</text>
+
+        <rect x="470" y="30" width="380" height="30" rx="8" fill="#164E63"/>
+        <text class="s8bHW" x="660" y="50" text-anchor="middle">Rebuilt for session 8</text>
+
+        <rect x="470" y="74" width="380" height="76" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s8bK" x="486" y="94">G1 · Capability</text>
+        <text class="s8bB" x="486" y="114">Flags likely churn drivers from usage</text>
+        <text class="s8bB" x="486" y="132">and billing data. Not a recommendation.</text>
+
+        <rect x="470" y="158" width="380" height="76" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s8bK" x="486" y="178">G2 · Accuracy, measured</text>
+        <text class="s8bB" x="486" y="198">Right about the top driver in 71 of</text>
+        <text class="s8bB" x="486" y="216">the last 100 flagged accounts (Q2-Q3).</text>
+
+        <rect x="470" y="242" width="380" height="76" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s8bK" x="486" y="262">G11 · Because</text>
+        <text class="s8bB" x="486" y="282">Seat count fell 30%+ in 60 days while</text>
+        <text class="s8bB" x="486" y="300">login weeks stayed flat.</text>
+
+        <rect x="470" y="326" width="380" height="76" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s8bK" x="486" y="346">G9 · Correct or dismiss</text>
+        <text class="s8bB" x="486" y="366">"Not the driver? Tell us why" - flags</text>
+        <text class="s8bB" x="486" y="384">feed back into next month's model.</text>
+
+        <rect x="30" y="422" width="14" height="14" fill="#E11D48"/>
+        <text class="s8bN" x="54" y="434">Four additions, one for each guideline the panel currently fails: G1, G2, G11, G9.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - same claim, four honest additions</figcaption>
+    </figure>
+
+    <div class="steps">
+      <div class="step"><p><strong>Write the capability sentence, G1.</strong> One line that says what kind of thing the panel does, in plain language: a forecast, a ranked list of likely causes, a detector. State what it does not do just as clearly - Tideline's rebuilt sentence explicitly says it is "not a recommendation".</p></div>
+      <div class="step"><p><strong>Write the accuracy statement, G2.</strong> Give a number and its measurement basis together: right how often, checked against what ground truth, over what window. A percentage with no basis fails this step even if it looks precise.</p></div>
+      <div class="step"><p><strong>Write the because-clause, G11.</strong> Name the specific signal that fired for this specific account or period, in terms a reader can go check themselves against the account's own numbers.</p></div>
+      <div class="step"><p><strong>Add the correction control, G9.</strong> A visible way to say "not the driver" or dismiss the claim outright, and a one-line promise about where that feedback goes.</p></div>
+      <div class="step"><p><strong>Place the feature on Apple's four dichotomies.</strong> Critical or complementary, private or public, proactive or reactive, visible or invisible. Write down where Tideline's panel lands on each of the four.</p></div>
+      <div class="step"><p><strong>Say which guidelines that placement makes non-negotiable.</strong> A critical, proactive, visible placement should point you straight back at G2 and G11 as the two you would refuse to ship without, exactly as it does for Tideline.</p></div>
+      <div class="step"><p><strong>Add the four AI rows to the review instrument.</strong> Capability stated, accuracy stated with basis, reason attached to the specific claim, correction control present. Session 9 runs these four rows over Tideline alongside everything sessions 2 through 7 built.</p></div>
+    </div>
+
+    <div class="callout tip">
+      <p>Resist the urge to write the accuracy statement last. Teams that write the confident-sounding sentence first and the honesty number second almost always soften the number to fit the sentence. Writing G2 right after G1, before the because-clause exists to distract you, keeps the number closer to true.</p>
+    </div>
+  </section>
+
+  <!-- ============ EXERCISE ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Before session 9</h2>
+      <span class="tag exercise">20 min</span>
+    </div>
+    <ul>
+      <li>Find one AI or model-driven claim in a product you use or ship. Check it against all four: does it say what it can do, how well, why this claim, and how to correct it?</li>
+      <li>For any guideline it fails, place the feature on Apple's four dichotomies first, then decide whether that failure is urgent or merely untidy. A complementary, invisible feature failing G11 is a different problem than a critical, proactive one failing it.</li>
+      <li>Write the because-clause for that claim yourself, in one sentence, using only signals a reader could check. If you cannot write one that holds up, that is the finding to bring to session 9.</li>
+      <li>Bring your four AI rows. Session 9 runs the complete nine-session instrument over Tideline, and your own product's rows sit well next to it.</li>
+    </ul>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions</h2>
+    </div>
+
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">What is the actual difference between guideline G1 and guideline G2 in Microsoft's 18?</p>
+      <button class="qopt" type="button">A · G1 covers correction, G2 covers dismissal of a claim</button>
+      <button class="qopt" type="button">B · G1 states what the system can do at all, G2 states how well it does that specific thing</button>
+      <button class="qopt" type="button">C · They are the same guideline, worded twice for emphasis</button>
+      <p class="qwhy">G1 is a capability claim: what kind of thing this is. G2 is a performance claim attached to that capability: how often it is right, and against what. Tideline's panel had neither, which is why it registers as two separate defects, D11 and D12, not one.</p>
+    </div>
+
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">Adding Google PAIR's six chapters on top of Microsoft's 18 changes Tideline's catch count from 14 to what?</p>
+      <button class="qopt" type="button">A · 16, because PAIR's feedback and control chapter catches D14 a second time</button>
+      <button class="qopt" type="button">B · 15, because PAIR's mental models chapter catches D13 on its own</button>
+      <button class="qopt" type="button">C · 14, because everything PAIR can catch here was already caught by Microsoft's 18</button>
+      <p class="qwhy">It stays at 14. PAIR is a real, well-built guide, but on a feature that already shipped, its distinctive contribution, defining success and mental models, sits upstream of any individual finding. Overlap between two good sets aimed at the same layer is the norm, exactly as IBCS added nothing on top of Tufte and Few in session 1.</p>
+    </div>
+
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">What job do Apple's four dichotomies do that Microsoft's 18 guidelines do not?</p>
+      <button class="qopt" type="button">A · They classify a feature first, so you know which of the 18 guidelines are most urgent for it</button>
+      <button class="qopt" type="button">B · They add three more numbered guidelines to check after the 18</button>
+      <button class="qopt" type="button">C · They replace G2 and G11 with a single simplified accuracy score</button>
+      <p class="qwhy">Apple's set is a classification framework, not a numbered guideline list, so it is never cited as "N principles". Placing a feature as critical, proactive and visible, as Tideline's churn panel is, is what tells you G2 and G11 are non-negotiable rather than merely nice to have.</p>
+    </div>
+
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Sources covered</span>
+      <h2>What this session teaches, and where it came from</h2>
+    </div>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Amershi et al., Guidelines for Human-AI Interaction (CHI 2019, Honorable Mention, DOI 10.1145/3290605.3300233)</span><span class="note">Read in full from the camera-ready PDF, all 18 guidelines and the four phases taught tonight</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google PAIR, People + AI Guidebook (2019, 6 chapters)</span><span class="note">All six chapters read from the primary guidebook; the overlap on Tideline was measured in session 1</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Apple, Human Interface Guidelines for machine learning</span><span class="note">Verified via the rendered developer page, not a numbered set; taught as a classification framework only</span></div>
+    </div>
+    <p class="mono" style="margin-top:14px">Full source map with every URL and every honesty caveat: <span class="mono">materials/official-course-map.md</span> in this repo.</p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 8 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>The centrepiece</b><span>Microsoft's 18, in four phases: initially, during interaction, when wrong, over time. Distilled from 150+ recommendations, validated across 20 products.</span></div>
+      <div class="cheat-item"><b>G1 vs G2</b><span>What it can do, versus how well it does that specific thing. Different claims, both missing on Tideline.</span></div>
+      <div class="cheat-item"><b>The honest arithmetic</b><span>11 to 14. Three genuinely new findings, D11 D12 D13. D14 was already caught by usability's user-control heuristic.</span></div>
+      <div class="cheat-item"><b>Apple's triage</b><span>Critical or complementary, private or public, proactive or reactive, visible or invisible. Decides which guidelines matter most.</span></div>
+      <div class="cheat-item"><b>PAIR's real contribution</b><span>Upstream framing: defining success and mental models. On Tideline, 14 to 14, no new catches.</span></div>
+      <div class="cheat-item"><b>A complete claim</b><span>What it can do, how well, why this one, and how to correct or dismiss it. Four sentences, not one.</span></div>
+    </div>
+  </section>
+
+  <div class="callout next">
+    <span class="nx-pill">Next session</span>
+    <p>Every layer of the instrument now exists: the decision, the contract, the platform, the operating promise, the surface, and now the model's own claims. Session 9 runs all of it over Tideline at once, watches the catch count climb from 5 to 20, and puts three severity sliders on real findings to see the fix order actually change.</p>
+  </div>
+
+  <footer class="pagefoot">
+    <span>Session 8 of 9 · learn-data-heuristics-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="07-the-interaction.html">← Prev: The interaction</a> &nbsp;·&nbsp; <a href="../index.html">All sessions</a> &nbsp;·&nbsp; <a href="09-the-review.html">Next: The review →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

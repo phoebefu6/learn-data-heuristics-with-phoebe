@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- social:start -->
+<meta name="description" content="Session 4 of 9. Why a platform failure shows up months later as a data failure, taught through AWS Well-Architected, the Data Analytics Lens, the 12-Factor App, CAP, PACELC and the Reactive Manifesto - applied to Tideline's actual tradeoffs.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Learn with Phoebe">
+<meta property="og:title" content="The platform underneath - learn data heuristics with phoebe">
+<meta property="og:description" content="Session 4 of 9. Six pillars, six analytics design principles, twelve factors, and the tradeoff nobody writes down.">
+<meta property="og:url" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/courses/04-the-platform.html">
+<meta property="og:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The platform underneath - learn data heuristics with phoebe">
+<meta name="twitter:description" content="Session 4 of 9. Why a platform failure shows up later as a data failure.">
+<meta name="twitter:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<!-- social:end -->
+<title>Session 4 · The platform underneath - learn data heuristics with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-data-heuristics-with-phoebe</a> / Session 4 of 9</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Data Heuristics with Phoebe · Session 4 of 9</div>
+    <h1>The platform <span class="accent">underneath</span></h1>
+    <p class="sub">Every session so far has looked at something on the screen or in the contract behind it. Tonight the lens drops one layer further, to the thing that decides whether the contract can be honoured at all: the platform. A platform failure rarely announces itself as a platform failure. It shows up weeks later as a data failure - a stale number, a duplicate row, a promise nobody remembers making - and by then the person debugging it is looking in the wrong place entirely.</p>
+    <div class="chip-row">
+      <span class="chip level">🔴 Advanced</span>
+      <span class="chip audience">Data and analytics leads</span>
+      <span class="chip audience">Platform and infrastructure owners</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:7">3-24 · The platform principles</span>
+      <span class="a3" style="flex:5">24-40 · Build-along: Tideline's tradeoff record</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Where we are</h2>
+    </div>
+    <p class="lede">Session 2 named the decision. Session 3 wrote the contract the data has to honour: units, lineage, ownership, classification. Tonight is the layer under the contract - the platform that runs the pipeline, holds the state, and decides what happens when a node dies at 2am on a Sunday. This session does not add a new Tideline defect of its own. It could not: none of the twenty planted defects live at the platform layer, because that layer is invisible on a rendered screen. What it adds is the argument for why the platform lens still belongs in the instrument - the defects it would catch are the ones that do not exist yet, because right now Tideline has been lucky.</p>
+
+    <div class="legend">
+      <span class="pill">Live = presented in the 45 minutes</span>
+      <span class="pill">Self-study = the full depth, after class</span>
+      <span class="pill">🔍 Every diagram zooms</span>
+    </div>
+
+    <div class="callout win">
+      <p><strong>★ What you walk out with tonight.</strong> A working map of six architecture principle sets that between them cover reliability, cost, consistency and deployability. A four-part tradeoff record you can attach to any platform decision so the next incident review does not start from zero. And the one distinction, CAP versus PACELC, that most data leads have heard of but cannot actually apply under pressure.</p>
+    </div>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>A platform defect is a data defect with a delay<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Tideline's dashboard has no freshness stamp, that is session 5's D1. But ask why the freshness could ever slip in the first place, and the answer is not on the screen at all: it is a retry policy, a partition tolerance choice, a queue that fills up quietly. The interface layer shows you the symptom. The platform layer is where the actual decision got made, usually months earlier, usually by someone who is no longer in the room when the symptom shows up.</p>
+        <p>That is the honest case for this session. It will not hand you a 21st defect to add to the count, because you cannot see a platform choice by staring at a rendered dashboard. What you can do is learn to ask the platform question before the data question, because by the time the data question is worth asking, the platform already answered it.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>Tideline's ingestion job retries a failed batch exactly once, silently, with no idempotency key. Nobody wrote that down as a decision. It was a default in a library, six years and two data leads ago. It has not caused a visible problem yet. When it does, the on-call engineer will spend the first two hours believing the dashboard is lying, because nobody told them the platform makes this exact kind of lie possible.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why this layer resists a defect count<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Sessions 3, 6 and 7 catch things you can point at: a missing unit, a truncated axis, thirteen fill colours. A platform review catches things you can only infer: a single point of failure that has not failed yet, a consistency model nobody chose on purpose, a cost tradeoff that was reasonable at last year's volume and is not reasonable now. None of that renders as a pixel, so none of it can be planted as a countable defect the way D1 through D20 were. The honest framing is that this lens changes what an incident review looks like, not what a screenshot review counts.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 1 ============ -->
+  <section class="section" id="part-1">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers what a platform owes an analytics workload</span>
+      <h2>Six pillars, six questions for an analytics platform</h2>
+      <span class="tag concept">7 min live</span>
+    </div>
+    <p class="lede">AWS's Well-Architected Framework was written to review cloud workloads generally, and it holds up almost unchanged when the workload is an analytics pipeline rather than a web service. Each pillar translates into one question worth asking about the platform under any dashboard.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Six pillars of the AWS Well-Architected Framework arranged around a central analytics platform, each labelled with the question it asks of that platform">
+        <style>
+          .s4aT { font: 700 12px Inter, sans-serif; fill: #0F1E24; }
+          .s4aQ { font: 400 11px Inter, sans-serif; fill: #566A72; }
+          .s4aH { font: 800 13px Inter, sans-serif; fill: #fff; }
+          .s4aW { font: 400 11px Inter, sans-serif; fill: #DDF4FA; }
+          .s4aN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+        <rect x="330" y="164" width="220" height="70" rx="12" fill="#164E63"/>
+        <text class="s4aH" x="440" y="194" text-anchor="middle">Analytics platform</text>
+        <text class="s4aW" x="440" y="214" text-anchor="middle">the six pillars all apply here</text>
+
+        <rect x="24" y="30" width="200" height="76" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s4aT" x="38" y="54">Operational excellence</text>
+        <text class="s4aQ" x="38" y="72">Can a failed load be seen</text>
+        <text class="s4aQ" x="38" y="88">without reading the code?</text>
+
+        <rect x="248" y="30" width="190" height="76" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s4aT" x="262" y="54">Security</text>
+        <text class="s4aQ" x="262" y="72">Who can reach the raw</text>
+        <text class="s4aQ" x="262" y="88">table behind the number?</text>
+
+        <rect x="456" y="30" width="190" height="76" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s4aT" x="470" y="54">Reliability</text>
+        <text class="s4aQ" x="470" y="72">Does one dead node cause</text>
+        <text class="s4aQ" x="470" y="88">a missed refresh, or not?</text>
+
+        <rect x="664" y="30" width="192" height="76" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s4aT" x="678" y="54">Performance efficiency</text>
+        <text class="s4aQ" x="678" y="72">Does compute match the</text>
+        <text class="s4aQ" x="678" y="88">shape of the actual load?</text>
+
+        <rect x="140" y="286" width="220" height="76" rx="10" fill="#FFF1F2" stroke="#E11D48" stroke-width="1.5"/>
+        <text class="s4aT" x="154" y="310">Cost optimization</text>
+        <text class="s4aQ" x="154" y="328">Is anyone paying for compute</text>
+        <text class="s4aQ" x="154" y="344">a smaller job would replace?</text>
+
+        <rect x="520" y="286" width="220" height="76" rx="10" fill="#FFF1F2" stroke="#E11D48" stroke-width="1.5"/>
+        <text class="s4aT" x="534" y="310">Sustainability</text>
+        <text class="s4aQ" x="534" y="328">Does every refresh recompute</text>
+        <text class="s4aQ" x="534" y="344">data that nothing reads?</text>
+
+        <line x1="124" y1="106" x2="360" y2="180" stroke="#C6D5DA" stroke-width="1.5"/>
+        <line x1="343" y1="106" x2="400" y2="164" stroke="#C6D5DA" stroke-width="1.5"/>
+        <line x1="551" y1="106" x2="480" y2="164" stroke="#C6D5DA" stroke-width="1.5"/>
+        <line x1="760" y1="106" x2="520" y2="180" stroke="#C6D5DA" stroke-width="1.5"/>
+        <line x1="250" y1="286" x2="380" y2="238" stroke="#C6D5DA" stroke-width="1.5"/>
+        <line x1="630" y1="286" x2="500" y2="238" stroke="#C6D5DA" stroke-width="1.5"/>
+
+        <rect x="24" y="360" width="14" height="14" fill="#E11D48"/>
+        <text class="s4aN" x="48" y="372">All six trade against each other. Well-architected does not mean maximal on every pillar at once.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - six pillars, six questions to ask of the platform under any dashboard</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The six pillars, primary-verified<span class="mini">5 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>AWS's own framework page names six pillars, unchanged since the sustainability pillar was added. Nothing here is analytics-specific in its wording, which is exactly why it transfers cleanly: a data platform is still a system that runs, gets attacked, fails, costs money, and draws power.</p>
+        <table class="clean">
+          <thead><tr><th>Pillar</th><th>What it asks of an analytics platform</th></tr></thead>
+          <tbody>
+            <tr><td>Operational excellence</td><td>Can the team run and monitor the pipeline as code, and learn from every failure without a hero?</td></tr>
+            <tr><td>Security</td><td>Is access to raw and derived data controlled at the layer where the breach would actually happen?</td></tr>
+            <tr><td>Reliability</td><td>Does the pipeline recover from a component failure without a human noticing at 3am?</td></tr>
+            <tr><td>Performance efficiency</td><td>Is compute matched to the actual shape of the workload, not over-provisioned out of habit?</td></tr>
+            <tr><td>Cost optimization</td><td>Is spend visible per pipeline, so a runaway job gets caught before the monthly bill does?</td></tr>
+            <tr><td>Sustainability</td><td>Is anything being recomputed, stored or refreshed that nobody actually reads?</td></tr>
+          </tbody>
+        </table>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>Tideline's nightly job reprocesses the full twelve-month retention window every run, because the incremental version was never finished. That is a performance-efficiency and a sustainability question at once, and it has been quietly answered the same way, by default, for two years.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The Data Analytics Lens, and why its wording is secondary<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>AWS also publishes a Data Analytics Lens that specialises the six pillars for analytics workloads specifically. The count of general design principles is high confidence - six - but the exact wording below is read through a secondary AWS-domain source rather than the primary lens document itself, so treat the phrasing as close but not verbatim.</p>
+        <div class="callout warn">
+          <p>Verification note: the lens document is dated 2023-12-22. The principle count is high confidence; the exact wording of each principle is secondary-sourced. Quote the theme, not the sentence, until you have read the primary PDF yourself.</p>
+        </div>
+        <ol>
+          <li>Automate data ingestion end to end, so a new source does not mean a new manual step.</li>
+          <li>Design ingestion for failures and duplicates - the technical name for this is idempotency, and it is the single principle worth memorising from this list.</li>
+          <li>Design scalable, reliable analytics pipelines rather than ones sized for today's volume.</li>
+          <li>Describe data with metadata, so a dataset is self-explaining rather than tribal knowledge.</li>
+          <li>Manage the data-asset lifecycle and its governance from creation to retirement.</li>
+          <li>Enforce data hygiene and model standards before data is allowed to reach a consumer.</li>
+        </ol>
+        <p>Principle 2, idempotency, is the one worth carrying forward. An ingestion step that can safely run twice on the same input is a step that can be retried without a human deciding whether it is safe. Tideline's single silent retry, mentioned above, fails this principle specifically - a second attempt at the same batch is not guaranteed to produce the same result.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2 ============ -->
+  <section class="section" id="part-2">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers the design principles that bite an analytics team specifically</span>
+      <h2>Twelve factors, written for an app, aimed at a pipeline</h2>
+      <span class="tag concept">6 min live</span>
+    </div>
+    <p class="lede">The 12-Factor App was written for web services, but every factor has a clean analytics translation, and two of them are the ones that quietly break the most pipelines: config, and dev/prod parity.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Twelve factors mapped onto a data pipeline, arranged in a grid, with config and dev-prod parity marked as the two factors analytics teams break most often">
+        <style>
+          .s4bF { font: 700 12px Inter, sans-serif; fill: #0F1E24; }
+          .s4bD { font: 400 11px Inter, sans-serif; fill: #566A72; }
+          .s4bBadF { font: 700 12px Inter, sans-serif; fill: #991B1B; }
+          .s4bBadD { font: 400 11px Inter, sans-serif; fill: #991B1B; }
+          .s4bN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+        <text class="s4bN" x="30" y="24">A pipeline: source -&gt; ingestion -&gt; transform -&gt; warehouse -&gt; dashboard</text>
+        <line x1="30" y1="38" x2="850" y2="38" stroke="#C6D5DA" stroke-width="1.5"/>
+
+        <rect x="30" y="58" width="260" height="70" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s4bF" x="44" y="82">I Codebase</text>
+        <text class="s4bD" x="44" y="100">One repo, many deploys, tracked</text>
+
+        <rect x="310" y="58" width="260" height="70" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s4bF" x="324" y="82">II Dependencies</text>
+        <text class="s4bD" x="324" y="100">Every library version pinned</text>
+
+        <rect x="590" y="58" width="260" height="70" rx="8" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s4bBadF" x="604" y="82">III Config</text>
+        <text class="s4bBadD" x="604" y="100">Creds from env, not scripts</text>
+
+        <rect x="30" y="142" width="260" height="70" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s4bF" x="44" y="166">IV Backing services</text>
+        <text class="s4bD" x="44" y="184">Warehouse swappable, no rewrite</text>
+
+        <rect x="310" y="142" width="260" height="70" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s4bF" x="324" y="166">V Build, release, run</text>
+        <text class="s4bD" x="324" y="184">Stages separate, no live edits</text>
+
+        <rect x="590" y="142" width="260" height="70" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s4bF" x="604" y="166">VI Processes</text>
+        <text class="s4bD" x="604" y="184">State lives in warehouse only</text>
+
+        <rect x="30" y="226" width="260" height="70" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s4bF" x="44" y="250">VII Port binding</text>
+        <text class="s4bD" x="44" y="268">Pipeline triggers its own run</text>
+
+        <rect x="310" y="226" width="260" height="70" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s4bF" x="324" y="250">VIII Concurrency</text>
+        <text class="s4bD" x="324" y="268">Scale with workers, not size</text>
+
+        <rect x="590" y="226" width="260" height="70" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s4bF" x="604" y="250">IX Disposability</text>
+        <text class="s4bD" x="604" y="268">Killed job restarts clean</text>
+
+        <rect x="30" y="310" width="260" height="70" rx="8" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s4bBadF" x="44" y="334">X Dev/prod parity</text>
+        <text class="s4bBadD" x="44" y="352">Dev tests real prod-shaped data</text>
+
+        <rect x="310" y="310" width="260" height="70" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s4bF" x="324" y="334">XI Logs as event streams</text>
+        <text class="s4bD" x="324" y="352">Row counts stream, not a log</text>
+
+        <rect x="590" y="310" width="260" height="70" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s4bF" x="604" y="334">XII Admin processes</text>
+        <text class="s4bD" x="604" y="352">Backfills run as tracked jobs</text>
+
+        <rect x="30" y="410" width="14" height="14" fill="#E11D48"/>
+        <text class="s4bN" x="54" y="422">Config and dev/prod parity, in rose, break analytics pipelines more than the rest combined.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the 12-Factor App mapped onto a pipeline, with the two factors analytics teams break most</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>All twelve, applied to a pipeline rather than a web app<span class="mini">5 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The factors are primary-verified at 12factor.net, unchanged since publication. Read as a checklist for a pipeline rather than a web service, most translate directly.</p>
+        <table class="clean">
+          <thead><tr><th>Factor</th><th>Analytics translation</th></tr></thead>
+          <tbody>
+            <tr><td>I Codebase</td><td>One tracked codebase per pipeline, many deploys, not a folder of ad hoc notebooks.</td></tr>
+            <tr><td>II Dependencies</td><td>Every library version pinned; nothing assumed to already be on the runner.</td></tr>
+            <tr><td>III Config</td><td>Credentials and connection strings come from the environment, never from a script.</td></tr>
+            <tr><td>IV Backing services</td><td>The warehouse, queue and object store are attachable resources, swappable without a code change.</td></tr>
+            <tr><td>V Build, release, run</td><td>The three stages stay separate; nobody edits code on the box that is running.</td></tr>
+            <tr><td>VI Processes</td><td>A transform job keeps no state of its own; the warehouse is the source of truth.</td></tr>
+            <tr><td>VII Port binding</td><td>A pipeline exposes its own trigger or API rather than depending on a host-level scheduler hack.</td></tr>
+            <tr><td>VIII Concurrency</td><td>Scale by running more workers on more partitions, not by making one worker bigger forever.</td></tr>
+            <tr><td>IX Disposability</td><td>A killed job can restart from a clean state with no half-written table left behind.</td></tr>
+            <tr><td>X Dev/prod parity</td><td>Dev runs against a real slice of production data and the same warehouse engine, not a sample CSV.</td></tr>
+            <tr><td>XI Logs as event streams</td><td>Row counts, timings and failures stream out as structured events, not a log file nobody tails.</td></tr>
+            <tr><td>XII Admin processes</td><td>A manual backfill runs as a tracked, versioned job, not a query pasted into a console.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Config and dev/prod parity: the two that bite hardest<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Config breaks analytics pipelines more than any other factor because a data pipeline typically touches more external systems than a web app: a source database, a queue, a warehouse, sometimes a third-party API. Each one hard-codes a connection string somewhere, usually in whichever script a departed contractor wrote first, and each one is a separate outage waiting for someone to change a password.</p>
+        <p>Dev/prod parity fails almost as often, for a specific analytics reason: production data has skew, nulls, duplicates and volume that a hand-built sample never reproduces. A transform that passes every test against a thousand clean sample rows can still fall over on the one production row where a customer typed an emoji into a name field.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>Tideline's transform layer was developed against a curated sample export from eighteen months ago. The retention calculation that produces the truncated bar chart in session 6 was never tested against a month where a customer churned and returned within the same billing cycle, because that customer does not exist in the sample.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3 ============ -->
+  <section class="section" id="part-3">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers the tradeoff nobody writes down</span>
+      <h2>CAP tells you about a partition. PACELC asks about the rest of the time</h2>
+      <span class="tag concept">7 min live</span>
+    </div>
+    <p class="lede">CAP is the most misquoted result in distributed systems, usually stated as "pick two of three" when the actual claim is narrower and more useful: during a network partition, a system must choose between availability and consistency. Most of the time, there is no partition. PACELC is the extension that asks the question that actually governs day-to-day analytics: else - when the network is fine - do you optimise for latency or for consistency?</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A PACELC decision tree: is there a partition, branching to availability or consistency; if no partition, else branching to latency or consistency">
+        <style>
+          .s4cT { font: 700 12px Inter, sans-serif; fill: #0F1E24; }
+          .s4cB { font: 400 11.5px Inter, sans-serif; fill: #566A72; }
+          .s4cH { font: 800 13px Inter, sans-serif; fill: #fff; }
+          .s4cW { font: 400 11px Inter, sans-serif; fill: #DDF4FA; }
+          .s4cL { font: 700 12px Inter, sans-serif; fill: #0F1E24; }
+          .s4cN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+        <defs>
+          <marker id="s4Cr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#C6D5DA"/></marker>
+        </defs>
+
+        <rect x="360" y="20" width="160" height="52" rx="10" fill="#164E63"/>
+        <text class="s4cH" x="440" y="42" text-anchor="middle">Is there a</text>
+        <text class="s4cH" x="440" y="60" text-anchor="middle">partition (P)?</text>
+
+        <line x1="400" y1="72" x2="200" y2="120" stroke="#C6D5DA" stroke-width="2" marker-end="url(#s4Cr)"/>
+        <text class="s4cL" x="290" y="92">Yes - CAP applies</text>
+        <line x1="480" y1="72" x2="680" y2="120" stroke="#C6D5DA" stroke-width="2" marker-end="url(#s4Cr)"/>
+        <text class="s4cL" x="570" y="92">No - the normal case</text>
+
+        <rect x="60" y="126" width="280" height="60" rx="10" fill="#0891B2"/>
+        <text class="s4cH" x="200" y="150" text-anchor="middle">A - stay Available</text>
+        <text class="s4cW" x="200" y="170" text-anchor="middle">serve stale data rather than an error</text>
+
+        <rect x="60" y="200" width="280" height="60" rx="10" fill="#0E7490"/>
+        <text class="s4cH" x="200" y="224" text-anchor="middle">C - stay Consistent</text>
+        <text class="s4cW" x="200" y="244" text-anchor="middle">refuse the read rather than lie</text>
+
+        <line x1="200" y1="186" x2="200" y2="198" stroke="#C6D5DA" stroke-width="1.5"/>
+
+        <rect x="540" y="126" width="280" height="60" rx="10" fill="#0891B2"/>
+        <text class="s4cH" x="680" y="150" text-anchor="middle">L - optimise Latency</text>
+        <text class="s4cW" x="680" y="170" text-anchor="middle">answer fast from a nearby replica</text>
+
+        <rect x="540" y="200" width="280" height="60" rx="10" fill="#0E7490"/>
+        <text class="s4cH" x="680" y="224" text-anchor="middle">C - optimise Consistency</text>
+        <text class="s4cW" x="680" y="244" text-anchor="middle">wait for every replica to agree</text>
+
+        <line x1="680" y1="186" x2="680" y2="198" stroke="#C6D5DA" stroke-width="1.5"/>
+
+        <rect x="30" y="288" width="14" height="14" fill="#E11D48"/>
+        <text class="s4cN" x="54" y="300">Tideline lives in the right branch daily, and nobody has ever named which side it picked.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - PACELC's else branch is the one an analytics team lives in every day</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>CAP, proven, and usually overstated<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Eric Brewer stated the conjecture in a PODC keynote in 2000; Gilbert and Lynch proved it formally in 2002. The actual claim: a distributed data store can provide at most two of Consistency, Availability and Partition tolerance <em>at the moment a partition occurs</em>. Because a network partition on modern infrastructure is a real possibility, not a hypothetical, partition tolerance is usually treated as non-negotiable, which leaves the real choice as consistency versus availability during that partition.</p>
+        <p>The overstatement to correct out loud: CAP says nothing about behaviour when there is no partition, which is most of the time. Treating CAP as a complete description of a system's tradeoffs is the mistake PACELC exists to fix.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>PACELC adds the question that actually governs a normal Tuesday<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Daniel Abadi's 2012 paper in IEEE Computer, "Consistency Tradeoffs in Modern Distributed Database System Design", extends CAP with else: if there is a Partition, trade Availability against Consistency (PAC); Else, trade Latency against Consistency (LC). Every analytics platform makes the else choice constantly, whether or not anyone ever wrote it down - it is the difference between a dashboard that answers instantly from a slightly stale replica, and one that waits for the freshest possible read.</p>
+        <div class="callout tip">
+          <p>The question worth asking in a platform review is never just "is this system CP or AP". It is "what does this system do on a Tuesday with no partition at all", because that is the branch it lives in essentially all the time.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The Reactive Manifesto's four traits<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The Reactive Manifesto, version 2.0, dated 2014-09-16, names four traits a system should have, in a dependency order: message driven underlies elastic and resilient, which together enable responsive.</p>
+        <ul>
+          <li><strong>Responsive</strong> - the system replies in a timely way, which is the trait users and downstream dashboards actually experience.</li>
+          <li><strong>Resilient</strong> - the system stays responsive in the face of failure, by isolating components so one crash does not cascade.</li>
+          <li><strong>Elastic</strong> - the system stays responsive under varying load, scaling resources up and down to match.</li>
+          <li><strong>Message driven</strong> - components communicate through asynchronous message passing, which is what makes isolation and elasticity possible in the first place.</li>
+        </ul>
+        <p>A batch pipeline is not automatically reactive just because it runs on cloud infrastructure. Tideline's nightly job is a single long-running process with no isolation between its stages - a failure in the transform step takes down the whole run rather than isolating to that stage alone, which is precisely the resilience trait this manifesto names.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The Lakehouse, honestly<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <div class="callout warn">
+          <p>The Lakehouse is frequently summarised as "the N principles of the lakehouse". It is not. The CIDR 2021 paper by Zaharia, Ghodsi, Xin, Armbrust et al. describes an architecture, not a numbered principle set, and it should never be cited as one. The themes it actually enumerates: open direct-access file formats, ACID transactions on object storage, schema enforcement and governance, decoupled compute and storage, and unified BI plus ML workloads on one copy of the data.</p>
+        </div>
+        <p>Treat the lakehouse as a pattern to describe, the same way you would describe Kimball versus Inmon: correctly, by its themes, and never as a countable list that somebody else can go verify and find missing.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO ============ -->
+  <section class="section" id="demo-4">
+    <div class="section-kicker">
+      <span class="klabel">Build-along</span>
+      <h2>Write Tideline's tradeoff record</h2>
+      <span class="tag demo">★ 16 min · everyone builds</span>
+    </div>
+    <p class="lede">A tradeoff nobody wrote down is a tradeoff nobody can defend, revisit, or blame correctly when it goes wrong. Pick one real Tideline platform decision - the silent single retry on ingestion is a good default choice if you want a shared example - and fill in all four parts.</p>
+
+    <div class="steps">
+      <div class="step"><p><strong>1. The choice.</strong> State the actual decision in one sentence: what does the platform do, concretely? For the retry example: "A failed ingestion batch is retried exactly once, automatically, with no idempotency key."</p></div>
+      <div class="step"><p><strong>2. The pillar it trades against.</strong> Name which Well-Architected pillar took the hit for this choice to be cheap or simple. The single retry is a reliability tradeoff made in the name of operational simplicity - nobody had to build a dedup step.</p></div>
+      <div class="step"><p><strong>3. The PACELC position.</strong> Write both halves. During a partition: does this choice favour availability or consistency? In the normal case (else): does it favour latency or consistency? For the retry example: during a partition it favours availability, the batch gets marked done either way; in the normal case it favours latency over consistency, because nobody pays the cost of verifying the batch actually landed correctly.</p></div>
+      <div class="step"><p><strong>4. Who signed it off.</strong> Name a person or a role, not "the team". If the honest answer is "nobody decided this, it was a library default", write that down exactly. That sentence is often the most useful line in the whole record.</p></div>
+    </div>
+
+    <div class="callout tip">
+      <p>A tradeoff record does not need to argue the choice was wrong. Its job is to make the choice visible enough that the next person to hit its consequences does not have to reverse-engineer it from a stack trace.</p>
+    </div>
+  </section>
+
+  <!-- ============ EXERCISE ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Before session 5</h2>
+      <span class="tag exercise">20 min</span>
+    </div>
+    <ul>
+      <li>Pick the pipeline behind the dashboard you use most. Find one config value that is hard-coded rather than injected from the environment. Just find it - do not fix it tonight.</li>
+      <li>Ask your platform or data-engineering owner, in one message: "during a network partition, does this pipeline favour availability or consistency, and what does it do the rest of the time?" Write down whether they can answer in one sentence.</li>
+      <li>Write one more tradeoff record, for a different platform decision on the same pipeline, using all four parts from tonight's build-along.</li>
+      <li>Bring both records. Session 5 asks what promise the platform underneath is actually able to keep, and a tradeoff record you cannot defend is the fastest way to find a promise you cannot keep either.</li>
+    </ul>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions</h2>
+    </div>
+
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">What does the CAP theorem NOT tell you about a distributed data store?</p>
+      <button class="qopt" type="button">A · Whether it can provide consistency during a network partition</button>
+      <button class="qopt" type="button">B · Whether it can provide availability during a network partition</button>
+      <button class="qopt" type="button">C · What it optimises for the rest of the time, when there is no partition at all</button>
+      <p class="qwhy">CAP describes behaviour only at the moment of a partition. It is silent on the vastly more common case where the network is fine, which is exactly the gap PACELC's else clause fills.</p>
+    </div>
+
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">Which 12-Factor App factor is most directly violated by an ingestion step that produces a different result if the same batch is retried?</p>
+      <button class="qopt" type="button">A · Factor I, Codebase</button>
+      <button class="qopt" type="button">B · The Data Analytics Lens principle of designing ingestion for failures and duplicates, idempotency</button>
+      <button class="qopt" type="button">C · Factor XI, Logs as event streams</button>
+      <p class="qwhy">A non-idempotent retry is precisely what the Analytics Lens principle warns against: ingestion must be designed so a failure or a duplicate attempt does not corrupt the result. Idempotency is the property a safe retry depends on.</p>
+    </div>
+
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">Why does this session add no new Tideline defect to the count of twenty?</p>
+      <button class="qopt" type="button">A · Because platform failures are invisible on a rendered screen; they show up later as a data failure, not as a countable pixel-level defect today</button>
+      <button class="qopt" type="button">B · Because the platform layer was already fully covered by the usability and visual-encoding lenses</button>
+      <button class="qopt" type="button">C · Because Tideline's platform has no defects at all</button>
+      <p class="qwhy">The twenty planted defects are all properties of a rendered screen that a program can detect. A platform choice like an un-idempotent retry or an unnamed PACELC position is not visible that way - it becomes visible only after it causes a future data problem.</p>
+    </div>
+
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Sources covered</span>
+      <h2>What this session teaches, and where it came from</h2>
+    </div>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">AWS Well-Architected Framework, six pillars</span><span class="note">Primary-verified at docs.aws.amazon.com; unchanged since sustainability was added</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">AWS Data Analytics Lens, six general design principles</span><span class="note">Lens doc dated 2023-12-22; count high confidence, wording read through a secondary source</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">The Twelve-Factor App</span><span class="note">All twelve, primary-verified at 12factor.net, applied to a data pipeline tonight</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">CAP (Brewer 2000, proven Gilbert &amp; Lynch 2002) and PACELC (Abadi, IEEE Computer 45(2), 2012)</span><span class="note">Both primary-verified; taught together as one decision tree</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">The Reactive Manifesto v2.0, four traits</span><span class="note">Primary-verified, dated 2014-09-16; self-study tonight</span></div>
+      <div class="covered-row"><span class="status pill amber">⚑</span><span class="name">The Lakehouse (Zaharia, Ghodsi, Xin, Armbrust et al., CIDR 2021)</span><span class="note">Architecture themes only - the paper enumerates no numbered principles</span></div>
+    </div>
+    <p class="mono" style="margin-top:14px">Full source map with every URL and every honesty caveat: <span class="mono">materials/official-course-map.md</span> in this repo.</p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 4 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Why this lens matters without a new defect</b><span>A platform failure shows up later as a data failure. It cannot be planted as a screen-level defect because it is not visible on a screen yet.</span></div>
+      <div class="cheat-item"><b>Six pillars</b><span>Operational excellence, security, reliability, performance efficiency, cost optimization, sustainability - all trade against each other.</span></div>
+      <div class="cheat-item"><b>Idempotency first</b><span>The Analytics Lens principle worth memorising: design ingestion so a retry or a duplicate never corrupts the result.</span></div>
+      <div class="cheat-item"><b>Config and parity bite hardest</b><span>Of the twelve factors, hard-coded config and dev/prod parity are the two that break analytics teams most often.</span></div>
+      <div class="cheat-item"><b>CAP vs PACELC</b><span>CAP only describes the moment of a partition. PACELC adds else - the latency-versus-consistency choice a platform makes every normal day.</span></div>
+      <div class="cheat-item"><b>The tradeoff record</b><span>Four parts: the choice, the pillar it trades against, its PACELC position both ways, and who signed it off.</span></div>
+    </div>
+  </section>
+
+  <div class="callout next">
+    <span class="nx-pill">Next session</span>
+    <p>The platform decides what is possible. Session 5 asks what the team actually promised on top of it - a freshness promise with a target and an error budget - and owns the three defects an interface lens can never see on its own: no freshness stamp anywhere, no promise to be late against, and no evidence the data was tested before it landed.</p>
+  </div>
+
+  <footer class="pagefoot">
+    <span>Session 4 of 9 · learn-data-heuristics-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="03-the-contract.html">← Prev: The contract</a> &nbsp;·&nbsp; <a href="05-operating-the-promise.html">Next: Operating the promise →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

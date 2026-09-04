@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- social:start -->
+<meta name="description" content="Session 9 of 9. Assemble the review instrument, run it over Tideline, rate every finding for severity, and measure what happens when you check all 215 principles instead of the twenty that matter.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Learn with Phoebe">
+<meta property="og:title" content="The review - learn data heuristics with phoebe">
+<meta property="og:description" content="Session 9 of 9. Twenty findings, a severity-ordered fix list, and the measured cost of an over-large instrument.">
+<meta property="og:url" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/courses/09-the-review.html">
+<meta property="og:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The review - learn data heuristics with phoebe">
+<meta name="twitter:description" content="Session 9 of 9. The finished instrument, run over a real product, with severity.">
+<meta name="twitter:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<!-- social:end -->
+<title>Session 9 · The review - learn data heuristics with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-data-heuristics-with-phoebe</a> / Session 9 of 9</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Data Heuristics with Phoebe · Session 9 of 9</div>
+    <h1>The <span class="accent">review</span></h1>
+    <p class="sub">Eight sessions added one lens each. Tonight they run together, over the whole of Tideline, and the instrument reports twenty findings out of twenty defects with no false flags in 66 modelled minutes. Then comes the part that decides whether any of it gets fixed: severity. And then the experiment that justifies every discard the course has made - checking all 215 principles instead of the assembled instrument, and watching precision fall to 63 percent while the review time more than doubles.</p>
+    <div class="chip-row">
+      <span class="chip level">🔴 Advanced</span>
+      <span class="chip audience">Data and analytics leads</span>
+      <span class="chip audience">Anyone about to sign off a data product</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:4">3-20 · Assembling the instrument</span>
+      <span class="a3" style="flex:5">20-40 · Build-along: the full review</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Where we are</h2>
+    </div>
+    <p class="lede">Nine lenses are now on the bench, and between them they hold well over a hundred principles. They resolve to <strong>twenty distinct findings</strong> on one screen. That compression is the whole craft: a review instrument is not the union of every standard you respect, it is the smallest set that still catches everything you care about.</p>
+
+    <div class="legend">
+      <span class="pill">Live = presented in the 45 minutes</span>
+      <span class="pill">Self-study = the full depth, after class</span>
+      <span class="pill">🔍 Every diagram zooms</span>
+    </div>
+
+    <div class="callout win">
+      <p><strong>★ What you walk out with tonight.</strong> A finished, defensible review instrument with a named source behind every check. A severity-ordered fix list rather than a pile of complaints. And a measured answer to the question a stakeholder always asks: why did you not check everything?</p>
+    </div>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>What each lens contributed, and what it duplicated<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Measured on the bench, adding one lens at a time, counting only findings no earlier lens had already produced:</p>
+        <table class="clean">
+          <thead><tr><th>Lens added</th><th>Running total</th><th>New</th></tr></thead>
+          <tbody>
+            <tr><td>NN/g's 10 usability heuristics</td><td>5</td><td>5</td></tr>
+            <tr><td>Few's 13 dashboard pitfalls</td><td>10</td><td>5</td></tr>
+            <tr><td>Tufte on graphical integrity</td><td>11</td><td>1</td></tr>
+            <tr><td>IBCS SUCCESS rules</td><td>11</td><td>0</td></tr>
+            <tr><td>Microsoft's 18 human-AI guidelines</td><td>14</td><td>3</td></tr>
+            <tr><td>Google PAIR's guidebook</td><td>14</td><td>0</td></tr>
+            <tr><td>Data-as-a-product, FAIR, DAMA</td><td>17</td><td>3</td></tr>
+            <tr><td>DataOps and the golden signals</td><td>19</td><td>2</td></tr>
+            <tr><td>GQM and HEART</td><td>20</td><td>1</td></tr>
+          </tbody>
+        </table>
+        <p>Two lenses contributed nothing on this product. Five of the nine contributed three findings or fewer. And the single most productive lens after the usability set was a white paper from 2006 about dashboards.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>A team that adopts three reporting standards at once believes it has tripled coverage. What it has actually built is a review that takes three times as long and produces a report with three citations per finding. The gain from adding IBCS on top of Tufte and Few here, measured, is zero.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why overlap is structural, not accidental<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The sets overlap because they were written by people solving the same problem from different chairs. "Do not let colour be the only carrier of meaning" appears as an accessibility concern in the usability literature, as pitfall 12 in Few, as part of Unify in IBCS, and as a perceptual point in the Gestalt tradition. Four independent derivations, one defect.</p>
+        <p>This has a practical consequence for how you cite a finding. Naming every set that catches it looks thorough and reads as padding. Name the one whose framing makes the fix most obvious to the person who has to do the work, and keep the rest in your notes for the argument you might have later.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 1 ============ -->
+  <section class="section" id="part-1">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers assembling the instrument</span>
+      <h2>An instrument is assembled per layer, not per standard</h2>
+      <span class="tag concept">7 min live</span>
+    </div>
+    <p class="lede">The reason a usability-only review finds a quarter of what is wrong with a data product is not that its principles are weak. It is that a data product has layers a screen does not have, and no interface principle was ever written to ask who owns a dataset. Assemble by layer and the gaps become visible.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Six layers of a data product stacked from the decision it serves down to the model, each layer showing which principle set covers it and how many of the twenty findings it produced">
+        <style>
+          .s9aT { font: 700 12px Inter, sans-serif; fill: #0F1E24; }
+          .s9aW { font: 700 12px Inter, sans-serif; fill: #fff; }
+          .s9aC { font: 400 11px Inter, sans-serif; fill: #566A72; }
+          .s9aD { font: 400 11px Inter, sans-serif; fill: #DDF4FA; }
+          .s9aN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+          .s9aB { font: 800 15px Inter, sans-serif; fill: #164E63; }
+          .s9aBW { font: 800 15px Inter, sans-serif; fill: #fff; }
+        </style>
+
+        <rect x="40" y="30" width="600" height="48" rx="9" fill="#164E63"/>
+        <text class="s9aW" x="58" y="50">The decision it serves</text>
+        <text class="s9aD" x="58" y="68">GQM · HEART</text>
+        <rect x="656" y="30" width="184" height="48" rx="9" fill="#ECFEFF" stroke="#A5F3FC"/>
+        <text class="s9aB" x="676" y="60">1 finding</text>
+
+        <rect x="40" y="88" width="600" height="48" rx="9" fill="#0E7490"/>
+        <text class="s9aW" x="58" y="108">The contract</text>
+        <text class="s9aD" x="58" y="126">Dehghani · FAIR · DAMA · Data Mesh</text>
+        <rect x="656" y="88" width="184" height="48" rx="9" fill="#ECFEFF" stroke="#A5F3FC"/>
+        <text class="s9aB" x="676" y="118">3 findings</text>
+
+        <rect x="40" y="146" width="600" height="48" rx="9" fill="#0891B2"/>
+        <text class="s9aW" x="58" y="166">The platform</text>
+        <text class="s9aD" x="58" y="184">AWS pillars · 12-Factor · PACELC · Reactive</text>
+        <rect x="656" y="146" width="184" height="48" rx="9" fill="#FFF1F2" stroke="#E11D48"/>
+        <text class="s9aB" x="676" y="176">0 on the screen</text>
+
+        <rect x="40" y="204" width="600" height="48" rx="9" fill="#0E7490"/>
+        <text class="s9aW" x="58" y="224">The operating promise</text>
+        <text class="s9aD" x="58" y="242">DataOps · golden signals · SLOs</text>
+        <rect x="656" y="204" width="184" height="48" rx="9" fill="#ECFEFF" stroke="#A5F3FC"/>
+        <text class="s9aB" x="676" y="234">3 findings</text>
+
+        <rect x="40" y="262" width="600" height="48" rx="9" fill="#A5F3FC"/>
+        <text class="s9aT" x="58" y="282">The surface, and the interaction</text>
+        <text class="s9aC" x="58" y="300">Tufte · Few · IBCS · NN/g · Shneiderman · Norman · Tog · ISO</text>
+        <rect x="656" y="262" width="184" height="48" rx="9" fill="#ECFEFF" stroke="#A5F3FC"/>
+        <text class="s9aB" x="676" y="292">9 findings</text>
+
+        <rect x="40" y="320" width="600" height="48" rx="9" fill="#0891B2"/>
+        <text class="s9aW" x="58" y="340">The model</text>
+        <text class="s9aD" x="58" y="358">Microsoft 18 · PAIR · Apple dichotomies</text>
+        <rect x="656" y="320" width="184" height="48" rx="9" fill="#ECFEFF" stroke="#A5F3FC"/>
+        <text class="s9aB" x="676" y="350">4 findings</text>
+
+        <rect x="40" y="396" width="14" height="14" fill="#E11D48"/>
+        <text class="s9aN" x="64" y="408">The platform layer scores zero here because its failures surface later, as data failures.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the layers a screen does not have are where the misses live</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The four questions that select a check<span class="mini">5 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A check earns its place in the instrument only if all four answers hold:</p>
+        <ul>
+          <li><strong>Is it detectable?</strong> Can a reviewer, looking at the product, tell whether it holds? "Be elegant" is not a check. "No measure is shown without its unit" is.</li>
+          <li><strong>Is it new?</strong> Does any check already in the instrument catch the same defect? If yes, keep the clearer wording and drop the other.</li>
+          <li><strong>Does it carry consequence?</strong> If it fails, can you name what goes wrong for a reader or a decision? A check with no consequence produces a finding nobody funds.</li>
+          <li><strong>Is it sourced?</strong> Can you name the set it came from, and the tier you read it at? This is what turns a review meeting from a taste argument into a technical one.</li>
+        </ul>
+        <div class="callout tip">
+          <p>The second question is the one that gets skipped, and it is why instruments bloat. Every new standard a team adopts arrives with its own complete list, and nobody does the deduplication, so the review grows by seven items and its coverage grows by nothing.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Sourcing a finding when the source is a book<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Four of the most useful sets in the canon were never published as numbered lists by their authors: Norman's design principles, Tufte's principles, the Gestalt laws, and the Kimball and Inmon tenets. Every count you see for these was assigned by a secondary source.</p>
+        <p>That does not make them unusable. It changes how you cite them. Rather than "this violates Tufte's principle 3", write the concept and the consequence: "the bars start at 40, so the change reads about six and a half times larger than it is, which is the lie factor Tufte named in 1983". The concept is genuinely his, is defensible, and does not depend on a numbering nobody published.</p>
+        <p>The reverse discipline matters just as much. Where a set genuinely is numbered and primary-verified, quote it precisely. "Microsoft's guideline 2, make clear how well the system can do what it can do" is checkable by anyone in the room, and that precision is what the citation is for.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2 ============ -->
+  <section class="section" id="part-2">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers severity and the fix order</span>
+      <h2>Twenty findings are not a plan until they are ranked</h2>
+      <span class="tag concept">6 min live</span>
+    </div>
+    <p class="lede">A review that hands over twenty equal findings hands over nothing. The team fixes the three cheapest, and the truncated axis is still lying to the board next quarter. Severity is the step that turns a list into an order, and it takes three factors rather than one.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Four Tideline findings rated on frequency, impact and persistence, with the resulting severity showing that the two structural findings outrank the two cosmetic ones">
+        <style>
+          .s9cT { font: 700 12px Inter, sans-serif; fill: #0F1E24; }
+          .s9cH { font: 700 11px Inter, sans-serif; fill: #566A72; }
+          .s9cN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+          .s9cV { font: 800 13px Inter, sans-serif; fill: #164E63; }
+          .s9cS { font: 800 13px Inter, sans-serif; fill: #fff; }
+        </style>
+
+        <text class="s9cH" x="40" y="42">Finding</text>
+        <text class="s9cH" x="300" y="42">Frequency</text>
+        <text class="s9cH" x="420" y="42">Impact</text>
+        <text class="s9cH" x="530" y="42">Persistence</text>
+        <text class="s9cH" x="680" y="42">Severity</text>
+
+        <text class="s9cT" x="40" y="80">Emails in the clear</text>
+        <circle cx="330" cy="76" r="7" fill="#0891B2"/><text class="s9cV" x="345" y="80">3</text>
+        <circle cx="440" cy="76" r="7" fill="#0E7490"/><text class="s9cV" x="455" y="80">4</text>
+        <circle cx="565" cy="76" r="7" fill="#0E7490"/><text class="s9cV" x="580" y="80">4</text>
+        <rect x="660" y="64" width="160" height="24" rx="6" fill="#991B1B"/>
+        <text class="s9cS" x="740" y="81" text-anchor="middle">3.7 · fix first</text>
+
+        <text class="s9cT" x="40" y="130">Truncated retention axis</text>
+        <circle cx="330" cy="126" r="7" fill="#0E7490"/><text class="s9cV" x="345" y="130">4</text>
+        <circle cx="440" cy="126" r="7" fill="#0E7490"/><text class="s9cV" x="455" y="130">4</text>
+        <circle cx="565" cy="126" r="7" fill="#0891B2"/><text class="s9cV" x="580" y="130">3</text>
+        <rect x="660" y="114" width="160" height="24" rx="6" fill="#991B1B"/>
+        <text class="s9cS" x="740" y="131" text-anchor="middle">3.7 · fix first</text>
+
+        <text class="s9cT" x="40" y="180">Gauge for one number</text>
+        <circle cx="330" cy="176" r="7" fill="#A5F3FC"/><text class="s9cV" x="345" y="180">2</text>
+        <circle cx="440" cy="176" r="7" fill="#A5F3FC"/><text class="s9cV" x="455" y="180">2</text>
+        <circle cx="565" cy="176" r="7" fill="#0891B2"/><text class="s9cV" x="580" y="180">3</text>
+        <rect x="660" y="164" width="160" height="24" rx="6" fill="#A5F3FC"/>
+        <text class="s9cV" x="740" y="181" text-anchor="middle">2.3 · queue it</text>
+
+        <text class="s9cT" x="40" y="230">Four decimal places</text>
+        <circle cx="330" cy="226" r="7" fill="#0E7490"/><text class="s9cV" x="345" y="230">4</text>
+        <circle cx="440" cy="226" r="7" fill="#ECFEFF" stroke="#A5F3FC"/><text class="s9cV" x="455" y="230">1</text>
+        <circle cx="565" cy="226" r="7" fill="#ECFEFF" stroke="#A5F3FC"/><text class="s9cV" x="580" y="230">1</text>
+        <rect x="660" y="214" width="160" height="24" rx="6" fill="#ECFEFF" stroke="#A5F3FC"/>
+        <text class="s9cV" x="740" y="231" text-anchor="middle">2.0 · cosmetic</text>
+
+        <line x1="40" y1="256" x2="840" y2="256" stroke="#DCE7EB" stroke-width="1"/>
+        <text class="s9cN" x="40" y="282">Four decimal places hits every reader every time, so frequency alone rates it 4.</text>
+        <rect x="40" y="300" width="14" height="14" fill="#E11D48"/>
+        <text class="s9cN" x="64" y="312">Persistence is what demotes it: readers stop seeing the digits, but a lying axis never stops lying.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - one factor ranks these wrong, three rank them right</figcaption>
+    </figure>
+
+    <div class="hb-wrap" id="heur-severity"></div>
+
+    <p>Four of Tideline's findings are loaded above with a defensible starting rating. Move the sliders and watch the fix order change. Two things are worth doing deliberately:</p>
+    <ul>
+      <li>Take the <strong>four decimal places on MRR</strong> and raise its impact to 4. Its severity goes to 3.0 and it jumps above the gauge. That is what happens when a cosmetic finding gets argued up by whoever is annoyed by it, and it is exactly the failure mode severity ratings exist to make visible.</li>
+      <li>Now drop its persistence to 0, on the grounds that readers learn to ignore the extra digits within a week. It falls back down. <strong>Persistence is the factor that separates cosmetic from structural</strong>, and it is the one most reviews never record.</li>
+    </ul>
+
+    <div class="callout example">
+      <span class="ex-pill">Real world</span>
+      <p>Emails in the clear and the truncated axis both land at 3.7 out of the box, and they are the two findings on Tideline that a reasonable person would escalate. One is a privacy exposure, the other is a number that misleads every reader every time. Neither is a design opinion, and neither can be argued down by whoever owns the dashboard.</p>
+    </div>
+  </section>
+
+  <!-- ============ DEMO ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Build-along</span>
+      <h2>Run the full instrument, then break it on purpose</h2>
+      <span class="tag demo">★ 20 min · everyone builds</span>
+    </div>
+    <p class="lede">The bench holds all nine lenses and the exhaustive pass. Every check reads the rendered Tideline screen below it, so the numbers move because the screen genuinely has those properties.</p>
+
+    <div class="hb-wrap" id="heur-bench"></div>
+
+    <div class="steps">
+      <div class="step"><p>Press <strong>Turn on all nine lenses</strong>. Twenty of twenty, zero false flags, 100 percent precision, 66 modelled minutes. Read the finding list top to bottom once, and notice that six of the twenty are things no interface principle asks about.</p></div>
+      <div class="step"><p>Look at the three findings that carry a computed value: the retention axis at a <strong>lie factor of 6.5 to 1</strong>, <strong>13 distinct fills</strong> on one screen, and <strong>64px below the fold</strong>. Each is measured off the rendered screen rather than asserted.</p></div>
+      <div class="step"><p>Now turn off every lens except <strong>NN/g</strong>. Five findings. This is the review a well-trained interface reviewer produces on this product, working carefully and missing three quarters of it. Say out loud which of the fifteen missing findings would have hurt your organisation most.</p></div>
+      <div class="step"><p>Turn the nine back on, then tick <strong>Check all 215 principles</strong>. The catch count stays at twenty, because there was nothing left to catch. Twelve new findings appear.</p></div>
+      <div class="step"><p>Read those twelve. Every one is <strong>true of the screen</strong>: it uses more than one font weight, panels have rounded corners, a number is set in bold, a chart uses circular marks. None is a defect. Precision falls from 100 percent to <strong>63 percent</strong>, and the modelled review cost goes from 66 minutes to <strong>144</strong>.</p></div>
+      <div class="step"><p>That is the argument for the discard, and it is worth being precise about the harm. An over-large instrument does not produce nonsense, which would be easy to reject. It produces <strong>irrelevance dressed as rigour</strong>, and the team on the receiving end cannot tell which of your 32 findings are the two that matter.</p></div>
+      <div class="step"><p>Untick it. Now write the report: the two findings at severity 3.5 or above, each with one named source and one sentence of consequence, then the rest in a table below. One page. If it runs to three, cut findings rather than words.</p></div>
+    </div>
+
+    <div class="callout tip">
+      <p>The review-cost figure is the one modelled number on the bench, built from a flat per-lens and per-finding estimate. Everything else, including all twenty catches and all twelve false flags, is computed from the rendered screen. Say which is which when you present numbers from a tool, always.</p>
+    </div>
+  </section>
+
+  <!-- ============ PART 3 ============ -->
+  <section class="section" id="part-3">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers the handover</span>
+      <h2>The report is the product, and it has one job</h2>
+      <span class="tag concept">4 min live</span>
+    </div>
+    <p class="lede">A review's output is not a finding list. It is a decision by somebody else to spend engineering time. Everything about the format follows from that.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two review reports compared: an unranked list of thirty-two findings that gets shelved, against a one-page severity-ordered report of twenty findings that gets two fixes funded">
+        <style>
+          .s9bT { font: 700 12px Inter, sans-serif; fill: #0F1E24; }
+          .s9bR { font: 700 12px Inter, sans-serif; fill: #991B1B; }
+          .s9bW { font: 700 12px Inter, sans-serif; fill: #fff; }
+          .s9bC { font: 400 11px Inter, sans-serif; fill: #566A72; }
+          .s9bD { font: 400 11px Inter, sans-serif; fill: #DDF4FA; }
+          .s9bN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+        <rect x="40" y="30" width="370" height="210" rx="12" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s9bR" x="60" y="58">Everything, unranked</text>
+        <text class="s9bC" x="60" y="82">32 findings, 12 of them not defects</text>
+        <text class="s9bC" x="60" y="102">no severity, so no order</text>
+        <text class="s9bC" x="60" y="122">three sources cited per finding</text>
+        <text class="s9bC" x="60" y="142">144 minutes to produce</text>
+        <rect x="60" y="160" width="330" height="30" rx="7" fill="#fff" stroke="#FCA5A5"/>
+        <text class="s9bR" x="225" y="180" text-anchor="middle">outcome: shelved</text>
+        <text class="s9bC" x="60" y="214">the reader cannot find the two that matter</text>
+
+        <rect x="450" y="30" width="390" height="210" rx="12" fill="#164E63"/>
+        <text class="s9bW" x="470" y="58">Assembled, ranked, one page</text>
+        <text class="s9bD" x="470" y="82">20 findings, all of them real</text>
+        <text class="s9bD" x="470" y="102">2 at severity 3.5 or above, named first</text>
+        <text class="s9bD" x="470" y="122">one source and one consequence each</text>
+        <text class="s9bD" x="470" y="142">66 minutes to produce</text>
+        <rect x="470" y="160" width="350" height="30" rx="7" fill="#A5F3FC"/>
+        <text class="s9bT" x="645" y="180" text-anchor="middle">outcome: two fixes funded this sprint</text>
+        <text class="s9bD" x="470" y="214">the privacy exposure and the lying axis, first</text>
+
+        <rect x="40" y="276" width="14" height="14" fill="#E11D48"/>
+        <text class="s9bN" x="64" y="288">Same reviewer, same product, same principles. The difference is what was left out.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - a review is judged by what got fixed</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Where to take the instrument next<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <ul>
+          <li><strong>Run it with three people, separately.</strong> Heuristic evaluation is specified as independent-then-pooled for a reason: a single reviewer finds a modest share of what is present, and different reviewers notice different things. On a data product the expertise is genuinely split, so the person who spots the axis is rarely the person who asks who owns the table.</li>
+          <li><strong>Re-run it on a schedule, not on a redesign.</strong> Most of the twenty findings on Tideline arrived one at a time, each defensible on the day. Nobody ever shipped that screen; it accumulated.</li>
+          <li><strong>Add checks from your own incidents.</strong> Every outage that reached a reader is a check the instrument was missing. That is the same derivation Nielsen ran in 1994, on your own data.</li>
+          <li><strong>Keep it small.</strong> When you add a check, ask what it replaces. An instrument that only grows becomes the 60-item Confluence checklist that nobody has run since the day it was written.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ EXERCISE ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>The one that counts</h2>
+      <span class="tag exercise">60 min</span>
+    </div>
+    <ul>
+      <li>Run your assembled instrument over your own most-used data product. Record every finding with its source and its severity, using all three factors.</li>
+      <li>Write the one-page report: the findings at 3.5 or above first, each with a named source and a one-sentence consequence, then everything else in a table.</li>
+      <li>Take it to whoever owns that product and ask for exactly two fixes. Not twenty.</li>
+      <li>Afterwards, note which findings they argued with. Those arguments tell you which checks in your instrument are not yet detectable enough, and that is your next revision.</li>
+    </ul>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions</h2>
+    </div>
+
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">Nine lenses holding well over a hundred principles between them produce twenty findings on Tideline. What does that tell you about assembling an instrument?</p>
+      <button class="qopt" type="button">A · That most published principles are wrong and should be discarded</button>
+      <button class="qopt" type="button">B · That nine lenses is too few, and more sets would find more defects</button>
+      <button class="qopt" type="button">C · That overlap between sets is the norm, so an instrument must be deduplicated rather than accumulated</button>
+      <p class="qwhy">Four independent traditions each derived "colour must not be the only carrier of meaning". The sets are not wrong and adding more does not help much; the work is deduplication, which is the step teams skip when they adopt a new standard.</p>
+    </div>
+
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">Which severity factor separates a cosmetic finding from a structural one, and is most often left out?</p>
+      <button class="qopt" type="button">A · Frequency, because a rare problem is never worth fixing</button>
+      <button class="qopt" type="button">B · Persistence, because a problem people never learn to work around keeps costing every time</button>
+      <button class="qopt" type="button">C · Impact, because it is the only factor a stakeholder understands</button>
+      <p class="qwhy">Persistence is the third factor and the one most reviews record nowhere. Extra decimal places get ignored within a week; a truncated axis misleads every reader every time, no matter how familiar they are with it.</p>
+    </div>
+
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">The exhaustive pass keeps the catch count at 20 and adds twelve findings that are all true of the screen. Why is that a problem rather than a bonus?</p>
+      <button class="qopt" type="button">A · Precision falls to 63 percent and cost doubles, so the reader cannot tell which findings matter</button>
+      <button class="qopt" type="button">B · The twelve extra findings are factually incorrect and damage the reviewer's credibility</button>
+      <button class="qopt" type="button">C · The detectors begin to interfere, so some real defects stop being reported</button>
+      <p class="qwhy">All twelve are genuinely true and none is a defect, which is exactly what makes them dangerous. Nonsense is easy to reject; irrelevance dressed as rigour buries the two findings that needed funding, and it costs 144 minutes instead of 66.</p>
+    </div>
+
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Sources covered</span>
+      <h2>What this session teaches, and where it came from</h2>
+    </div>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Nielsen, Severity Ratings for Usability Problems</span><span class="note">Frequency, impact and persistence combined on a 0 to 4 scale, applied live to four Tideline findings</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Nielsen and Molich, Heuristic Evaluation of User Interfaces (1990)</span><span class="note">The independent-then-pooled method, and why one reviewer is not enough on a layered product</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">All nine lenses from sessions 1 to 8</span><span class="note">Run together over Tideline, with each lens's marginal contribution measured rather than asserted</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Tufte's lie factor, and the four book-only sets</span><span class="note">Cited by concept and consequence rather than by a numbering their authors never published</span></div>
+    </div>
+    <p class="mono" style="margin-top:14px">Full source map with every URL and every honesty caveat: <span class="mono">materials/official-course-map.md</span> in this repo.</p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 9 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>The instrument</b><span>Assembled per layer, not per standard. Nine lenses, over a hundred principles, twenty distinct findings.</span></div>
+      <div class="cheat-item"><b>Four questions per check</b><span>Detectable · new · carries a consequence · sourced with its tier. The "new" one is what stops bloat.</span></div>
+      <div class="cheat-item"><b>Marginal contribution</b><span>NN/g 5, Few 5, Tufte 1, IBCS 0, Microsoft 3, PAIR 0, data product 3, DataOps 2, GQM 1.</span></div>
+      <div class="cheat-item"><b>Severity</b><span>Frequency, impact, persistence, 0 to 4. Emails in the clear and the truncated axis both land at 3.7.</span></div>
+      <div class="cheat-item"><b>The exhaustive trap</b><span>Same 20 caught, 12 false flags, precision 100 to 63 percent, 66 minutes to 144.</span></div>
+      <div class="cheat-item"><b>The report</b><span>One page. Two findings above 3.5 named first, one source and one consequence each. Cut findings, not words.</span></div>
+    </div>
+  </section>
+
+  <div class="callout next">
+    <span class="nx-pill">Where to go from here</span>
+    <p>The instrument is finished and it is small on purpose. Take it to your own product this week, ask for exactly two fixes, and note which findings got argued with - those arguments are the next revision. Then add a check for every incident that reaches a reader, which is the same derivation Nielsen ran in 1994, on your own data.</p>
+  </div>
+
+  <footer class="pagefoot">
+    <span>Session 9 of 9 · learn-data-heuristics-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="08-when-it-is-intelligent.html">← Previous: When the product is intelligent</a> &nbsp;·&nbsp; <a href="../index.html">All sessions →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+<script src="../assets/heur-live.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- social:start -->
+<meta name="description" content="Session 6 of 9. The graphical-integrity lens: Tufte's lie factor computed exactly on Tideline's retention chart, Few's 13 dashboard pitfalls run as an audit, and why IBCS catches nothing new once Tufte and Few are already on.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Learn with Phoebe">
+<meta property="og:title" content="Truth on the surface - learn data heuristics with phoebe">
+<meta property="og:description" content="Session 6 of 9. Six defects, one lie factor computed by hand, and Few's 13 pitfalls run as an audit list.">
+<meta property="og:url" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/courses/06-truth-on-the-surface.html">
+<meta property="og:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Truth on the surface - learn data heuristics with phoebe">
+<meta name="twitter:description" content="Session 6 of 9. The lie factor, computed. Few's 13 pitfalls, run as an audit.">
+<meta name="twitter:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<!-- social:end -->
+<title>Session 6 · Truth on the surface - learn data heuristics with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-data-heuristics-with-phoebe</a> / Session 6 of 9</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Data Heuristics with Phoebe · Session 6 of 9</div>
+    <h1>Truth on the <span class="accent">surface</span></h1>
+    <p class="sub">Six of Tideline's twenty defects live on the rendered surface, and this session catches every one of them: four decimal places on a revenue number, a bar chart truncated hard enough to overstate a real trend six and a half times over, a gauge spending a quarter of a panel on one figure, a count standing in for a rate, thirteen distinct fill colours, and a screen that does not fit its own frame. The question this session trains is narrow and reusable: is this screen telling the truth, and can you prove it in a number rather than an opinion.</p>
+    <div class="chip-row">
+      <span class="chip level">🔴 Advanced</span>
+      <span class="chip audience">Data and analytics leads</span>
+      <span class="chip audience">Anyone who builds or signs off a dashboard</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:5">3-24 · The integrity principles</span>
+      <span class="a3" style="flex:4">24-40 · Build-along: audit Tideline's four charts</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Where we are</h2>
+    </div>
+    <p class="lede">The instrument already has five layers: the decision a screen serves, the contract behind its data, the platform it runs on, the promise it makes about freshness. Tonight adds the layer most reviewers reach for first and, on its own, trust too much - the rendered surface. Six defects belong to this session alone, more than to any other, because a screen can be perfectly decided, contracted, platformed and promised, and still lie to the eye on every load.</p>
+
+    <div class="callout win">
+      <p><strong>★ What you walk out with tonight.</strong> A lie factor you compute from axis bounds and bar heights, not one you eyeball. Few's 13 pitfalls run as a real audit list against four real charts. And the measured proof that a seven-rule reporting standard, applied after Tufte and Few are already switched on, catches nothing new.</p>
+    </div>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>An audit question, not a redesign brief<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>A reviewer signing off a dashboard is not being asked to make it prettier. They are being asked one narrower question: does this screen represent the data accurately, and would a reasonable reader draw the right conclusion from it. That question has a small, checkable set of answers - an axis either starts where the data says it should or it does not, a colour either carries one meaning everywhere or it does not - and this session trains exactly that check.</p>
+        <p>Choosing which chart type fits which comparison, decluttering a busy panel, or laying out a dashboard so the eye lands in the right order are real skills with their own depth. They are not what a sign-off checks. A reviewer who tries to redesign every screen they audit will get invited to fewer reviews.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>Tideline's retention chart passed three design reviews. Nobody in any of them measured the axis. All three reviewers said the chart "looked fine" - which is a design judgement, not an integrity check, and it is exactly the judgement that let a 6.5-to-1 overstatement ship three times.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Where this goes deeper<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Two sibling courses own the ground this session deliberately leaves alone, and are worth the follow-up once the audit habit is in place:</p>
+        <ul>
+          <li><strong>Chart choice and encoding craft</strong> - which mark and channel fit which comparison, and how to build the muscle for picking well the first time: <a href="https://phoebefu6.github.io/learn-dataviz-with-phoebe/">learn-dataviz-with-phoebe</a>.</li>
+          <li><strong>Dashboard build and layout</strong> - panel arrangement, information hierarchy, and the tooling choices behind a screen that scans well: <a href="https://phoebefu6.github.io/learn-business-intelligence-with-phoebe/">learn-business-intelligence-with-phoebe</a>.</li>
+        </ul>
+        <p>This session's job is narrower and comes first: before a screen is redesigned, someone has to be able to say precisely what is wrong with it, and prove the claim with a computable number.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 1 ============ -->
+  <section class="section" id="part-1">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers graphical integrity and the lie factor</span>
+      <h2>The lie factor is arithmetic, not an opinion</h2>
+      <span class="tag concept">6 min live</span>
+    </div>
+    <p class="lede">Edward Tufte's three books never published graphical integrity as a numbered list - that is worth saying plainly before teaching it, because every secondary source that claims a fixed count is quoting a list Tufte never wrote. What he did leave behind is a small set of concepts precise enough to compute, and one of them turns "this chart feels misleading" into a number.</p>
+
+    <div class="callout warn">
+      <p><strong>Honesty check.</strong> These concepts come from <em>The Visual Display of Quantitative Information</em> (1983), <em>Envisioning Information</em> (1990) and <em>Visual Explanations</em> (1997). Tufte never published them as a canonical numbered list, which is why every secondary source gives a different count. Treat what follows as the concepts themselves, not a list with a fixed length.</p>
+    </div>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Five concepts worth carrying<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <ul>
+          <li><strong>Data-ink ratio</strong> - the share of ink on a chart that encodes actual data, versus grids, borders and decoration that do not.</li>
+          <li><strong>Chartjunk</strong> - visual elements that add neither information nor clarity: gradients, drop shadows, decorative icons standing in for data.</li>
+          <li><strong>Small multiples</strong> - the same chart form repeated across a series, so comparison happens by eye movement rather than by memory.</li>
+          <li><strong>The lie factor</strong> - the size of the effect shown in the graphic, divided by the size of the effect in the data. An honest chart scores close to 1.</li>
+          <li><strong>Graphical integrity</strong> - the umbrella claim that a representation of numbers should be at least as faithful to those numbers as the numbers themselves are.</li>
+        </ul>
+        <p>Of the five, the lie factor is the one you can compute on the spot with nothing but a ruler and the axis labels, which is why it carries the rest of this part.</p>
+      </div>
+    </details>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tideline's retention data drawn twice: truncated at 40 shows a steep rise, based at zero shows a gentle one, and the ratio between the two apparent rises is the lie factor of 6.5 to 1">
+        <style>
+          .s6aT { font: 700 13px Inter, sans-serif; fill: #0F1E24; }
+          .s6aL { font: 400 11px Inter, sans-serif; fill: #566A72; }
+          .s6aV { font: 700 12px Inter, sans-serif; fill: #164E63; }
+          .s6aA { font: 400 10px Inter, sans-serif; fill: #566A72; }
+          .s6aBad { font: 700 12px Inter, sans-serif; fill: #991B1B; }
+          .s6aBig { font: 800 22px Inter, sans-serif; fill: #E11D48; }
+        </style>
+        <text class="s6aT" x="30" y="30">Truncated at 40 (as shipped)</text>
+        <rect x="30" y="50" width="380" height="200" rx="10" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <line x1="60" y1="220" x2="380" y2="220" stroke="#C6D5DA" stroke-width="1.5"/>
+        <text class="s6aL" x="34" y="224">40</text>
+        <text class="s6aL" x="34" y="66">54</text>
+        <rect x="90" y="146" width="46" height="74" fill="#0891B2"/>
+        <text class="s6aA" x="113" y="238" text-anchor="middle">Mar 47.1</text>
+        <rect x="290" y="97" width="46" height="123" fill="#164E63"/>
+        <text class="s6aA" x="313" y="238" text-anchor="middle">Aug 52.0</text>
+        <text class="s6aBad" x="220" y="90" text-anchor="middle">apparent rise: 67%</text>
+
+        <text class="s6aT" x="470" y="30">Based at zero (honest)</text>
+        <rect x="470" y="50" width="380" height="200" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <line x1="500" y1="220" x2="820" y2="220" stroke="#C6D5DA" stroke-width="1.5"/>
+        <text class="s6aL" x="474" y="224">0</text>
+        <text class="s6aL" x="474" y="66">54</text>
+        <rect x="530" y="132" width="46" height="88" fill="#0891B2"/>
+        <text class="s6aA" x="553" y="238" text-anchor="middle">Mar 47.1</text>
+        <rect x="730" y="122" width="46" height="98" fill="#164E63"/>
+        <text class="s6aA" x="753" y="238" text-anchor="middle">Aug 52.0</text>
+        <text class="s6aV" x="660" y="90" text-anchor="middle">real rise: 10.4%</text>
+
+        <rect x="30" y="290" width="820" height="66" rx="10" fill="#164E63"/>
+        <text class="s6aBig" x="440" y="322" text-anchor="middle">67% shown ÷ 10.4% real ≈ 6.5 to 1</text>
+        <text class="s6aL" x="440" y="344" text-anchor="middle" style="fill:#DDF4FA">Same two months, same two values. Only the axis baseline changed.</text>
+
+        <rect x="30" y="376" width="14" height="14" fill="#E11D48"/>
+        <text class="s6aL" x="54" y="388">A lie factor near 1 means the picture and the data agree. Tideline's retention chart is nowhere close.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the same six months of retention, drawn honestly and drawn as shipped</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Computing 6.5 to 1 from the rendered bars<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Tideline's retention chart sets its axis from 40 to 54 rather than 0 to 54. Real retention moved from 47.1 percent in March to 52.0 percent in August - a genuine 4.9-point, 10.4 percent gain. But because the axis starts at 40, the bar for March renders at 46 pixels tall and the bar for August at 77 pixels tall, inside a 90-pixel plot area.</p>
+        <p>The lie factor is the shown effect over the real effect:</p>
+        <ul>
+          <li><strong>Shown</strong> - (77 minus 46) over 46 equals 67 percent apparent growth</li>
+          <li><strong>Real</strong> - (52.0 minus 47.1) over 47.1 equals 10.4 percent actual growth</li>
+          <li><strong>Lie factor</strong> - 67 divided by 10.4 equals about 6.5 to 1</li>
+        </ul>
+        <p>That is the exact number the bench in session 9 computes from this chart's rendered geometry, not a rounded estimate. Anyone with the axis bounds and a ruler can reproduce it in under a minute, which is what makes the lie factor the most defensible finding you can bring into a review meeting.</p>
+        <div class="callout tip">
+          <p>The fix costs nothing to argue for once the number exists: move the axis minimum to zero, or add a break mark if the chart genuinely needs to show a narrow band. Either way, the lie factor drops toward 1 and the conversation moves from "it looks steep" to "it now matches the data".</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2 ============ -->
+  <section class="section" id="part-2">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers Few's 13 pitfalls as an audit list</span>
+      <h2>Few's 13 is the one list built for exactly this</h2>
+      <span class="tag concept">6 min live</span>
+    </div>
+    <p class="lede">Stephen Few's white paper is, of the whole canon, the single most directly applicable list to a dashboard sign-off. It was written from Few's own consulting practice, published by Perceptual Edge in February 2006, and folded into <em>Information Dashboard Design</em> (O'Reilly, 2006) the same year. Unlike Tufte or Norman, Few numbered his list himself. All thirteen belong in an audit, in order.</p>
+
+    <table class="clean">
+      <thead><tr><th>#</th><th>Pitfall</th><th>Fires on Tideline</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Exceeding the boundaries of a single screen</td><td><strong>Yes - D10</strong>, 64px below the fold</td></tr>
+        <tr><td>2</td><td>Supplying inadequate context for the data</td><td>No, on this screen</td></tr>
+        <tr><td>3</td><td>Displaying excessive detail or precision</td><td><strong>Yes - D2</strong>, MRR to four decimal places</td></tr>
+        <tr><td>4</td><td>Expressing measures indirectly</td><td><strong>Yes - D6</strong>, a count where the rate is the measure</td></tr>
+        <tr><td>5</td><td>Choosing inappropriate media of display</td><td><strong>Yes - D5</strong>, a gauge for one number</td></tr>
+        <tr><td>6</td><td>Introducing meaningless variety</td><td>No, on this screen</td></tr>
+        <tr><td>7</td><td>Using poorly designed display media</td><td>No, on this screen</td></tr>
+        <tr><td>8</td><td>Encoding quantitative data inaccurately</td><td><strong>Yes - D4</strong>, the truncated axis, lie factor 6.5 to 1</td></tr>
+        <tr><td>9</td><td>Arranging the data poorly</td><td>No, on this screen</td></tr>
+        <tr><td>10</td><td>Ineffectively highlighting what's important</td><td>No, on this screen</td></tr>
+        <tr><td>11</td><td>Cluttering the screen with useless decoration</td><td>No, on this screen</td></tr>
+        <tr><td>12</td><td>Misusing or overusing color</td><td><strong>Yes - D7</strong>, 13 distinct fill colours</td></tr>
+        <tr><td>13</td><td>Designing an unappealing visual display</td><td>No, on this screen</td></tr>
+      </tbody>
+    </table>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A grid of Few's 13 pitfalls, with the six that fire on Tideline marked in rose and the seven that do not marked in cyan">
+        <style>
+          .s6bN { font: 700 22px Inter, sans-serif; fill: #fff; }
+          .s6bT { font: 400 10px Inter, sans-serif; fill: #0F1E24; }
+          .s6bTw { font: 400 10px Inter, sans-serif; fill: #fff; }
+          .s6bL { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+        <!-- 13 boxes, 5 cols x 3 rows -->
+        <!-- row 1 -->
+        <rect x="30" y="30" width="156" height="72" rx="8" fill="#E11D48"/>
+        <text class="s6bN" x="46" y="58">1</text>
+        <text class="s6bTw" x="46" y="78">Exceeds screen</text>
+        <text class="s6bTw" x="46" y="92">D10 · 64px hidden</text>
+
+        <rect x="196" y="30" width="156" height="72" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s6bN" x="212" y="58" style="fill:#164E63">2</text>
+        <text class="s6bT" x="212" y="78">Inadequate context</text>
+
+        <rect x="362" y="30" width="156" height="72" rx="8" fill="#E11D48"/>
+        <text class="s6bN" x="378" y="58">3</text>
+        <text class="s6bTw" x="378" y="78">Excess precision</text>
+        <text class="s6bTw" x="378" y="92">D2 · 4 decimals</text>
+
+        <rect x="528" y="30" width="156" height="72" rx="8" fill="#E11D48"/>
+        <text class="s6bN" x="544" y="58">4</text>
+        <text class="s6bTw" x="544" y="78">Indirect measure</text>
+        <text class="s6bTw" x="544" y="92">D6 · count not rate</text>
+
+        <rect x="694" y="30" width="156" height="72" rx="8" fill="#E11D48"/>
+        <text class="s6bN" x="710" y="58">5</text>
+        <text class="s6bTw" x="710" y="78">Wrong media</text>
+        <text class="s6bTw" x="710" y="92">D5 · gauge for one</text>
+
+        <!-- row 2 -->
+        <rect x="30" y="118" width="156" height="72" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s6bN" x="46" y="146" style="fill:#164E63">6</text>
+        <text class="s6bT" x="46" y="166">Meaningless variety</text>
+
+        <rect x="196" y="118" width="156" height="72" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s6bN" x="212" y="146" style="fill:#164E63">7</text>
+        <text class="s6bT" x="212" y="166">Poor display media</text>
+
+        <rect x="362" y="118" width="156" height="72" rx="8" fill="#E11D48"/>
+        <text class="s6bN" x="378" y="146">8</text>
+        <text class="s6bTw" x="378" y="166">Inaccurate encoding</text>
+        <text class="s6bTw" x="378" y="180">D4 · lie factor 6.5:1</text>
+
+        <rect x="528" y="118" width="156" height="72" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s6bN" x="544" y="146" style="fill:#164E63">9</text>
+        <text class="s6bT" x="544" y="166">Poor arrangement</text>
+
+        <rect x="694" y="118" width="156" height="72" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s6bN" x="710" y="146" style="fill:#164E63">10</text>
+        <text class="s6bT" x="710" y="166">No highlighting</text>
+
+        <!-- row 3 -->
+        <rect x="30" y="206" width="156" height="72" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s6bN" x="46" y="234" style="fill:#164E63">11</text>
+        <text class="s6bT" x="46" y="254">Useless decoration</text>
+
+        <rect x="196" y="206" width="156" height="72" rx="8" fill="#E11D48"/>
+        <text class="s6bN" x="212" y="234">12</text>
+        <text class="s6bTw" x="212" y="254">Overusing colour</text>
+        <text class="s6bTw" x="212" y="268">D7 · 13 fills</text>
+
+        <rect x="362" y="206" width="156" height="72" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s6bN" x="378" y="234" style="fill:#164E63">13</text>
+        <text class="s6bT" x="378" y="254">Unappealing display</text>
+
+        <rect x="30" y="296" width="14" height="14" fill="#E11D48"/>
+        <text class="s6bL" x="54" y="308">Six of thirteen fire, one per defect this session owns. Seven pitfalls Tideline simply does not commit.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - Few's 13, marked live against Tideline's four charts</figcaption>
+    </figure>
+  </section>
+
+  <!-- ============ PART 3 ============ -->
+  <section class="section" id="part-3">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers preattentive encoding, Gestalt grouping and the IBCS overlap</span>
+      <h2>What the eye reads before it thinks, and one lens that adds nothing</h2>
+      <span class="tag concept">6 min live</span>
+    </div>
+    <p class="lede">Two more lenses round out the surface layer. One tells you which visual channels a reader decodes accurately without conscious effort. The other tells you why elements on a screen read as one group or several. A third lens, IBCS, gets tested here too - and on Tideline it earns its keep by catching precisely nothing new.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Preattentive attributes: length and position win<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Nielsen Norman Group's dashboard guidance, published 2017-06-18 by Page Laubheimer, is direct about which visual channels carry quantitative meaning accurately and which do not. Length and two-dimensional position are read fast and read correctly. Colour and shape are read fast too, but only reliably as secondary reinforcement - a way to flag which bar matters, never the primary way to convey the bar's value. The guidance follows through into a concrete preference: bar, line and scatter charts over pie, donut, treemap, gauge and 3D.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>Tideline's gauge encodes one number using angle and colour together - exactly the combination NN/g's guidance flags as weak. A single labelled number, or a bar against a target line, would let a reader extract the same value without decoding an angle first.</p>
+        </div>
+      </div>
+    </details>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Preattentive encodings NN/g recommends against ones it advises against, with gauge and pie marked poor">
+        <style>
+          .s6cT { font: 700 12px Inter, sans-serif; fill: #0F1E24; }
+          .s6cL { font: 400 11px Inter, sans-serif; fill: #566A72; }
+          .s6cW { font: 700 12px Inter, sans-serif; fill: #fff; }
+          .s6cBad { font: 700 11px Inter, sans-serif; fill: #991B1B; }
+        </style>
+        <text class="s6cT" x="30" y="26">Read accurately as a primary encoding</text>
+        <rect x="30" y="40" width="380" height="60" rx="10" fill="#164E63"/>
+        <text class="s6cW" x="46" y="66">Length</text>
+        <text class="s6cL" x="46" y="86" style="fill:#DDF4FA">bar charts - the value is the bar's length</text>
+
+        <rect x="30" y="108" width="380" height="60" rx="10" fill="#164E63"/>
+        <text class="s6cW" x="46" y="134">2D position</text>
+        <text class="s6cL" x="46" y="154" style="fill:#DDF4FA">scatter and line charts along a shared scale</text>
+
+        <text class="s6cT" x="470" y="26">Fine as secondary reinforcement only</text>
+        <rect x="470" y="40" width="380" height="60" rx="10" fill="#0891B2"/>
+        <text class="s6cW" x="486" y="66">Colour</text>
+        <text class="s6cL" x="486" y="86" style="fill:#DDF4FA">to flag which mark matters, not to carry the value</text>
+
+        <rect x="470" y="108" width="380" height="60" rx="10" fill="#0891B2"/>
+        <text class="s6cW" x="486" y="134">Shape</text>
+        <text class="s6cL" x="486" y="154" style="fill:#DDF4FA">to distinguish a series, not to encode a quantity</text>
+
+        <text class="s6cBad" x="30" y="200">Media NN/g advises against for quantitative encoding</text>
+        <rect x="30" y="212" width="182" height="58" rx="10" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s6cBad" x="46" y="238">Gauge</text>
+        <text class="s6cL" x="46" y="256">D5 on Tideline</text>
+
+        <rect x="222" y="212" width="182" height="58" rx="10" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s6cBad" x="238" y="238">Pie / donut</text>
+        <text class="s6cL" x="238" y="256">angle is hard to compare</text>
+
+        <rect x="414" y="212" width="182" height="58" rx="10" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s6cBad" x="430" y="238">Treemap</text>
+        <text class="s6cL" x="430" y="256">area is hard to compare</text>
+
+        <rect x="606" y="212" width="182" height="58" rx="10" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s6cBad" x="622" y="238">3D of any kind</text>
+        <text class="s6cL" x="622" y="256">depth distorts the value</text>
+
+        <rect x="30" y="288" width="14" height="14" fill="#E11D48"/>
+        <text class="s6cL" x="54" y="300" style="display:none"></text>
+      </svg>
+      <figcaption>🔍 Click to zoom - length and position carry a value; colour and shape only ever reinforce it</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Gestalt grouping: five mechanics that decide what reads as one thing<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <div class="callout warn">
+          <p><strong>Honesty check.</strong> Max Wertheimer's 1923 paper is the foundational source for these principles and is not practically fetchable today, so what follows travels through modern textbook summaries, which is also why the count varies by source. Treat these as grouping mechanics, not a fixed numbered law.</p>
+        </div>
+        <ul>
+          <li><strong>Proximity</strong> - elements placed close together read as one group. A KPI and its trend line belong touching, not on opposite sides of the panel.</li>
+          <li><strong>Similarity</strong> - elements sharing colour, shape or size read as related, whether or not that relation is real. Thirteen distinct fills on one screen means the eye tries and fails to group anything.</li>
+          <li><strong>Closure</strong> - the eye completes a familiar shape from incomplete information, useful for sparklines and gauges alike, and a reason a gauge feels informative even when it is not.</li>
+          <li><strong>Continuity</strong> - the eye follows a line or alignment across a break. A trend line reads as continuous even across a gap in the data, which is exactly why gaps must be marked, not left implicit.</li>
+          <li><strong>Figure-ground</strong> - the eye separates a foreground subject from its background. A panel with no visual lead has no figure, so nothing steps forward against the rest - Tideline's identical-weight panel layout is this failure by name.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>IBCS: seven rules, zero new findings<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <div class="callout warn">
+          <p><strong>Honesty check.</strong> The IBCS Association's primary standards page renders its content via JavaScript rather than static text, so the letter-by-letter wording below travels through two secondary sources that agree with each other. Treat the acronym as reliable and the exact phrasing as close paraphrase.</p>
+        </div>
+        <p>IBCS Standards v1.2 compresses reporting discipline into seven letters, SUCCESS: <strong>S</strong>ay - convey a message rather than just show numbers. <strong>U</strong>nify - use one consistent semantic notation across every report. <strong>C</strong>ondense - maximise information density without excess. <strong>C</strong>heck - verify visual and mathematical integrity. <strong>E</strong>xpress - choose the proper visualisation type for the message. <strong>S</strong>implify - remove anything that does not aid understanding. <strong>S</strong>tructure - organise content logically.</p>
+        <p>Run against Tideline on top of Tufte and Few, IBCS moves the catch count from 11 to <strong>11</strong>. Every violation IBCS would flag - the truncated axis under Check, the colour overuse under Simplify, the wrong chart type under Express - was already caught by Tufte's lie factor or Few's pitfalls before IBCS was ever switched on.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>That is not a mark against IBCS, which is a serious, widely adopted standard across European enterprise finance reporting. It is what overlap looks like in practice: three well-regarded lenses converging on the same twenty pixels because they are all, in the end, describing the same honest chart from different vocabularies.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Build-along</span>
+      <h2>Audit Tideline's four charts</h2>
+      <span class="tag demo">★ 16 min · everyone builds</span>
+    </div>
+    <p class="lede">Work through Tideline's revenue panel, retention chart, health gauge and signups line in order. Use only a straightedge, the axis labels already on the screen, and the tables above - no tooling required for tonight's version.</p>
+
+    <div class="steps">
+      <div class="step"><p><strong>Compute the lie factor by hand.</strong> Retention moved from 47.1 to 52.0 across the chart, a real 10.4 percent gain. The chart's axis runs 40 to 54. Measure or estimate the bar heights for the first and last bars as drawn, take (tall minus short) over short for the shown effect, divide by 10.4 percent for the real effect, and confirm you land near 6.5 to 1.</p></div>
+      <div class="step"><p><strong>Run Few's 13 against all four charts.</strong> Go pitfall by pitfall down the table in Part 2 and mark yes or no for the revenue panel, the retention chart, the gauge and the signups line. Do not stop at the first hit per chart - a single panel can commit more than one pitfall.</p></div>
+      <div class="step"><p><strong>Tally the fires.</strong> You should land on six: exceeding the screen, excess precision, indirect measure, wrong media, inaccurate encoding, overusing colour. If you found a seventh or an eighth, write down which pitfall and which chart - it may be a real finding this session's defect list did not enumerate.</p></div>
+      <div class="step"><p><strong>Pick the one fix that removes the most reader error.</strong> Of the six, which single change would most reduce the chance a reader draws the wrong conclusion from this screen on a normal Monday? Argue for the axis fix or against it - both answers are defensible, but only one of them is defensible with a number attached.</p></div>
+    </div>
+
+    <div class="callout tip">
+      <p>The exercise works on any dashboard, not only Tideline's. The axis-bounds trick and the 13-pitfall pass both transfer directly - what will not transfer is the specific lie factor of 6.5, which is Tideline's number and nobody else's.</p>
+    </div>
+  </section>
+
+  <!-- ============ EXERCISE ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Before session 7</h2>
+      <span class="tag exercise">20 min</span>
+    </div>
+    <ul>
+      <li>Find one chart in active use on your team where you are not certain the axis starts where it should. Compute its lie factor using the method from Part 1. If it is above roughly 1.5, that is a finding, not a style preference.</li>
+      <li>Run Few's 13 against your team's single most-viewed dashboard. Write down every pitfall that fires and which panel it fires on.</li>
+      <li>Pick one panel on that dashboard and name, out loud to a colleague, which Gestalt mechanic is failing - proximity, similarity, closure, continuity or figure-ground. If you cannot name one, the panel may not have a grouping problem at all, which is itself worth knowing.</li>
+    </ul>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions</h2>
+    </div>
+
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">Retention moved from 47.1 to 52.0, a real 10.4 percent gain. The truncated axis renders that as a 67 percent apparent rise. What is the lie factor, and what does a value near 1 mean?</p>
+      <button class="qopt" type="button">A · 0.67, meaning the chart understates the real change</button>
+      <button class="qopt" type="button">B · 10.4, meaning the axis choice is irrelevant to the reading</button>
+      <button class="qopt" type="button">C · About 6.5 to 1, meaning a value near 1 would show the picture and the data agreeing</button>
+      <p class="qwhy">67 divided by 10.4 is about 6.5. The lie factor is the shown effect over the real effect, and an honest chart scores close to 1 because what is drawn matches what happened.</p>
+    </div>
+
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">Adding IBCS's SUCCESS rules on top of Tufte and Few moves Tideline's catch count from 11 to what, and why?</p>
+      <button class="qopt" type="button">A · 11, because everything IBCS would flag was already caught by Tufte's lie factor or Few's pitfalls</button>
+      <button class="qopt" type="button">B · 18, because IBCS specialises in AI panels this session does not cover</button>
+      <button class="qopt" type="button">C · 5, because IBCS conflicts with Few's numbering and some findings are dropped</button>
+      <p class="qwhy">It stays at 11. That is not a weakness in IBCS, a serious enterprise reporting standard - it is what overlap looks like when three lenses describe the same honest-or-dishonest chart from different vocabularies.</p>
+    </div>
+
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">NN/g's dashboard guidance ranks length and 2D position above colour and shape for quantitative encoding. What follows for a gauge showing one number?</p>
+      <button class="qopt" type="button">A · Nothing, since a gauge also uses length in its needle</button>
+      <button class="qopt" type="button">B · The gauge encodes value through angle and colour, which are weaker channels than a labelled number or a bar against a target</button>
+      <button class="qopt" type="button">C · The gauge is fine as long as the colour is accessible</button>
+      <p class="qwhy">NN/g names gauges among the media it advises against for exactly this reason: the primary read is an angle, reinforced by colour, and both are less accurate than length or position for conveying a single quantity.</p>
+    </div>
+
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Sources covered</span>
+      <h2>What this session teaches, and where it came from</h2>
+    </div>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Tufte, The Visual Display of Quantitative Information (1983), Envisioning Information (1990), Visual Explanations (1997)</span><span class="note">Book-only, never a numbered list. Data-ink ratio, chartjunk, small multiples, lie factor and graphical integrity taught as concepts</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Few, Common Pitfalls in Dashboard Design (Perceptual Edge, Feb 2006, from Information Dashboard Design)</span><span class="note">All 13 pitfalls, read from the primary white paper, run as a full audit table</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">IBCS Standards v1.2, SUCCESS rules</span><span class="note">Primary page is JS-rendered; wording confirmed against two agreeing secondary sources</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">NN/g, Dashboards and Preattentive Attributes (Laubheimer, 2017-06-18)</span><span class="note">Read from the primary article; length and 2D position over pie, donut, treemap, gauge and 3D</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Gestalt principles of visual perception</span><span class="note">Wertheimer 1923 unfetchable; proximity, similarity, closure, continuity, figure-ground taught from textbook consensus</span></div>
+    </div>
+    <p class="mono" style="margin-top:14px">Full source map with every URL and every honesty caveat: <span class="mono">materials/official-course-map.md</span> in this repo.</p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 6 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>The lie factor</b><span>Shown effect over real effect. Near 1 is honest. Tideline's retention chart is 6.5 to 1.</span></div>
+      <div class="cheat-item"><b>Few's 13</b><span>The single most directly applicable list in the canon. Six fire on Tideline, one per defect this session owns.</span></div>
+      <div class="cheat-item"><b>The IBCS overlap</b><span>11 to 11 after Tufte and Few. Not a failure of IBCS - it is what overlap looks like.</span></div>
+      <div class="cheat-item"><b>Preattentive ranking</b><span>Length and 2D position read accurately. Colour and shape reinforce only. Gauges and pies fail both.</span></div>
+      <div class="cheat-item"><b>Gestalt grouping</b><span>Proximity, similarity, closure, continuity, figure-ground - textbook consensus, not a numbered canon.</span></div>
+      <div class="cheat-item"><b>The scope seam</b><span>This session proves the screen lies or does not. Chart choice and dashboard layout live in the sibling courses.</span></div>
+    </div>
+  </section>
+
+  <div class="callout next">
+    <span class="nx-pill">Next session</span>
+    <p>A screen can pass every integrity check in this session and still fail its reader the moment they touch it - a filter that cannot be undone, a query that runs for forty seconds with no state to show for it, a status row that only a sighted, colour-normal reader can parse. Session 7 turns five interaction lenses on Tideline's filter, its long-running query, and the red-and-green row that fails roughly one man in twelve.</p>
+  </div>
+
+  <footer class="pagefoot">
+    <span>Session 6 of 9 · learn-data-heuristics-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="05-operating-the-promise.html">← Prev: Operating the promise</a> &nbsp;·&nbsp; <a href="07-the-interaction.html">Next: The interaction →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

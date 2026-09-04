@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- social:start -->
+<meta name="description" content="Session 5 of 9. The DataOps Manifesto's 18 principles, Google SRE's four golden signals, and a freshness SLO with an error budget - the operating lens that catches the two defects on Tideline no interface review can see.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Learn with Phoebe">
+<meta property="og:title" content="Operating the promise - learn data heuristics with phoebe">
+<meta property="og:description" content="Session 5 of 9. Eighteen DataOps principles, four golden signals, and why a promise that can be missed is what makes lateness a fact.">
+<meta property="og:url" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/courses/05-operating-the-promise.html">
+<meta property="og:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Operating the promise - learn data heuristics with phoebe">
+<meta name="twitter:description" content="Session 5 of 9. Why a pipeline needs a promise before it can ever be called late.">
+<meta name="twitter:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<!-- social:end -->
+<title>Session 5 · Operating the promise - learn data heuristics with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-data-heuristics-with-phoebe</a> / Session 5 of 9</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Data Heuristics with Phoebe · Session 5 of 9</div>
+    <h1>Operating the <span class="accent">promise</span></h1>
+    <p class="sub">Session 4 gave the platform its architecture. Tonight it gets an operating discipline on top: the practices that turn "the pipeline usually works" into "the pipeline has a promise, and we know the moment it breaks it." This is the layer that finally explains why nobody noticed Tideline's dashboard was stale one Sunday a month - not because the platform failed silently, but because nothing was ever promised in the first place, so nothing could technically be late.</p>
+    <div class="chip-row">
+      <span class="chip level">🔴 Advanced</span>
+      <span class="chip audience">Data and analytics leads</span>
+      <span class="chip audience">Anyone on call for a pipeline</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:6">3-23 · The operating principles</span>
+      <span class="a3" style="flex:5">23-40 · Build-along: Tideline's freshness promise</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Where we are</h2>
+    </div>
+    <p class="lede">Session 3 wrote the contract; session 4 gave the platform underneath it a name and a set of tradeoffs. Tonight closes the loop with the discipline of actually running the thing day to day: the DataOps practices, the signals worth watching, and the promise that makes "late" a measurable fact rather than a Monday-meeting argument. This session owns three of Tideline's twenty planted defects, and it is worth being honest about exactly how much new ground they cover.</p>
+
+    <div class="legend">
+      <span class="pill">Live = presented in the 45 minutes</span>
+      <span class="pill">Self-study = the full depth, after class</span>
+      <span class="pill">🔍 Every diagram zooms</span>
+    </div>
+
+    <div class="callout win">
+      <p><strong>★ What you walk out with tonight.</strong> The two DataOps principles that change behaviour more than the other sixteen combined. The four golden signals translated line by line onto a pipeline. And a written freshness SLO with a real error budget, which is the single artifact most data teams have never produced for the dashboard everyone depends on most.</p>
+    </div>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Three defects, but an honest count of what is genuinely new<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>This session owns D1 (no freshness stamp anywhere), D19 (no freshness promise, so the pipeline cannot be late) and D20 (no evidence the data was tested before it landed). Session 1's measured bench shows adding the DataOps and SRE lens moves the cumulative catch count from 17 to 19 - a gain of exactly two. D1 was already caught earlier, by the usability lens: a missing timestamp is a visible interface property, so Nielsen's heuristic 1, visibility of system status, flags it on its own.</p>
+        <p>The honest version: this lens contributes two genuinely new findings, D19 and D20, and its third finding, D1, was already covered by a lens that came before it. That overlap is not a flaw in the operating lens - it is the same lesson session 1 taught with IBCS and PAIR. What the operating lens adds that nothing else can is the reason D1 exists at all: without a stated promise, freshness has no target to be measured against, and a missing stamp is a symptom of that absence rather than an independent problem.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>Tideline's data was silently partial one Sunday night this quarter. Nobody found out from the pipeline. A customer success manager found out on Monday because a churn number looked wrong, opened a ticket, and it took four hours to trace the number back to a load that had finished but only half-populated a table. There was no test that would have caught it before it landed, and no promise it broke, because none existed.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why the operating lens sits after the platform lens<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Sequencing matters here. A promise about freshness only means something once you know what the platform underneath is actually capable of - session 4's PACELC tradeoff for the normal case sets the ceiling on what latency an SLO can honestly target. Promising a five-minute freshness window on top of a platform that was built to favour consistency over latency is not an operating problem, it is a platform problem wearing an operating costume. Tonight assumes the platform choice is already known and asks what discipline sits on top of it.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 1 ============ -->
+  <section class="section" id="part-1">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers the eighteen DataOps principles and the two that matter most</span>
+      <h2>Eighteen principles, and the two that change behaviour</h2>
+      <span class="tag concept">7 min live</span>
+    </div>
+    <p class="lede">The DataOps Manifesto reads like a wall of text if you take it in one pass, so it helps to read it in the four clusters it actually falls into: how the team relates to its customer and to itself, how the work is engineered, how quality is enforced, and how the whole thing keeps improving.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The eighteen DataOps Manifesto principles clustered into four themes: team and customer, engineering practice, quality, and continuous improvement, with reduce heroism and analytics is manufacturing marked as the two that change behaviour most">
+        <style>
+          .s5aT { font: 700 12px Inter, sans-serif; fill: #0F1E24; }
+          .s5aC { font: 400 10.5px Inter, sans-serif; fill: #566A72; }
+          .s5aH { font: 800 12px Inter, sans-serif; fill: #fff; }
+          .s5aBadT { font: 700 12px Inter, sans-serif; fill: #991B1B; }
+          .s5aBadC { font: 400 10.5px Inter, sans-serif; fill: #991B1B; }
+          .s5aN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+        <rect x="30" y="30" width="400" height="94" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s5aT" x="44" y="54">Team and customer</text>
+        <text class="s5aC" x="44" y="72">Satisfy the customer · value working</text>
+        <text class="s5aC" x="44" y="88">analytics · embrace change · team sport</text>
+        <text class="s5aC" x="44" y="104">daily interactions · self-organize</text>
+
+        <rect x="450" y="30" width="400" height="94" rx="10" fill="#FFF1F2" stroke="#E11D48" stroke-width="1.5"/>
+        <text class="s5aBadT" x="464" y="54">Engineering practice</text>
+        <text class="s5aBadC" x="464" y="72">Reduce heroism · reflect · analytics is</text>
+        <text class="s5aBadC" x="464" y="88">code · orchestrate · reproducible</text>
+        <text class="s5aBadC" x="464" y="104">builds · disposable environments</text>
+
+        <rect x="30" y="150" width="400" height="94" rx="10" fill="#FFF1F2" stroke="#E11D48" stroke-width="1.5"/>
+        <text class="s5aBadT" x="44" y="174">Quality</text>
+        <text class="s5aBadC" x="44" y="192">Simplicity · analytics is manufacturing</text>
+        <text class="s5aBadC" x="44" y="208">quality is paramount · monitor quality</text>
+        <text class="s5aBadC" x="44" y="224">and performance</text>
+
+        <rect x="450" y="150" width="400" height="94" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s5aT" x="464" y="174">Continuous improvement</text>
+        <text class="s5aC" x="464" y="192">Reuse · improve cycle times</text>
+        <text class="s5aC" x="464" y="208">plus the later addition:</text>
+        <text class="s5aC" x="464" y="224">start with data testing</text>
+
+        <rect x="30" y="270" width="820" height="60" rx="10" fill="#164E63"/>
+        <text class="s5aH" x="50" y="294">The two that change behaviour most</text>
+        <text class="s5aC" x="50" y="314" style="fill:#DDF4FA">Reduce heroism removes the reward for a save. Manufacturing treats each run as a repeatable process.</text>
+
+        <rect x="30" y="350" width="14" height="14" fill="#E11D48"/>
+        <text class="s5aN" x="54" y="362">Rose clusters hold the two principles that change behaviour most; cyan sets the culture beneath them.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - eighteen principles in four readable clusters, plus the later addition</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>All eighteen, by name, plus the later addition<span class="mini">5 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Primary-verified at dataopsmanifesto.org. The eighteen, grouped for readability rather than as a wall of eighteen bullets:</p>
+        <p><strong>Team and customer.</strong> Continually satisfy your customer. Value working analytics. Embrace change. It's a team sport. Daily interactions. Self-organize.</p>
+        <p><strong>Engineering practice.</strong> Reduce heroism. Reflect. Analytics is code. Orchestrate. Make it reproducible. Disposable environments.</p>
+        <p><strong>Quality.</strong> Simplicity. Analytics is manufacturing. Quality is paramount. Monitor quality and performance.</p>
+        <p><strong>Continuous improvement.</strong> Reuse. Improve cycle times.</p>
+        <p>A later addition, not in the original eighteen: <strong>start with data testing.</strong> It is usually cited alongside the eighteen because it directly addresses D20 - data landing untested is exactly the gap this addition was written to close.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Reduce heroism and analytics is manufacturing<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p><strong>Reduce heroism</strong> names something most teams reward by accident: the engineer who fixes the pipeline at 11pm gets praised, and the praise teaches everyone that the correct response to a fragile system is a hero, not a fix. A team that reduces heroism treats a midnight save as a process failure to investigate, not a story to tell in standup.</p>
+        <p><strong>Analytics is manufacturing</strong> reframes a pipeline run as a repeatable, monitored production process rather than a one-off craft output. A manufacturing line has statistical process control, defined tolerances and a stop-the-line rule. A pipeline treated as manufacturing gets the same: known-good ranges for row counts, an owner for out-of-tolerance runs, and a rule for when a bad batch should never reach the warehouse at all.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>Tideline's Sunday-night partial load was quietly fixed by whichever engineer noticed it first, three separate times over the past year, by three different people, none of whom filed anything. Each fix was a small act of heroism. None of them changed the process that keeps causing the same failure.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2 ============ -->
+  <section class="section" id="part-2">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers the four signals worth watching on any pipeline</span>
+      <h2>Four golden signals, translated for a pipeline</h2>
+      <span class="tag concept">6 min live</span>
+    </div>
+    <p class="lede">Google SRE's four golden signals were written for services, but each one has a direct, specific meaning on a data pipeline - close enough that a team that already monitors latency, traffic, errors and saturation on their APIs can extend the same habit to their data without inventing a new vocabulary.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The four golden signals instrumented along a pipeline from source to screen: latency as freshness lag, traffic as row volume, errors as failed or silently partial loads, saturation as warehouse queue pressure">
+        <style>
+          .s5bT { font: 700 12px Inter, sans-serif; fill: #0F1E24; }
+          .s5bC { font: 400 11px Inter, sans-serif; fill: #566A72; }
+          .s5bH { font: 800 13px Inter, sans-serif; fill: #fff; }
+          .s5bW { font: 400 11px Inter, sans-serif; fill: #DDF4FA; }
+          .s5bN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+        <defs>
+          <marker id="s5Ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#C6D5DA"/></marker>
+        </defs>
+        <line x1="40" y1="40" x2="840" y2="40" stroke="#C6D5DA" stroke-width="2" marker-end="url(#s5Ar)"/>
+        <text class="s5bN" x="40" y="24">Source -&gt; pipeline -&gt; warehouse -&gt; screen</text>
+
+        <rect x="30" y="60" width="200" height="90" rx="10" fill="#164E63"/>
+        <text class="s5bH" x="130" y="86" text-anchor="middle">Latency</text>
+        <text class="s5bW" x="130" y="108" text-anchor="middle">freshness lag: time from</text>
+        <text class="s5bW" x="130" y="124" text-anchor="middle">event to visible on screen</text>
+
+        <rect x="245" y="60" width="200" height="90" rx="10" fill="#0E7490"/>
+        <text class="s5bH" x="345" y="86" text-anchor="middle">Traffic</text>
+        <text class="s5bW" x="345" y="108" text-anchor="middle">row volume: is today's</text>
+        <text class="s5bW" x="345" y="124" text-anchor="middle">batch the expected size?</text>
+
+        <rect x="460" y="60" width="200" height="90" rx="10" fill="#0891B2"/>
+        <text class="s5bH" x="560" y="86" text-anchor="middle">Errors</text>
+        <text class="s5bW" x="560" y="108" text-anchor="middle">failed loads, and the</text>
+        <text class="s5bW" x="560" y="124" text-anchor="middle">quieter silently-partial ones</text>
+
+        <rect x="675" y="60" width="175" height="90" rx="10" fill="#0891B2"/>
+        <text class="s5bH" x="762" y="86" text-anchor="middle">Saturation</text>
+        <text class="s5bW" x="762" y="108" text-anchor="middle">warehouse slot or queue</text>
+        <text class="s5bW" x="762" y="124" text-anchor="middle">pressure near its ceiling</text>
+
+        <rect x="30" y="180" width="820" height="66" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s5bT" x="50" y="204">Errors is the signal Tideline never measured</text>
+        <text class="s5bC" x="50" y="224">A load can finish with zero errors logged, yet still be silently partial - and look green on every dashboard.</text>
+
+        <rect x="30" y="264" width="14" height="14" fill="#E11D48"/>
+        <text class="s5bN" x="54" y="276">All four signals are cheap to instrument once, and expensive to reconstruct after an incident.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the four golden signals, translated onto a data pipeline end to end</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Latency, traffic, errors, saturation - the pipeline reading<span class="mini">5 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Rob Ewaschuk's chapter in Site Reliability Engineering, O'Reilly 2017, names the four signals for monitoring distributed services. The translation to a pipeline is close enough to be almost literal.</p>
+        <table class="clean">
+          <thead><tr><th>Golden signal</th><th>On a data pipeline</th></tr></thead>
+          <tbody>
+            <tr><td>Latency</td><td>Freshness lag - the time between an event happening and it being visible on the screen.</td></tr>
+            <tr><td>Traffic</td><td>Row volume - whether the batch that just landed is close to the size a normal day produces.</td></tr>
+            <tr><td>Errors</td><td>Failed loads, and the more dangerous case: loads that finish with no error but only partially wrote their data.</td></tr>
+            <tr><td>Saturation</td><td>Warehouse compute slots or queue depth approaching the ceiling the platform can actually serve.</td></tr>
+          </tbody>
+        </table>
+        <div class="callout tip">
+          <p>Errors is the signal worth instrumenting first if a team has none of the four today. A dashboard that only checks whether the job exited successfully will never catch a job that exited successfully having done half its job.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The Agile Manifesto as the DataOps ancestor<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>The DataOps Manifesto is explicitly descended from the Agile Manifesto's twelve principles, published in 2001 and primary-verified at agilemanifesto.org. This session does not re-teach all twelve; the one worth citing directly is delivery cadence - Agile's principle of delivering working software frequently, in preference to a long release cycle, maps onto DataOps as shipping small, tested pipeline changes rather than a quarterly overhaul. The lineage matters more than the full list: DataOps is what happens when the Agile Manifesto's cadence and team principles are applied to a pipeline instead of an application.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3 ============ -->
+  <section class="section" id="part-3">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers turning a promise into a measurable fact</span>
+      <h2>A promise with an error budget is what makes lateness real</h2>
+      <span class="tag concept">7 min live</span>
+    </div>
+    <p class="lede">"The dashboard should be fresh" is not a promise, it is a wish. A promise has a target, a measurement window, and an explicit tolerance for missing it. Once that exists, a late dashboard is a fact you can point to, not an opinion someone can argue away in the Monday meeting.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A freshness error budget burning down across a month, staying within budget until one breach late in the month consumes the remaining allowance">
+        <style>
+          .s5cT { font: 700 12px Inter, sans-serif; fill: #0F1E24; }
+          .s5cN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+          .s5cL { font: 400 11px Inter, sans-serif; fill: #566A72; }
+          .s5cBig { font: 800 22px Inter, sans-serif; fill: #164E63; }
+        </style>
+        <defs>
+          <marker id="s5Cr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#C6D5DA"/></marker>
+        </defs>
+
+        <rect x="30" y="20" width="300" height="56" rx="10" fill="#164E63"/>
+        <text class="s5cBig" x="180" y="46" text-anchor="middle" style="fill:#fff;font-size:14px">SLO: 99% of loads land</text>
+        <text class="s5cBig" x="180" y="66" text-anchor="middle" style="fill:#DDF4FA;font-size:12px;font-weight:400">within 30 minutes, per 30-day window</text>
+
+        <line x1="60" y1="240" x2="800" y2="240" stroke="#C6D5DA" stroke-width="1.5"/>
+        <line x1="60" y1="110" x2="60" y2="240" stroke="#C6D5DA" stroke-width="1.5" marker-end="url(#s5Cr)" transform="rotate(180 60 175)"/>
+        <text class="s5cL" x="30" y="118">Budget</text>
+        <text class="s5cL" x="30" y="244">0</text>
+
+        <polyline points="60,120 200,128 340,136 480,148 560,150 640,220 720,232 800,236" fill="none" stroke="#0891B2" stroke-width="3"/>
+
+        <line x1="640" y1="110" x2="640" y2="240" stroke="#E11D48" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <rect x="646" y="112" width="150" height="46" rx="8" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s5cT" x="660" y="130" style="fill:#991B1B">One breach: day 22</text>
+        <text class="s5cL" x="660" y="146" style="fill:#991B1B">Sunday load, silent partial</text>
+
+        <text class="s5cL" x="60" y="256">Day 1</text>
+        <text class="s5cL" x="380" y="256">Day 15</text>
+        <text class="s5cL" x="770" y="256">Day 30</text>
+
+        <rect x="30" y="280" width="14" height="14" fill="#E11D48"/>
+        <text class="s5cN" x="54" y="292">A breach does not need to zero the budget. It needs a date, a cause, and a number remaining.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - a freshness error budget burning down across a month, with one breach</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The three parts of a promise that can be checked<span class="mini">5 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>An SLO turns a hope into an instrument. It needs three parts, and a promise missing any one of them is not actually operable:</p>
+        <ul>
+          <li><strong>A target</strong> - a specific number, such as 99 percent of loads landing within 30 minutes of the source event.</li>
+          <li><strong>A measurement window</strong> - the period the target is evaluated over, commonly a rolling 30 days, so one bad night does not sink the whole quarter's reputation on its own.</li>
+          <li><strong>An error budget</strong> - the amount of missing the target that is tolerated before it becomes an incident. If the target is 99 percent over 30 days, the budget is the 1 percent of loads allowed to miss - and once that 1 percent is spent, the next miss is treated as a real failure, not background noise.</li>
+        </ul>
+        <div class="callout tip">
+          <p>The error budget is the part most teams skip, and it is the part that actually changes behaviour. Without it, every miss is treated the same, whether it is the first of the month or the fortieth, and nobody can say when "still fine" becomes "actually broken".</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Testing before the data lands, not after<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>"Start with data testing" is the DataOps Manifesto's later addition, and it targets D20 directly: evidence the data was checked before a reader ever saw it, not after a reader complained. The cheapest version of this is a small set of assertions that run between the pipeline finishing and the data becoming visible - row counts within an expected range, no unexpected nulls in a key column, referential checks against a known dimension.</p>
+        <p>The distinction that matters is timing. A test that runs after the dashboard has already been read by three people is a post-mortem input, not a safeguard. A test that blocks the data from landing until it passes is the only version that actually prevents D20 from happening again.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>The Sunday-night partial load would have been caught by one test: a row-count check against the trailing four-week average, with the load held back if it fell more than 30 percent short. That single assertion, run before the table became visible, would have turned a four-hour customer-facing mystery into a page nobody outside the data team ever saw.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO ============ -->
+  <section class="section" id="demo-5">
+    <div class="section-kicker">
+      <span class="klabel">Build-along</span>
+      <h2>Write Tideline's freshness promise</h2>
+      <span class="tag demo">★ 17 min · everyone builds</span>
+    </div>
+    <p class="lede">Three things to produce, in order, using Tideline's actual Sunday-night incident as the material. Nothing here needs a tool - a promise is a sentence, a test is a name, and a display requirement is a short list.</p>
+
+    <div class="steps">
+      <div class="step"><p><strong>1. Write the SLO.</strong> Fill in all three parts: a target (a percentage and a time window, such as "99% of loads land within 30 minutes"), a measurement window (such as "measured on a rolling 30 days"), and an error budget stated as a count or a percentage of tolerated misses. Write it as one sentence a non-technical stakeholder could read and understand what "late" means.</p></div>
+      <div class="step"><p><strong>2. Name the one data test that would have caught the silent Sunday-night partial load.</strong> Be specific: what column or table, what check, and what threshold. "We should test the data more" does not count as an answer - "row count against the trailing four-week average, held back below 70 percent" does.</p></div>
+      <div class="step"><p><strong>3. Decide what the screen must display so a reader can tell the promise was kept.</strong> At minimum this is a visible freshness stamp and a status against the SLO, not just a raw timestamp a reader has to interpret themselves. Write the exact words that should appear near the number.</p></div>
+    </div>
+
+    <div class="callout tip">
+      <p>Notice that step 3 retroactively fixes D1. A freshness stamp only becomes meaningful once there is a promise for it to be measured against - which is the honest reason this session's third defect was really session 1's usability lens borrowing a fix that only makes sense once the operating layer exists.</p>
+    </div>
+  </section>
+
+  <!-- ============ EXERCISE ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Before session 6</h2>
+      <span class="tag exercise">20 min</span>
+    </div>
+    <ul>
+      <li>Ask the owner of your team's most-read pipeline whether a freshness SLO exists in writing anywhere. If the honest answer is no, that is the artifact to produce this week, using tonight's three-part template.</li>
+      <li>Pick one dashboard and identify which of the four golden signals - latency, traffic, errors, saturation - it currently has zero instrumentation for. Errors is the most common gap; confirm whether that holds for yours.</li>
+      <li>Find one place in your team's culture where a midnight fix was quietly praised rather than treated as a process failure. Write down what "reduce heroism" would have looked like instead.</li>
+      <li>Bring the SLO. Session 6 starts making the surface honest about what it shows, and an SLO with no visible status on the screen is exactly the kind of half-finished promise that session will catch.</li>
+    </ul>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions</h2>
+    </div>
+
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">Of the three defects this session owns - D1, D19, D20 - which one was already caught by an earlier lens in the course, and why?</p>
+      <button class="qopt" type="button">A · D20, because the usability lens checks whether data was tested before it landed</button>
+      <button class="qopt" type="button">B · D1, because a missing freshness stamp is a visible interface property that Nielsen's visibility-of-system-status heuristic already flags</button>
+      <button class="qopt" type="button">C · D19, because the platform lens in session 4 already covers freshness promises</button>
+      <p class="qwhy">D1 is a rendered, visible property of the screen, so a usability-only reviewer already catches it. D19 and D20 are the genuinely new findings this lens contributes, which is why the measured catch count only rises by two, from 17 to 19, not by three.</p>
+    </div>
+
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">Why does an SLO need an error budget in addition to a target and a measurement window?</p>
+      <button class="qopt" type="button">A · Because a target alone is not a valid mathematical statement</button>
+      <button class="qopt" type="button">B · Because regulators require a stated tolerance for every service promise</button>
+      <button class="qopt" type="button">C · Because without a budget, every miss looks the same, and nobody can say when tolerable slippage becomes an actual incident</button>
+      <p class="qwhy">The error budget is what turns a target into an operable promise. It defines exactly how much missing is acceptable before a miss stops being background noise and starts being a real failure worth acting on.</p>
+    </div>
+
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">Which golden signal did Tideline's Sunday-night incident reveal was never actually being measured?</p>
+      <button class="qopt" type="button">A · Errors - because the load finished with zero errors logged despite being silently partial</button>
+      <button class="qopt" type="button">B · Traffic - because nobody tracked how many rows Tideline received</button>
+      <button class="qopt" type="button">C · Latency - because the dashboard has never been slow to load</button>
+      <p class="qwhy">The job exited successfully, so a monitor watching only for failed jobs saw nothing wrong. The gap was in errors: a silently-partial load is exactly the case that pure job-success monitoring cannot see.</p>
+    </div>
+
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Sources covered</span>
+      <h2>What this session teaches, and where it came from</h2>
+    </div>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">The DataOps Manifesto, 18 principles plus the later addition</span><span class="note">Primary-verified at dataopsmanifesto.org; all 18 named tonight, clustered for readability</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Google SRE, four golden signals (Ewaschuk, Site Reliability Engineering ch. 6, O'Reilly 2017)</span><span class="note">Primary-verified; each signal translated onto a pipeline tonight</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">The Agile Manifesto's 12 principles (2001)</span><span class="note">Primary-verified as the DataOps ancestor; cited for delivery cadence only, not re-taught in full</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">SLOs and error budgets applied to data freshness</span><span class="note">The three-part promise structure built live on Tideline tonight</span></div>
+    </div>
+    <p class="mono" style="margin-top:14px">Full source map with every URL and every honesty caveat: <span class="mono">materials/official-course-map.md</span> in this repo.</p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 5 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>The honest gain</b><span>This lens adds D19 and D20 new; D1 was already caught by usability. Catch count moves 17 to 19, not 17 to 20.</span></div>
+      <div class="cheat-item"><b>Two behaviour-changing principles</b><span>Reduce heroism removes the reward for a midnight save. Analytics is manufacturing treats a run as a monitored process.</span></div>
+      <div class="cheat-item"><b>Four golden signals on a pipeline</b><span>Latency is freshness lag, traffic is row volume, errors are failed and silently-partial loads, saturation is queue pressure.</span></div>
+      <div class="cheat-item"><b>A promise has three parts</b><span>Target, measurement window, error budget. Missing any one means the promise cannot actually be checked.</span></div>
+      <div class="cheat-item"><b>Test before it lands</b><span>A test that runs after the dashboard was already read is a post-mortem input, not a safeguard.</span></div>
+      <div class="cheat-item"><b>Freshness needs a promise first</b><span>A timestamp alone is not visibility. It only becomes meaningful once there is an SLO for a reader to check it against.</span></div>
+    </div>
+  </section>
+
+  <div class="callout next">
+    <span class="nx-pill">Next session</span>
+    <p>The platform and the operating discipline are sound; now comes the part everyone actually looks at. Session 6 turns to the surface itself - the truncated axis with a lie factor of 6.5 to 1, the gauge spending a quarter of a panel on one number, and the thirteen colours fighting for attention on a single screen.</p>
+  </div>
+
+  <footer class="pagefoot">
+    <span>Session 5 of 9 · learn-data-heuristics-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="04-the-platform.html">← Prev: The platform underneath</a> &nbsp;·&nbsp; <a href="06-truth-on-the-surface.html">Next: Truth on the surface →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

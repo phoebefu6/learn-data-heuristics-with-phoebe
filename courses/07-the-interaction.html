@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- social:start -->
+<meta name="description" content="Session 7 of 9. Five interaction traditions run hard against one filter and one long-running query - NN/g's ten, Shneiderman's eight, Norman's concepts, Tognazzini's nineteen, ISO 9241-110's seven - plus the colour-only status row that fails roughly one man in twelve.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Learn with Phoebe">
+<meta property="og:title" content="The interaction - learn data heuristics with phoebe">
+<meta property="og:description" content="Session 7 of 9. Five sets, one filter, one long query, and a status row that only reads if you have full colour vision.">
+<meta property="og:url" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/courses/07-the-interaction.html">
+<meta property="og:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The interaction - learn data heuristics with phoebe">
+<meta name="twitter:description" content="Session 7 of 9. Five interaction traditions, one filter, one long query.">
+<meta name="twitter:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<!-- social:end -->
+<title>Session 7 · The interaction - learn data heuristics with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-data-heuristics-with-phoebe</a> / Session 7 of 9</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Data Heuristics with Phoebe · Session 7 of 9</div>
+    <h1>The <span class="accent">interaction</span></h1>
+    <p class="sub">A screen can pass every truth check in session 6 and still fail the moment someone touches it. Tonight puts five interaction traditions to work on the two places analytics tools genuinely differ from ordinary web software - the filter, and the query that takes forty seconds to answer - and closes on a single row of red and green text that roughly one man in twelve cannot read at all.</p>
+    <div class="chip-row">
+      <span class="chip level">🔴 Advanced</span>
+      <span class="chip audience">Data and analytics leads</span>
+      <span class="chip audience">Anyone who builds self-serve analytics</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:5">3-24 · Five sets on one interaction</span>
+      <span class="a3" style="flex:4">24-40 · Build-along: the filter and the long query</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Where we are</h2>
+    </div>
+    <p class="lede">Session 6 asked whether a static screen represents its data honestly. That question has an answer the moment the screen finishes rendering. This session asks a harder one: does the product keep behaving correctly across the seconds and minutes after someone touches it - sets a filter, waits on a query, drills into a panel, exports a file, hits an empty result or an outright error. Interaction quality is not visible in a screenshot, which is exactly why it gets reviewed less often than it should.</p>
+
+    <div class="callout win">
+      <p><strong>★ What you walk out with tonight.</strong> Five named traditions run hard against one filter and one long-running query, not recited in the abstract. A state diagram for what a slow query owes its reader at every stage. And a redesigned status row that survives being printed in greyscale, because roughly one reader in twelve is effectively seeing it that way already.</p>
+    </div>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>Why analytics interaction is its own problem<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Most interaction guidance was written against forms, menus and buttons that respond in under a second. Analytics tools break that assumption constantly: a filter can trigger a query that takes forty seconds, a drill-down can silently reshape what a colleague is looking at on a shared screen, and an export can succeed with zero rows and no explanation why. The five sets tonight were not written for this problem specifically, but applied together they cover it completely - general usability, software-dialogue discipline, the cognitive mechanics of a control, fine-grained interaction craft, and a formal international standard.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>Tideline's status row shows renewal risk in red or green text with nothing else attached. Every reviewer who has looked at it in daylight, on a good monitor, has said it is obviously clear. Nobody had checked what it looks like to a colleague with deuteranomaly, the single most common form of colour vision deficiency, until this session's bench was built.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why five sets rather than one<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Session 6 had one list built almost entirely for its job, Few's 13. Interaction quality has no such single list, because the five traditions below were built by people solving different problems: Nielsen and Molich generalised across whatever interface existed in 1990, Shneiderman was writing specifically about software dialogues in 1985, Norman was explaining why physical objects and digital controls succeed or fail at communicating themselves, Tognazzini was compiling decades of hands-on interaction craft at Apple and Sun, and ISO was standardising dialogue principles for international procurement. None of the five is sufficient alone on an analytics UI, which is the reason tonight runs all five against the same two artefacts rather than picking a favourite.</p>
+        </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 1 ============ -->
+  <section class="section" id="part-1">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers the five sets and what each is for</span>
+      <h2>Five sets, five different jobs</h2>
+      <span class="tag concept">8 min live</span>
+    </div>
+    <p class="lede">Each of the five was written to answer a slightly different question. Knowing which question a set answers tells you which finding to expect from it before you even open the tool.</p>
+
+    <table class="clean">
+      <thead><tr><th>Set</th><th>Source</th><th>What it is for</th></tr></thead>
+      <tbody>
+        <tr><td>NN/g's 10 usability heuristics</td><td>Nielsen, 1994, rev. 2020</td><td>General-purpose first pass on any interface, filters and queries included</td></tr>
+        <tr><td>Shneiderman's Eight Golden Rules</td><td>Designing the User Interface, 1985, 6th ed. 2016</td><td>Discipline specific to software dialogues - closure, reversal, memory load</td></tr>
+        <tr><td>Norman's design principles</td><td>The Design of Everyday Things, 1988, rev. 2013</td><td>Why a single control communicates - or fails to communicate - what it does</td></tr>
+        <tr><td>Tognazzini's 19 interaction principles</td><td>AskTog, 2014 revision</td><td>Fine-grained craft, especially latency, state and protecting work</td></tr>
+        <tr><td>ISO 9241-110's 7 dialogue principles</td><td>ISO, 2020, 2nd edition</td><td>A formal, internationally standardised bar for any software dialogue</td></tr>
+      </tbody>
+    </table>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>NN/g's ten, worked hard against an analytics UI<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Session 1 introduced these ten by name. Tonight they get applied specifically to filters, long queries, drill-down, export, and empty or error states - the five moments where analytics interaction genuinely differs from a marketing site.</p>
+        <table class="clean">
+          <thead><tr><th>#</th><th>Heuristic</th><th>Applied to analytics interaction</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Visibility of system status</td><td>Is a running query visibly running, not silently pending?</td></tr>
+            <tr><td>2</td><td>Match between system and the real world</td><td>Does a drill-down use the business's own category names?</td></tr>
+            <tr><td>3</td><td>User control and freedom</td><td>Can a filter be cleared in one action, without a page reload?</td></tr>
+            <tr><td>4</td><td>Consistency and standards</td><td>Does export always mean the same file format, everywhere in the tool?</td></tr>
+            <tr><td>5</td><td>Error prevention</td><td>Does the tool warn before an export with zero matching rows?</td></tr>
+            <tr><td>6</td><td>Recognition rather than recall</td><td>Are active filters shown as chips, or does the reader have to remember them?</td></tr>
+            <tr><td>7</td><td>Flexibility and efficiency of use</td><td>Can a power user skip the wizard and write the filter directly?</td></tr>
+            <tr><td>8</td><td>Aesthetic and minimalist design</td><td>Does the empty-result state show only what helps, not a blank page?</td></tr>
+            <tr><td>9</td><td>Help recognise, diagnose, recover from errors</td><td>Does a failed query say what failed and offer a retry?</td></tr>
+            <tr><td>10</td><td>Help and documentation</td><td>Is the filter's exact logic - and, or, exclusion - one click from confusing?</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Shneiderman's eight golden rules<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Ben Shneiderman published these in 1985 and has kept them current through six editions of <em>Designing the User Interface</em>. They speak specifically to software dialogues, which makes them a closer fit to a filter or a query panel than a general usability heuristic.</p>
+        <table class="clean">
+          <thead><tr><th>#</th><th>Rule</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Strive for consistency</td></tr>
+            <tr><td>2</td><td>Seek universal usability</td></tr>
+            <tr><td>3</td><td>Offer informative feedback</td></tr>
+            <tr><td>4</td><td>Design dialogs to yield closure</td></tr>
+            <tr><td>5</td><td>Prevent errors</td></tr>
+            <tr><td>6</td><td>Permit easy reversal of actions</td></tr>
+            <tr><td>7</td><td>Keep users in control</td></tr>
+            <tr><td>8</td><td>Reduce short-term memory load</td></tr>
+          </tbody>
+        </table>
+        <p>Two of the eight are the most under-applied on analytics tools specifically. <strong>Design dialogs to yield closure</strong> means a sequence of actions should have a clear beginning, middle and end - a query that just stops updating its spinner, with no completion state, never yields closure. <strong>Reduce short-term memory load</strong> means the tool should show what is currently filtered rather than expect the reader to hold five selections in their head while comparing two dashboards in separate tabs.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>Tideline's filter panel lets a reader stack six conditions and then navigate away. On return, the filters are gone and the panel is silent about whether that was intentional or a bug. That single behaviour breaks closure and control at once.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Norman's concepts, applied to one filter control<span class="mini">5 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <div class="callout warn">
+          <p><strong>Honesty check.</strong> These come from Donald Norman's <em>The Design of Everyday Things</em> (1988, rev. 2013), and Norman never shipped them as a single canonical numbered web list - counts differ between sources that summarise the book. Treat what follows as the working concepts, not a fixed-length canon.</p>
+        </div>
+        <p><strong>Affordance</strong> is what an object's shape allows it to do - a button-shaped rectangle affords pressing. <strong>Signifier</strong> is the explicit cue that tells you the affordance is there - a chevron icon, an underline, a change in cursor. <strong>Mapping</strong> is the relationship between a control and its effect - a filter positioned above the chart it changes maps more clearly than one buried in a side panel three scrolls away. <strong>Feedback</strong> is the signal that an action registered - a chip appearing, a count updating. <strong>Constraint</strong> is what the control physically prevents - a dropdown cannot hold an invalid value the way a free-text box can. <strong>Conceptual model</strong> is the reader's mental picture of what the control does, which must match what it actually does or every use becomes a small surprise.</p>
+      </div>
+    </details>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One filter control annotated with Norman's six concepts: affordance, signifier, mapping, feedback, constraint and conceptual model">
+        <style>
+          .s7aT { font: 700 13px Inter, sans-serif; fill: #0F1E24; }
+          .s7aL { font: 400 11px Inter, sans-serif; fill: #566A72; }
+          .s7aH { font: 800 12px Inter, sans-serif; fill: #fff; }
+          .s7aC { font: 400 11px Inter, sans-serif; fill: #DDF4FA; }
+        </style>
+        <rect x="330" y="130" width="220" height="60" rx="10" fill="#0891B2"/>
+        <text class="s7aH" x="440" y="155" text-anchor="middle">Region: All ▾</text>
+        <text class="s7aC" x="440" y="174" text-anchor="middle">the filter control under review</text>
+
+        <rect x="30" y="20" width="200" height="76" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s7aT" x="44" y="42">Affordance</text>
+        <text class="s7aL" x="44" y="60">raised edge and fill say</text>
+        <text class="s7aL" x="44" y="76">this can be pressed</text>
+        <line x1="130" y1="96" x2="380" y2="128" stroke="#C6D5DA" stroke-width="1.5"/>
+
+        <rect x="330" y="20" width="220" height="76" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s7aT" x="344" y="42">Signifier</text>
+        <text class="s7aL" x="344" y="60">the ▾ chevron makes the</text>
+        <text class="s7aL" x="344" y="76">affordance explicit</text>
+        <line x1="440" y1="96" x2="440" y2="128" stroke="#C6D5DA" stroke-width="1.5"/>
+
+        <rect x="650" y="20" width="200" height="76" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s7aT" x="664" y="42">Constraint</text>
+        <text class="s7aL" x="664" y="60">a dropdown cannot hold</text>
+        <text class="s7aL" x="664" y="76">an invalid region</text>
+        <line x1="750" y1="96" x2="500" y2="128" stroke="#C6D5DA" stroke-width="1.5"/>
+
+        <rect x="30" y="222" width="200" height="76" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s7aT" x="44" y="244">Mapping</text>
+        <text class="s7aL" x="44" y="262">sits directly above the</text>
+        <text class="s7aL" x="44" y="278">chart it changes</text>
+        <line x1="130" y1="220" x2="380" y2="192" stroke="#C6D5DA" stroke-width="1.5"/>
+
+        <rect x="330" y="222" width="220" height="76" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s7aT" x="344" y="244">Feedback</text>
+        <text class="s7aL" x="344" y="262">a chip appears and the</text>
+        <text class="s7aL" x="344" y="278">chart count updates</text>
+        <line x1="440" y1="220" x2="440" y2="192" stroke="#C6D5DA" stroke-width="1.5"/>
+
+        <rect x="650" y="222" width="200" height="76" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s7aT" x="664" y="244">Conceptual model</text>
+        <text class="s7aL" x="664" y="262">does this narrow one panel,</text>
+        <text class="s7aL" x="664" y="278">or the whole screen?</text>
+        <line x1="750" y1="220" x2="500" y2="192" stroke="#C6D5DA" stroke-width="1.5"/>
+      </svg>
+      <figcaption>🔍 Click to zoom - the same six concepts on any control, from a light switch to a dashboard filter</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Tognazzini's 19, and the three almost never applied<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Bruce Tognazzini published these as AskTog's First Principles of Interaction Design, most recently revised in 2014, drawing on his years leading human interface work at Apple and Sun. Nineteen principles by name: aesthetics, anticipation, autonomy, colour, consistency, defaults, discoverability, efficiency of the user, explorable interfaces, Fitts's Law, human-interface objects, latency reduction, learnability, metaphors, protect users' work, readability, simplicity, state, visible navigation.</p>
+        <p>Three matter enormously for analytics and are almost never applied on purpose:</p>
+        <ul>
+          <li><strong>Protect users' work</strong> - nothing a reader configures, filters or half-writes should vanish because of a refresh, a crash, or a navigation click. Analytics tools violate this constantly because filter state is treated as disposable.</li>
+          <li><strong>Latency reduction</strong> - perceived speed is often more important than actual speed. A progress indicator, a partial result, or an honest estimate of remaining time all reduce felt latency even when the query itself takes exactly as long.</li>
+          <li><strong>State</strong> - the system must always be able to communicate what state it is in. A long query with no visible state is not fast or slow, it is simply unknown, and unknown is worse than slow.</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>ISO 9241-110's seven dialogue principles<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <div class="callout warn">
+          <p><strong>Honesty check.</strong> The ISO 9241-110:2020 document itself is paywalled, so the wording below travels through a close secondary quotation rather than the standard's own text. The seven principle names are stable across the sources that quote them.</p>
+        </div>
+        <table class="clean">
+          <thead><tr><th>#</th><th>Principle</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Suitability for the user's tasks</td></tr>
+            <tr><td>2</td><td>Self-descriptiveness</td></tr>
+            <tr><td>3</td><td>Conformity with user expectations</td></tr>
+            <tr><td>4</td><td>Learnability</td></tr>
+            <tr><td>5</td><td>Controllability</td></tr>
+            <tr><td>6</td><td>Use error robustness</td></tr>
+            <tr><td>7</td><td>User engagement</td></tr>
+          </tbody>
+        </table>
+        <p>This is the 2020 second edition, which superseded the 2006 first edition. It is the closest thing the interaction canon has to a formally standardised, internationally agreed bar, which is precisely why it belongs alongside four traditions that arrived at similar ground independently.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2 ============ -->
+  <section class="section" id="part-2">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers the long-running query</span>
+      <h2>Where analytics interaction genuinely differs from web interaction</h2>
+      <span class="tag concept">7 min live</span>
+    </div>
+    <p class="lede">A button click on most software resolves in under a second. A filter change on an analytics product can trigger a query that takes forty seconds against a warehouse, and that gap is where closure, state, protecting work and latency stop being nice-to-haves and become the entire interaction.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The states a long-running query passes through - idle, running, complete, error and timeout - with what each state must tell the reader and what a missing state leaves them with">
+        <style>
+          .s7bT { font: 700 12px Inter, sans-serif; fill: #fff; }
+          .s7bB { font: 400 10px Inter, sans-serif; fill: #DDF4FA; }
+          .s7bBad { font: 700 11px Inter, sans-serif; fill: #991B1B; }
+          .s7bL { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+        <rect x="20" y="30" width="150" height="90" rx="10" fill="#164E63"/>
+        <text class="s7bT" x="95" y="56" text-anchor="middle">Idle</text>
+        <text class="s7bB" x="95" y="76" text-anchor="middle">what will run,</text>
+        <text class="s7bB" x="95" y="90" text-anchor="middle">and against what data</text>
+
+        <rect x="200" y="30" width="150" height="90" rx="10" fill="#0891B2"/>
+        <text class="s7bT" x="275" y="56" text-anchor="middle">Running</text>
+        <text class="s7bB" x="275" y="76" text-anchor="middle">elapsed time and</text>
+        <text class="s7bB" x="275" y="90" text-anchor="middle">a way to cancel</text>
+
+        <rect x="380" y="30" width="150" height="90" rx="10" fill="#0E7490"/>
+        <text class="s7bT" x="455" y="56" text-anchor="middle">Complete</text>
+        <text class="s7bB" x="455" y="76" text-anchor="middle">row count and</text>
+        <text class="s7bB" x="455" y="90" text-anchor="middle">how fresh the answer is</text>
+
+        <rect x="560" y="30" width="150" height="90" rx="10" fill="#164E63"/>
+        <text class="s7bT" x="635" y="56" text-anchor="middle">Error</text>
+        <text class="s7bB" x="635" y="76" text-anchor="middle">what failed, and</text>
+        <text class="s7bB" x="635" y="90" text-anchor="middle">a concrete retry path</text>
+
+        <rect x="710" y="30" width="150" height="90" rx="10" fill="#164E63"/>
+        <text class="s7bT" x="785" y="56" text-anchor="middle">Timeout</text>
+        <text class="s7bB" x="785" y="76" text-anchor="middle">whether a partial</text>
+        <text class="s7bB" x="785" y="90" text-anchor="middle">result is available</text>
+
+        <line x1="170" y1="75" x2="198" y2="75" stroke="#C6D5DA" stroke-width="2"/>
+        <line x1="350" y1="75" x2="378" y2="75" stroke="#C6D5DA" stroke-width="2"/>
+        <line x1="530" y1="75" x2="558" y2="75" stroke="#C6D5DA" stroke-width="2" stroke-dasharray="4 3"/>
+        <line x1="710" y1="75" x2="708" y2="75" stroke="#C6D5DA" stroke-width="2"/>
+
+        <rect x="20" y="150" width="840" height="110" rx="10" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s7bBad" x="40" y="176">What happens when a state is left out</text>
+        <text class="s7bL" x="40" y="200">No Running state: the reader cannot tell a slow query from a frozen tab, and starts refreshing.</text>
+        <text class="s7bL" x="40" y="220">No Error message: the reader assumes the query is still running and waits on a query that already died.</text>
+        <text class="s7bL" x="40" y="240">No Timeout distinction: a genuinely slow-but-working query and a dead one look identical from the outside.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - five states, and what silence at each one costs the reader</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Closure and memory load, applied to the query panel<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Shneiderman's dialogs-to-yield-closure rule means every query needs a visible, unambiguous end, distinct from its middle. A spinner that simply stops without a completion message does not yield closure - it just stops signalling, and a reader cannot tell "done" from "gave up quietly".</p>
+        <p>Reduce-short-term-memory-load means the query panel itself should carry the state a reader would otherwise have to hold in their head: which filters are active, how long the current run has taken, what the last successful run returned. None of that should require memory of a click made ninety seconds ago in a different tab.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Protect the work, cut the felt latency, always show a state<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Tognazzini's three under-applied principles map directly onto the query panel. Protecting users' work means a filter set, in progress or complete, survives a refresh or an accidental navigation. Latency reduction means the forty seconds feels shorter with a progress signal than it does with silence, even when the actual duration is unchanged. And a visible state at every moment means the reader is never staring at a screen that could mean three different things.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>Tideline's long query shows nothing while running - no spinner, no elapsed time, no cancel button. A reader who navigates away loses the query with no warning that anything was lost. That single gap fails closure, state, protection and latency at once, from four different traditions that all happen to be pointing at the same missing element.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3 ============ -->
+  <section class="section" id="part-3">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers colour as the only cue</span>
+      <h2>Red and green, alone, fail roughly one man in twelve</h2>
+      <span class="tag concept">6 min live</span>
+    </div>
+    <p class="lede">Tideline's renewal-risk row carries its meaning in exactly one channel: the text is red for at-risk accounts and green for healthy ones, with nothing else attached. Every set tonight converges on the same finding once colour vision is taken out of the picture.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The renewal-risk row as shipped, using only red and green text, versus a redesigned row with a shape and word attached, and what each looks like to a reader with red-green colour vision deficiency">
+        <style>
+          .s7cT { font: 700 12px Inter, sans-serif; fill: #0F1E24; }
+          .s7cRow { font: 700 12px Inter, sans-serif; }
+          .s7cL { font: 400 11px Inter, sans-serif; fill: #566A72; }
+          .s7cBad { font: 700 11px Inter, sans-serif; fill: #991B1B; }
+        </style>
+        <text class="s7cT" x="30" y="26">As shipped: colour is the only cue</text>
+        <rect x="30" y="40" width="380" height="110" rx="10" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s7cRow" x="46" y="70" style="fill:#166534">Acme Co · Renewing</text>
+        <text class="s7cRow" x="46" y="98" style="fill:#991B1B">Bolt Ltd · At risk</text>
+        <text class="s7cL" x="46" y="128">to a colour-typical reader: obvious</text>
+
+        <text class="s7cT" x="470" y="26">Redesigned: colour plus shape and word</text>
+        <rect x="470" y="40" width="380" height="110" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s7cRow" x="486" y="70" style="fill:#166534">● Acme Co · Renewing</text>
+        <text class="s7cRow" x="486" y="98" style="fill:#991B1B">▲ Bolt Ltd · At risk</text>
+        <text class="s7cL" x="486" y="128">shape and word survive colour loss</text>
+
+        <text class="s7cT" x="30" y="188">What a deuteranomaly reader sees, as shipped</text>
+        <rect x="30" y="202" width="380" height="76" rx="10" fill="#F2F2ED" stroke="#C6D5DA" stroke-width="1.5"/>
+        <text class="s7cRow" x="46" y="232" style="fill:#7A6A3A">Acme Co · Renewing</text>
+        <text class="s7cRow" x="46" y="256" style="fill:#7A6A3A">Bolt Ltd · At risk</text>
+
+        <text class="s7cBad" x="470" y="188">Same reader, redesigned row</text>
+        <rect x="470" y="202" width="380" height="76" rx="10" fill="#F2F2ED" stroke="#C6D5DA" stroke-width="1.5"/>
+        <text class="s7cRow" x="486" y="232" style="fill:#5A5A52">● Acme Co · Renewing</text>
+        <text class="s7cRow" x="486" y="256" style="fill:#5A5A52">▲ Bolt Ltd · At risk</text>
+
+        <rect x="30" y="286" width="14" height="14" fill="#E11D48"/>
+        <text class="s7cL" x="54" y="298">Same near-identical colours both times. The shape and the word are what still tell the two rows apart.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the row as shipped and redesigned, seen with and without red-green colour vision</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The stat, and which sets already told you<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Red-green colour vision deficiency, mostly deuteranomaly, affects roughly one man in twelve and a much smaller share of women. On a row that carries meaning through red-versus-green alone, that reader sees two shades of a similar muddy tone and no way to tell which account is healthy. This is not a rare edge case on a team of any size - it is closer to one seat in most rooms of a dozen.</p>
+        <p>Nothing here required a sixth principle set to name. NN/g's consistency-and-standards heuristic asks whether a signal means the same thing everywhere, which a colour-only signal cannot guarantee across every reader. ISO's conformity-with-user-expectations principle asks whether the dialogue matches what a reasonable user expects a status indicator to give them - a second cue, not just one. The fix five traditions independently point toward is not a new idea, it is a second channel: shape, an icon, or the word itself, so the colour becomes reinforcement rather than the entire message.</p>
+        </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO ============ -->
+  <section class="section" id="demo-1">
+    <div class="section-kicker">
+      <span class="klabel">Build-along</span>
+      <h2>The filter and the long query</h2>
+      <span class="tag demo">★ 16 min · everyone builds</span>
+    </div>
+    <p class="lede">Pick one filter control and one genuinely slow query in a tool you use at work - not Tideline, your own. Work through the five sets against both, then fix the status row.</p>
+
+    <div class="steps">
+      <div class="step"><p><strong>Run NN/g's ten against your filter.</strong> Go heuristic by heuristic from the table in Part 1. Note every miss, especially recognition-rather-than-recall - can you tell what is filtered without opening the panel again?</p></div>
+      <div class="step"><p><strong>Run Shneiderman's eight against your long query.</strong> Focus on closure and memory load specifically. Does the query panel ever clearly say "finished"? Does it hold your filter state so you do not have to?</p></div>
+      <div class="step"><p><strong>Name the Norman concepts on the filter control.</strong> What signifier tells you it is interactive? What is its constraint? What would happen if its conceptual model - does it filter one panel or the whole screen - turned out to be wrong?</p></div>
+      <div class="step"><p><strong>Check the query against Tognazzini's three.</strong> Does it protect your work if you navigate away mid-run? Does anything reduce the felt latency of waiting? Is the current state ever ambiguous?</p></div>
+      <div class="step"><p><strong>Redesign a red/green row for greyscale.</strong> Take any status indicator in your own tool that relies on colour alone. Add one non-colour cue - a shape, an icon, or the status word itself - and check the result in a greyscale screenshot or a colour-blindness simulator. If the two states are still distinguishable in grey, the fix worked.</p></div>
+    </div>
+
+    <div class="callout tip">
+      <p>The greyscale check is worth doing on paper, not just describing. A design that "obviously" still works in your head often collapses the moment you actually desaturate the screenshot - the gap between what you expect and what the image shows is the finding.</p>
+    </div>
+  </section>
+
+  <!-- ============ EXERCISE ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Before session 8</h2>
+      <span class="tag exercise">20 min</span>
+    </div>
+    <ul>
+      <li>Find every place in your team's main analytics tool where colour alone carries a decision-relevant meaning - status, risk, pass or fail. List each one, then add a second cue to at least one before the next session.</li>
+      <li>Time your slowest common query from click to result. Write down what the interface tells you at ten seconds, thirty seconds and on completion. If any of those three moments is silent, that is your finding.</li>
+      <li>Ask one colleague, cold, what they think a specific filter control does before they use it. Compare their answer to what it actually does. A gap between the two is a broken conceptual model, in Norman's terms, and it is usually cheap to close.</li>
+    </ul>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions</h2>
+    </div>
+
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">Tideline's renewal-risk row carries meaning through red-versus-green text alone. Roughly what share of readers cannot reliably distinguish that row, and why does the fix not require removing the colour?</p>
+      <button class="qopt" type="button">A · About one in a thousand, and the fix is to remove colour from the interface entirely</button>
+      <button class="qopt" type="button">B · Roughly one man in twelve, mostly through deuteranomaly, and the fix is a second cue - shape, icon or the word itself - so colour becomes reinforcement rather than the whole signal</button>
+      <button class="qopt" type="button">C · Nobody, because modern monitors correct for colour vision automatically</button>
+      <p class="qwhy">Red-green colour vision deficiency, mostly deuteranomaly, affects roughly one man in twelve. Multiple sets converge on the same answer: colour should reinforce a signal, not be the only channel carrying it.</p>
+    </div>
+
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">Which pair of Shneiderman's Eight Golden Rules is named as the most under-applied on analytics tools specifically?</p>
+      <button class="qopt" type="button">A · Strive for consistency and seek universal usability</button>
+      <button class="qopt" type="button">B · Prevent errors and keep users in control</button>
+      <button class="qopt" type="button">C · Design dialogs to yield closure and reduce short-term memory load</button>
+      <p class="qwhy">A query that never signals a clear end fails closure, and a filter panel that forgets its own state the moment you glance away increases memory load. Both are common on analytics tools built by teams who tested only the fast path.</p>
+    </div>
+
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">A long-running query has no visible Running state - no spinner, no elapsed time, no cancel control. What does a reader lose, according to Tognazzini's principle of state?</p>
+      <button class="qopt" type="button">A · The ability to tell a slow-but-working query apart from a dead tab, because the system is not communicating what state it is in</button>
+      <button class="qopt" type="button">B · Nothing important, since the query will complete regardless of what is shown</button>
+      <button class="qopt" type="button">C · Only cosmetic polish, since the underlying data is unaffected</button>
+      <p class="qwhy">Tognazzini's state principle holds that a system must always be able to communicate what state it is in. Without it, a reader cannot distinguish "still working" from "silently broken", which is a worse position than knowing it is simply slow.</p>
+    </div>
+
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Sources covered</span>
+      <h2>What this session teaches, and where it came from</h2>
+    </div>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Nielsen, 10 Usability Heuristics for User Interface Design (1994, rev. 2020)</span><span class="note">All ten, applied specifically to filters, long queries, drill-down, export and empty/error states</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Shneiderman, Eight Golden Rules (Designing the User Interface, 1985, 6th ed. 2016)</span><span class="note">Read from the author's own page at cs.umd.edu; closure and memory load drawn out as most under-applied</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Norman, The Design of Everyday Things (1988, rev. 2013)</span><span class="note">Book-only, never a numbered list. Affordance, signifier, mapping, feedback, constraint, conceptual model, applied to a filter</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Tognazzini, First Principles of Interaction Design (AskTog, 2014 revision)</span><span class="note">All 19 named; protect users' work, latency reduction and state drawn out for the long query</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">ISO 9241-110, dialogue principles (2020, 2nd edition)</span><span class="note">Primary standard is paywalled; wording read through a close secondary quotation</span></div>
+    </div>
+    <p class="mono" style="margin-top:14px">Full source map with every URL and every honesty caveat: <span class="mono">materials/official-course-map.md</span> in this repo.</p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 7 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Five jobs, five sets</b><span>NN/g general, Shneiderman software dialogues, Norman cognitive mechanics, Tognazzini fine craft, ISO the formal standard.</span></div>
+      <div class="cheat-item"><b>Closure and memory load</b><span>Shneiderman's two most under-applied rules on analytics tools. A query needs a visible end; a filter panel should remember so you do not have to.</span></div>
+      <div class="cheat-item"><b>Protect, reduce, communicate</b><span>Tognazzini's three: protect users' work, reduce felt latency, always show a state.</span></div>
+      <div class="cheat-item"><b>Norman's six on a filter</b><span>Affordance, signifier, mapping, feedback, constraint, conceptual model - the same six on any control, physical or digital.</span></div>
+      <div class="cheat-item"><b>Five query states</b><span>Idle, running, complete, error, timeout. Silence at any one leaves the reader guessing which state they are in.</span></div>
+      <div class="cheat-item"><b>One man in twelve</b><span>Red-green colour vision deficiency's rough share among men. Colour reinforces a signal; it should never be the only channel.</span></div>
+    </div>
+  </section>
+
+  <div class="callout next">
+    <span class="nx-pill">Next session</span>
+    <p>Every principle so far assumes the thing on screen is a number or a chart. Session 8 turns to the panel that claims to think: what it must say about what it can do, how well it does it, why it said what it said, and how a reader corrects it when it is wrong. Four defects belong to that panel alone, and none of them are about the interface at all.</p>
+  </div>
+
+  <footer class="pagefoot">
+    <span>Session 7 of 9 · learn-data-heuristics-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="06-truth-on-the-surface.html">← Prev: Truth on the surface</a> &nbsp;·&nbsp; <a href="08-when-it-is-intelligent.html">Next: When it is intelligent →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+</body>
+</html>

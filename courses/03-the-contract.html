@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- social:start -->
+<meta name="description" content="Session 3 of 9. Data Mesh, FAIR's fifteen sub-points, Dehghani's eight data-product characteristics and DAMA UK's six dimensions, plus a real contract validator that scores Tideline's contract live: 7 of 22, then 14.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Learn with Phoebe">
+<meta property="og:title" content="The contract - learn data heuristics with phoebe">
+<meta property="og:description" content="Session 3 of 9. A real validator scores Tideline's data contract: 7 of 22 checks met, then 14 after five lines.">
+<meta property="og:url" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/courses/03-the-contract.html">
+<meta property="og:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The contract - learn data heuristics with phoebe">
+<meta name="twitter:description" content="Session 3 of 9. FAIR, Data Mesh, Dehghani and DAMA UK, scored live against Tideline's real contract.">
+<meta name="twitter:image" content="https://phoebefu6.github.io/learn-data-heuristics-with-phoebe/assets/og-cover.png">
+<!-- social:end -->
+<title>Session 3 · Data as a product, and its contract - learn data heuristics with phoebe</title>
+<link rel="stylesheet" href="../assets/style.css?v=1">
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="wrap">
+    <span class="crumb"><a href="../index.html">learn-data-heuristics-with-phoebe</a> / Session 3 of 9</span>
+    <button class="btn" id="toggle-all" type="button">Expand all</button>
+    <button class="btn primary" id="zoom-toggle" type="button">Projector zoom: off</button>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">Learn Data Heuristics with Phoebe · Session 3 of 9</div>
+    <h1>Data as a product, and its <span class="accent">contract</span></h1>
+    <p class="sub">Session 2 named Tideline's decision. Naming a decision is not enough if the data behind it carries no unit, no owner, no lineage, and shows customer email addresses to anyone with the link. Tonight covers what a data contract actually has to promise - Data Mesh's four principles, FAIR's fifteen working sub-points, Dehghani's eight characteristics of a data product, and DAMA UK's six quality dimensions - and then a real validator scores Tideline's actual contract while you watch the number move.</p>
+    <div class="chip-row">
+      <span class="chip level">🔴 Advanced</span>
+      <span class="chip audience">Data and analytics leads</span>
+      <span class="chip audience">Data engineers and platform owners</span>
+      <span class="chip time">45 min</span>
+    </div>
+    <div class="agenda">
+      <span class="a1" style="flex:1">0-3 · Welcome</span>
+      <span class="a2" style="flex:5">3-22 · The contract</span>
+      <span class="a3" style="flex:4">22-40 · Build-along: validate Tideline's contract</span>
+      <span class="a4" style="flex:1">40-45 · Q&amp;A</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="section" id="intro">
+    <div class="section-kicker">
+      <span class="klabel">Part 0</span>
+      <h2>Where we are</h2>
+    </div>
+    <p class="lede">Session 2 gave Tideline a named decision and a GQM tree behind it. That fixes D18 and helps D9, but it says nothing about whether the numbers feeding the decision can be trusted. Tonight takes three more of the six defects no interface principle can see: <strong>D3, measures with no unit or currency; D15, no owner named for the screen or its data; D16, no lineage for any measure</strong> - plus one that is not really about measurement at all, <strong>D17, customer email addresses shown in the clear</strong>. All four are contract failures, not chart failures.</p>
+
+    <div class="legend">
+      <span class="pill">Live = presented in the 45 minutes</span>
+      <span class="pill">Self-study = the full depth, after class</span>
+      <span class="pill">🔍 Every diagram zooms</span>
+    </div>
+
+    <div class="callout win">
+      <p><strong>★ What you walk out with tonight.</strong> The difference between Data Mesh's four architectural principles and Dehghani's eight product characteristics - they are not the same list. FAIR's fifteen sub-points, which is where the actual working detail lives. And a live score for Tideline's real contract, measured by a validator that parses what you type: 7 of 22 checks met as shipped, 14 of 22 after five specific lines.</p>
+    </div>
+
+    <details class="card" open>
+      <summary><span class="mode live">Live</span>A dashboard can be honest and still be untrustworthy<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Nothing on Tideline's screen is lying, in the sense session 1's Tufte lens checks. The number is computed correctly. What is missing is everything that would let a stranger decide whether to trust it: what unit is 48231 in, who is accountable when it is wrong, where did it come from, and is it safe to look at with someone else in the room. A chart can be perfectly drawn and still fail every one of those.</p>
+        <p>Data Mesh names the underlying shift directly: treat data as a product, not as a by-product of some other system. A product has a spec. A by-product has whatever fell out of the pipeline that day.</p>
+        <div class="callout example">
+          <span class="ex-pill">Real world</span>
+          <p>Tideline's retention numbers are pulled from three different tables depending on which analyst wrote the query last. Nobody can say which one is correct, because nobody wrote down where any of them come from. The disagreement between the three has been open for four months.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>The vocabulary for today<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <ul>
+          <li><strong>Data contract</strong> - a written promise about a dataset: its owner, its schema, its licence, its freshness, and how it can be reached. What this session's validator scores.</li>
+          <li><strong>Data product</strong> - Data Mesh's term for a dataset treated as something with a consumer, not just an artifact of a pipeline.</li>
+          <li><strong>Provenance / lineage</strong> - a traceable record of where a piece of data came from and what transformed it along the way.</li>
+          <li><strong>Data-quality dimension</strong> - one axis a dataset can be measured against, such as timeliness or completeness. DAMA UK names six.</li>
+          <li><strong>Modelling fork</strong> - two architectures that solve the same problem from opposite ends, neither one strictly correct. Kimball and Inmon is the classic example.</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 1 ============ -->
+  <section class="section" id="part-1">
+    <div class="section-kicker">
+      <span class="klabel">Part 1 · covers Data Mesh, and what a contract has to promise</span>
+      <h2>Data as a product is principle two of four, not the whole idea</h2>
+      <span class="tag concept">5 min live</span>
+    </div>
+    <p class="lede">Zhamak Dehghani published Data Mesh's four principles at Thoughtworks in 2020: domain-oriented decentralized data ownership and architecture, data as a product, self-serve data infrastructure as a platform, and federated computational governance. "Data as a product" is the one everyone quotes on its own, but it only works alongside the other three - a product with no platform to serve it from and no governance to keep it consistent is just a well-labelled mess.</p>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The four, and where Tideline sits against each<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <table class="clean">
+          <thead><tr><th>Principle</th><th>What it asks</th><th>Tideline today</th></tr></thead>
+          <tbody>
+            <tr><td>Domain-oriented decentralized ownership</td><td>Does the team closest to the data own it?</td><td>No owner named anywhere - D15</td></tr>
+            <tr><td>Data as a product</td><td>Does the dataset have a spec a consumer can read?</td><td>No unit, no currency on any measure - D3</td></tr>
+            <tr><td>Self-serve infrastructure as a platform</td><td>Can a consumer reach it without a ticket?</td><td>Out of scope tonight - session 4</td></tr>
+            <tr><td>Federated computational governance</td><td>Are the rules for access and classification enforced consistently?</td><td>Emails shown in the clear - D17</td></tr>
+          </tbody>
+        </table>
+        <p>A data contract is the artifact that makes the second principle concrete. It is the spec a consumer reads before trusting a number, and it is exactly what the validator later in this session scores.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Governance as code, not as a meeting<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>"Federated computational governance" is the principle most often skipped, because it sounds like a committee. Dehghani's point is closer to the opposite: rules like classification and access policy should be enforced by the platform automatically, the same way a schema is enforced automatically, rather than relying on every team remembering a wiki page. D17 is exactly what happens when governance is a wiki page - a rule that exists, unread, while the emails sit in the clear regardless.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 2 ============ -->
+  <section class="section" id="part-2">
+    <div class="section-kicker">
+      <span class="klabel">Part 2 · covers FAIR</span>
+      <h2>FAIR is four letters and fifteen sub-points, and the sub-points do the work</h2>
+      <span class="tag concept">6 min live</span>
+    </div>
+    <p class="lede">Wilkinson and more than fifty co-authors published the FAIR principles in Scientific Data in 2016, aimed originally at scientific data but adopted well beyond it. Findable, Accessible, Interoperable, Reusable is the part everyone can recite. What actually gets checked, by this session's validator and by any serious audit, is the fifteen sub-points underneath the four letters.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FAIR's four principles, Findable, Accessible, Interoperable and Reusable, each opening into its numbered sub-points">
+        <style>
+          .s3aH { font: 800 12px Inter, sans-serif; fill: #fff; }
+          .s3aB { font: 700 10px Inter, sans-serif; fill: #0F1E24; }
+          .s3aN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+        <rect x="20" y="20" width="195" height="50" rx="10" fill="#164E63"/>
+        <text class="s3aH" x="117" y="50" text-anchor="middle">Findable</text>
+        <rect x="230" y="20" width="195" height="50" rx="10" fill="#164E63"/>
+        <text class="s3aH" x="327" y="50" text-anchor="middle">Accessible</text>
+        <rect x="440" y="20" width="195" height="50" rx="10" fill="#164E63"/>
+        <text class="s3aH" x="537" y="50" text-anchor="middle">Interoperable</text>
+        <rect x="650" y="20" width="195" height="50" rx="10" fill="#164E63"/>
+        <text class="s3aH" x="747" y="50" text-anchor="middle">Reusable</text>
+
+        <rect x="20" y="80" width="195" height="40" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s3aB" x="117" y="97" text-anchor="middle">F1 unique persistent</text>
+        <text class="s3aB" x="117" y="111" text-anchor="middle">identifier</text>
+        <rect x="20" y="126" width="195" height="40" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s3aB" x="117" y="150" text-anchor="middle">F2 rich metadata</text>
+        <rect x="20" y="172" width="195" height="40" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s3aB" x="117" y="189" text-anchor="middle">F3 metadata includes</text>
+        <text class="s3aB" x="117" y="203" text-anchor="middle">the identifier</text>
+        <rect x="20" y="218" width="195" height="40" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s3aB" x="117" y="242" text-anchor="middle">F4 indexed, searchable</text>
+
+        <rect x="230" y="80" width="195" height="40" rx="8" fill="#A5F3FC"/>
+        <text class="s3aB" x="327" y="97" text-anchor="middle">A1 standardised</text>
+        <text class="s3aB" x="327" y="111" text-anchor="middle">access protocol</text>
+        <rect x="230" y="126" width="195" height="40" rx="8" fill="#A5F3FC"/>
+        <text class="s3aB" x="327" y="143" text-anchor="middle">A1.1 open, free,</text>
+        <text class="s3aB" x="327" y="157" text-anchor="middle">universal</text>
+        <rect x="230" y="172" width="195" height="40" rx="8" fill="#A5F3FC"/>
+        <text class="s3aB" x="327" y="189" text-anchor="middle">A1.2 auth where</text>
+        <text class="s3aB" x="327" y="203" text-anchor="middle">needed</text>
+        <rect x="230" y="218" width="195" height="40" rx="8" fill="#A5F3FC"/>
+        <text class="s3aB" x="327" y="235" text-anchor="middle">A2 metadata persist</text>
+        <text class="s3aB" x="327" y="249" text-anchor="middle">after data is gone</text>
+
+        <rect x="440" y="80" width="195" height="40" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s3aB" x="537" y="97" text-anchor="middle">I1 formal shared</text>
+        <text class="s3aB" x="537" y="111" text-anchor="middle">representation</text>
+        <rect x="440" y="126" width="195" height="40" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s3aB" x="537" y="150" text-anchor="middle">I2 FAIR vocabularies</text>
+        <rect x="440" y="172" width="195" height="40" rx="8" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s3aB" x="537" y="189" text-anchor="middle">I3 qualified references</text>
+        <text class="s3aB" x="537" y="203" text-anchor="middle">to other data</text>
+
+        <rect x="650" y="80" width="195" height="40" rx="8" fill="#A5F3FC"/>
+        <text class="s3aB" x="747" y="97" text-anchor="middle">R1 rich plurality of</text>
+        <text class="s3aB" x="747" y="111" text-anchor="middle">attributes</text>
+        <rect x="650" y="126" width="195" height="40" rx="8" fill="#A5F3FC"/>
+        <text class="s3aB" x="747" y="143" text-anchor="middle">R1.1 clear usage</text>
+        <text class="s3aB" x="747" y="157" text-anchor="middle">licence</text>
+        <rect x="650" y="172" width="195" height="40" rx="8" fill="#A5F3FC"/>
+        <text class="s3aB" x="747" y="189" text-anchor="middle">R1.2 detailed</text>
+        <text class="s3aB" x="747" y="203" text-anchor="middle">provenance</text>
+        <rect x="650" y="218" width="195" height="40" rx="8" fill="#A5F3FC"/>
+        <text class="s3aB" x="747" y="235" text-anchor="middle">R1.3 meets domain</text>
+        <text class="s3aB" x="747" y="249" text-anchor="middle">community standards</text>
+
+        <rect x="20" y="282" width="14" height="14" fill="#E11D48"/>
+        <text class="s3aN" x="44" y="294">Fifteen sub-points, not four - the working detail lives one level down.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - the letters are a mnemonic, the sub-points are the audit</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>The sub-points that Tideline's contract fails first<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>R1.2, detailed provenance, is D16 by another name: no lineage means the Reusable principle fails before anyone even gets to licensing. F4, indexed in a searchable resource, is why nobody outside the team who built Tideline's contract knows it exists at all - there is no catalog entry, so the dataset cannot be found by anyone who did not already know to look. A1.2, authentication where needed, is the FAIR sub-point that D17 violates in spirit even though D17 is not primarily a FAIR failure: access exists, but nothing about it distinguishes who should and should not see a customer's email address.</p>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why FAIR travels well outside science<span class="mini">3 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>FAIR was written for scientific data repositories, where the cost of an unfindable or unreusable dataset is a paper nobody can reproduce. The same fifteen sub-points map cleanly onto enterprise analytics because the underlying failure mode is identical: a number exists, but nobody besides its creator can locate it, trust its origin, or reuse it without re-deriving it from scratch. The vocabulary changes - "repository" becomes "catalog", "researcher" becomes "analyst" - the checks do not.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ PART 3 ============ -->
+  <section class="section" id="part-3">
+    <div class="section-kicker">
+      <span class="klabel">Part 3 · covers Dehghani's characteristics, DAMA UK, and the Kimball/Inmon fork</span>
+      <h2>Eight characteristics, six dimensions, and a fork with no numbered tenets</h2>
+      <span class="tag concept">8 min live</span>
+    </div>
+    <p class="lede">Three more pieces complete tonight's canon. Dehghani's book names eight characteristics a data product should have. DAMA UK names six dimensions a dataset's quality can be measured against. And Kimball versus Inmon is the oldest fork in the field, genuinely foundational, and genuinely never reduced to a numbered list by either author.</p>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dehghani's eight data-product characteristics as a panel, with Discoverable, Understandable, Trustworthy and truthful, and Secure marked as failing on Tideline today">
+        <style>
+          .s3bT { font: 700 12px Inter, sans-serif; }
+          .s3bD { font: 400 11px Inter, sans-serif; }
+          .s3bN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+        <rect x="10" y="30" width="205" height="96" rx="10" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s3bT" x="112" y="56" text-anchor="middle" fill="#991B1B">Discoverable</text>
+        <text class="s3bD" x="112" y="76" text-anchor="middle" fill="#991B1B">Fails - no owner</text>
+        <text class="s3bD" x="112" y="92" text-anchor="middle" fill="#991B1B">to ask, D15</text>
+
+        <rect x="225" y="30" width="205" height="96" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s3bT" x="327" y="56" text-anchor="middle" fill="#0F1E24">Addressable</text>
+        <text class="s3bD" x="327" y="76" text-anchor="middle" fill="#566A72">Has a stable</text>
+        <text class="s3bD" x="327" y="92" text-anchor="middle" fill="#566A72">endpoint today</text>
+
+        <rect x="440" y="30" width="205" height="96" rx="10" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s3bT" x="542" y="56" text-anchor="middle" fill="#991B1B">Understandable</text>
+        <text class="s3bD" x="542" y="76" text-anchor="middle" fill="#991B1B">Fails - no unit or</text>
+        <text class="s3bD" x="542" y="92" text-anchor="middle" fill="#991B1B">currency, D3</text>
+
+        <rect x="655" y="30" width="215" height="96" rx="10" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s3bT" x="762" y="50" text-anchor="middle" fill="#991B1B">Trustworthy</text>
+        <text class="s3bT" x="762" y="66" text-anchor="middle" fill="#991B1B">and truthful</text>
+        <text class="s3bD" x="762" y="86" text-anchor="middle" fill="#991B1B">Fails - no lineage,</text>
+        <text class="s3bD" x="762" y="102" text-anchor="middle" fill="#991B1B">D16</text>
+
+        <rect x="10" y="146" width="205" height="96" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s3bT" x="112" y="172" text-anchor="middle" fill="#0F1E24">Natively</text>
+        <text class="s3bT" x="112" y="188" text-anchor="middle" fill="#0F1E24">accessible</text>
+        <text class="s3bD" x="112" y="208" text-anchor="middle" fill="#566A72">Reachable by query</text>
+
+        <rect x="225" y="146" width="205" height="96" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s3bT" x="327" y="172" text-anchor="middle" fill="#0F1E24">Interoperable</text>
+        <text class="s3bT" x="327" y="188" text-anchor="middle" fill="#0F1E24">and composable</text>
+        <text class="s3bD" x="327" y="208" text-anchor="middle" fill="#566A72">Schema documented</text>
+
+        <rect x="440" y="146" width="205" height="96" rx="10" fill="#ECFEFF" stroke="#A5F3FC" stroke-width="1.5"/>
+        <text class="s3bT" x="542" y="172" text-anchor="middle" fill="#0F1E24">Valuable on</text>
+        <text class="s3bT" x="542" y="188" text-anchor="middle" fill="#0F1E24">its own</text>
+        <text class="s3bD" x="542" y="208" text-anchor="middle" fill="#566A72">Cannot self-assert</text>
+
+        <rect x="655" y="146" width="215" height="96" rx="10" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="1.5"/>
+        <text class="s3bT" x="762" y="172" text-anchor="middle" fill="#991B1B">Secure</text>
+        <text class="s3bD" x="762" y="192" text-anchor="middle" fill="#991B1B">Fails - emails in</text>
+        <text class="s3bD" x="762" y="208" text-anchor="middle" fill="#991B1B">the clear, D17</text>
+
+        <rect x="10" y="258" width="14" height="14" fill="#E11D48"/>
+        <text class="s3bN" x="34" y="270">Four of eight fail today. A contract line does not fix all four by itself.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - naming a characteristic is not the same as satisfying it</figcaption>
+    </figure>
+
+    <figure class="zoomable">
+      <svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Kimball and Inmon as two paths from raw enterprise data to business-process marts, one bottom-up through star schemas, one top-down through a normalized warehouse">
+        <style>
+          .s3cH { font: 700 12px Inter, sans-serif; fill: #fff; }
+          .s3cD { font: 400 11px Inter, sans-serif; fill: #DDF4FA; }
+          .s3cL { font: 700 12px Inter, sans-serif; fill: #0E7490; }
+          .s3cF { font: 800 13px Inter, sans-serif; fill: #fff; }
+          .s3cN { font: 400 12px Inter, sans-serif; fill: #566A72; }
+        </style>
+        <defs>
+          <marker id="s3cAr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#C6D5DA"/></marker>
+        </defs>
+
+        <text class="s3cL" x="195" y="14">Kimball · process-first</text>
+        <text class="s3cL" x="195" y="238">Inmon · warehouse-first</text>
+
+        <rect x="20" y="90" width="140" height="80" rx="10" fill="#164E63"/>
+        <text class="s3cH" x="90" y="122" text-anchor="middle">Raw enterprise</text>
+        <text class="s3cH" x="90" y="140" text-anchor="middle">data sources</text>
+
+        <line x1="160" y1="110" x2="188" y2="58" stroke="#C6D5DA" stroke-width="1.5" marker-end="url(#s3cAr)"/>
+        <line x1="160" y1="150" x2="188" y2="198" stroke="#C6D5DA" stroke-width="1.5" marker-end="url(#s3cAr)"/>
+
+        <rect x="190" y="20" width="190" height="70" rx="10" fill="#0891B2"/>
+        <text class="s3cD" x="285" y="48" text-anchor="middle">Star-schema marts</text>
+        <text class="s3cD" x="285" y="66" text-anchor="middle">per business process</text>
+
+        <line x1="380" y1="55" x2="406" y2="55" stroke="#C6D5DA" stroke-width="1.5" marker-end="url(#s3cAr)"/>
+
+        <rect x="410" y="20" width="190" height="70" rx="10" fill="#0891B2"/>
+        <text class="s3cD" x="505" y="48" text-anchor="middle">Conformed dimensions</text>
+        <text class="s3cD" x="505" y="66" text-anchor="middle">unify the marts</text>
+
+        <rect x="190" y="200" width="190" height="70" rx="10" fill="#0E7490"/>
+        <text class="s3cD" x="285" y="228" text-anchor="middle">Normalized 3NF</text>
+        <text class="s3cD" x="285" y="246" text-anchor="middle">enterprise warehouse</text>
+
+        <line x1="380" y1="235" x2="406" y2="235" stroke="#C6D5DA" stroke-width="1.5" marker-end="url(#s3cAr)"/>
+
+        <rect x="410" y="200" width="190" height="70" rx="10" fill="#0E7490"/>
+        <text class="s3cD" x="505" y="228" text-anchor="middle">Single source of</text>
+        <text class="s3cD" x="505" y="246" text-anchor="middle">truth, marts derive</text>
+
+        <line x1="600" y1="55" x2="646" y2="120" stroke="#C6D5DA" stroke-width="1.5" marker-end="url(#s3cAr)"/>
+        <line x1="600" y1="235" x2="646" y2="170" stroke="#C6D5DA" stroke-width="1.5" marker-end="url(#s3cAr)"/>
+
+        <rect x="650" y="105" width="210" height="80" rx="10" fill="#164E63"/>
+        <text class="s3cF" x="755" y="138" text-anchor="middle">Business-process</text>
+        <text class="s3cF" x="755" y="158" text-anchor="middle">marts, either path</text>
+
+        <rect x="20" y="278" width="14" height="14" fill="#E11D48"/>
+        <text class="s3cN" x="44" y="290">Neither author published a numbered tenet list - this is a modelling fork, not a canon.</text>
+      </svg>
+      <figcaption>🔍 Click to zoom - two directions, one destination, no numbered principles either side</figcaption>
+    </figure>
+
+    <details class="card">
+      <summary><span class="mode live">Live</span>Two lists that travel through a paywall or a members-only PDF<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Dehghani's eight characteristics - Discoverable, Addressable, Understandable, Trustworthy and truthful, Natively accessible, Interoperable and composable, Valuable on its own, Secure - come from the 2022 book, Data Mesh: Delivering Data-Driven Value at Scale, which is paywalled. Her original 2020 martinfowler.com article, which is freely readable, uses looser and explicitly non-exhaustive phrasing: "discoverability, security, explorability, understandability, trustworthiness, etc." Cite the book for the count of eight, and the article for where the idea originated.</p>
+        <p>DAMA UK's six data-quality dimensions - accuracy, completeness, consistency, timeliness, validity, uniqueness - come from an October 2013 whitepaper behind a members-only wall. The six names are stable across every secondary source that quotes them, which is why this session teaches them with confidence, but the exact wording of each definition should be treated as travelling through a paraphrase rather than a direct quote.</p>
+        <div class="callout warn">
+          <p>Cite Dehghani's characteristics as "Data Mesh, O'Reilly 2022" for the eight, alongside the 2020 article for its looser origin phrasing. Cite DAMA UK's dimensions as "DAMA UK, 2013" and say plainly that the source PDF is access-gated. Neither caveat is a reason to drop either list - it is a reason to say where it came from.</p>
+        </div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary><span class="mode self">Self-study</span>Why Kimball and Inmon never became a numbered list<span class="mini">4 min</span><span class="caret">▶</span></summary>
+      <div class="body">
+        <p>Ralph Kimball's bus architecture and Bill Inmon's Corporate Information Factory are both full books' worth of design guidance, not manifestos, and neither author ever compressed his approach into a numbered set of tenets the way Nielsen or Wilkinson's teams did. What survives in practice is the fork itself: build fast, process-oriented marts first and unify them later with conformed dimensions, or build one normalized source of truth first and let marts derive from it. Most real warehouses today are some negotiated mixture of both, which is itself evidence that neither side ever needed a numbered list to be useful.</p>
+        <p>The honest framing matters here for the same reason it mattered for Norman and Tufte in session 1: presenting either architect's ideas as "the seven principles of Kimball" invents a citation that does not exist.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ DEMO ============ -->
+  <section class="section" id="demo-3">
+    <div class="section-kicker">
+      <span class="klabel">Build-along</span>
+      <h2>Validate Tideline's contract</h2>
+      <span class="tag demo">★ 18 min · everyone builds</span>
+    </div>
+    <p class="lede">The box below is a real validator. It parses whatever you type against 22 checks drawn from FAIR, DAMA UK and Dehghani's data-product characteristics, and repaints the tally as you type. Nothing here is scripted or pre-computed - type a line, watch the row it satisfies flip.</p>
+
+    <div class="hb-wrap" id="heur-contract"></div>
+
+    <div class="steps">
+      <div class="step"><p>Read Tideline's contract exactly as shipped in the box above: <span class="mono">name</span>, <span class="mono">description</span>, <span class="mono">owner</span>, <span class="mono">url</span>, <span class="mono">schema</span>, <span class="mono">license</span>, <span class="mono">refresh</span>. Seven fields, and it feels reasonably complete.</p></div>
+      <div class="step"><p>Read the tally under it: <strong>7 of 22 checks met.</strong> Fifteen checks fail on a contract that most teams would have signed off without a second look.</p></div>
+      <div class="step"><p>Add a new line, <span class="mono">lineage:</span>, naming where the retention number actually comes from. Watch the tally move, and notice which row in the Data product group flips with it.</p></div>
+      <div class="step"><p>Add <span class="mono">slo:</span>, <span class="mono">classification:</span>, <span class="mono">catalog:</span> and <span class="mono">uniqueness:</span>, one at a time or all together. The tally lands at <strong>14 of 22</strong> - exactly double where it started, from five lines.</p></div>
+      <div class="step"><p>Scroll the Data product group in the output. Six of its seven tracked rows now pass. Only <strong>Valuable on its own</strong> still shows a cross. Ask why a schema field cannot fix that one: the check needs proof of a real consumer or decision, and nothing you have added so far names either.</p></div>
+      <div class="step"><p>Add a <span class="mono">decision:</span> line, and put session 2's decision statement in it - which at-risk enterprise accounts get a human intervention this week, and who decides. Watch that row, and the tally, move again.</p></div>
+    </div>
+
+    <div class="callout tip">
+      <p>The two numbers worth remembering are 7 and 14 - measured, not estimated, from this exact contract. What five lines do not fix is instructive too: a contract can prove it is well-described without ever proving it is used, which is exactly what "Valuable on its own" is built to catch.</p>
+    </div>
+  </section>
+
+  <!-- ============ EXERCISE ============ -->
+  <section class="section" id="exercise">
+    <div class="section-kicker">
+      <span class="klabel">Homework</span>
+      <h2>Before session 4</h2>
+      <span class="tag exercise">20 min</span>
+    </div>
+    <ul>
+      <li>Write a data contract for the dataset behind your own team's most-used dashboard, using the same field names as Tideline's: name, description, owner, url, schema, license, refresh. Then add lineage, slo, classification, catalog and uniqueness, and be honest about which ones you can actually fill in.</li>
+      <li>Pick two of FAIR's fifteen sub-points and check them against that same dataset. R1.2, detailed provenance, is the one most datasets fail first.</li>
+      <li>Walk Dehghani's eight characteristics against the same dataset and mark which ones fail. Do not mark "valuable on its own" as passing unless you can name the actual consumer and decision it serves.</li>
+      <li>Bring the contract to session 4. It becomes the artifact the platform has to actually be able to serve.</li>
+    </ul>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="section" id="quiz">
+    <div class="section-kicker">
+      <span class="klabel">Check yourself</span>
+      <h2>Three questions</h2>
+    </div>
+
+    <div class="quiz-q" data-answer="2">
+      <p class="qtext">Tideline's sample contract, exactly as shipped, scores how many of the validator's 22 checks?</p>
+      <button class="qopt" type="button">A · 14 of 22, because the five commonly missing lines were added by default</button>
+      <button class="qopt" type="button">B · 22 of 22, because every field a data engineer would ask for is already present</button>
+      <button class="qopt" type="button">C · 7 of 22, and five specific missing lines - lineage, slo, classification, catalog, uniqueness - bring it to 14</button>
+      <p class="qwhy">The shipped contract has seven reasonable-looking fields and still fails fifteen of twenty-two checks. Adding exactly those five lines, measured live in the widget, doubles the score to 14 of 22.</p>
+    </div>
+
+    <div class="quiz-q" data-answer="0">
+      <p class="qtext">What does FAIR's sub-point A1.2 actually require?</p>
+      <button class="qopt" type="button">A · Authentication where necessary, alongside access that is otherwise open</button>
+      <button class="qopt" type="button">B · A persistent identifier assigned to the resource</button>
+      <button class="qopt" type="button">C · A qualified reference pointing to another dataset</button>
+      <p class="qwhy">A1.2 sits under Accessible: the access protocol should allow for authorisation where it is needed, without making access unnecessarily closed by default. F1 is the persistent identifier and I3 is the qualified reference - different letters, different jobs.</p>
+    </div>
+
+    <div class="quiz-q" data-answer="1">
+      <p class="qtext">What is the honest way to describe Kimball versus Inmon?</p>
+      <button class="qopt" type="button">A · Two competing numbered lists of principles, drawn up by each author to rival the other</button>
+      <button class="qopt" type="button">B · A modelling fork - star-schema marts built bottom-up versus one normalized warehouse built top-down - and neither author ever published a numbered tenet list</button>
+      <button class="qopt" type="button">C · The same warehouse architecture marketed under two different consultants' names</button>
+      <p class="qwhy">Both approaches are real, foundational and genuinely different in direction. Presenting either as "the N principles of Kimball" or "of Inmon" invents a citation that was never published.</p>
+    </div>
+
+    <p class="quiz-score"></p>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section class="section" id="official">
+    <div class="section-kicker">
+      <span class="klabel">Sources covered</span>
+      <h2>What this session teaches, and where it came from</h2>
+    </div>
+    <div class="covered">
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Dehghani, Data Mesh Principles and Logical Architecture, Thoughtworks, 2020, martinfowler.com</span><span class="note">Primary verified. All four principles taught in full, plus where "data as a product" sits among them</span></div>
+      <div class="covered-row"><span class="status pill solid">✓</span><span class="name">Wilkinson et al., The FAIR Guiding Principles for Scientific Data Management and Stewardship, Scientific Data 3, 160018, 2016</span><span class="note">Primary verified. All four principles and all fifteen sub-points taught in full</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Dehghani, Data Mesh: Delivering Data-Driven Value at Scale, O'Reilly 2022, ch. 5 and 13 - the eight data-product characteristics</span><span class="note">Book is paywalled; the count of eight travels through secondary sources. The looser 2020 article phrasing is cited alongside it</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">DAMA UK Data Quality Dimensions Working Group, The Six Primary Dimensions for Data Quality Assessment, Oct 2013</span><span class="note">Source PDF is members-only; the six dimension names are stable across secondary sources that quote them</span></div>
+      <div class="covered-row"><span class="status pill light">◐</span><span class="name">Kimball's bus architecture and Inmon's Corporate Information Factory</span><span class="note">Both genuinely foundational; presented as a modelling fork, never as a numbered tenet list from either author</span></div>
+    </div>
+    <p class="mono" style="margin-top:14px">Full source map with every URL and every honesty caveat: <span class="mono">materials/official-course-map.md</span> in this repo.</p>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section class="cheat" id="cheatsheet">
+    <h3>Session 3 cheat sheet <span>· pin this</span></h3>
+    <div class="grid-2">
+      <div class="cheat-item"><b>Data Mesh's four</b><span>Domain ownership, data as a product, self-serve platform, federated governance. All four, not just the second.</span></div>
+      <div class="cheat-item"><b>FAIR = 4 letters, 15 sub-points</b><span>F1-F4, A1/A1.1/A1.2/A2, I1-I3, R1/R1.1/R1.2/R1.3. The sub-points carry the audit.</span></div>
+      <div class="cheat-item"><b>Dehghani's eight</b><span>Cite the paywalled 2022 book for the count, the free 2020 article for the looser origin phrasing.</span></div>
+      <div class="cheat-item"><b>DAMA UK's six</b><span>Accuracy, completeness, consistency, timeliness, validity, uniqueness. Names are stable, source PDF is members-only.</span></div>
+      <div class="cheat-item"><b>Kimball vs Inmon</b><span>A modelling fork - bottom-up marts versus top-down warehouse - never "the N principles of" either one.</span></div>
+      <div class="cheat-item"><b>The measured gap</b><span>Tideline's contract: 7 of 22 as shipped, 14 of 22 after five lines. "Valuable on its own" still needs a named consumer.</span></div>
+    </div>
+  </section>
+
+  <div class="callout next">
+    <span class="nx-pill">Next session</span>
+    <p>A contract with an owner and a lineage line is still only a promise on paper until something actually runs it: a platform that can serve the query, hold the state, and survive a node dying at 2am. Session 4 goes underneath the contract to the layer that makes it real.</p>
+  </div>
+
+  <footer class="pagefoot">
+    <span>Session 3 of 9 · learn-data-heuristics-with-phoebe · by Phoebe Fu &nbsp;·&nbsp; 📚 <a href="https://phoebefu6.github.io/learn-with-phoebe/">Learn with Phoebe ↗</a></span>
+    <span><a href="02-the-decision-it-serves.html">← Prev: The decision it serves</a> &nbsp;·&nbsp; <a href="04-the-platform.html">Next: The platform →</a></span>
+  </footer>
+
+</main>
+
+<script src="../assets/app.js?v=1"></script>
+<script src="../assets/heur-live.js?v=1"></script>
+</body>
+</html>
